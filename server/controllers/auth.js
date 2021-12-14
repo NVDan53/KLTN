@@ -81,16 +81,50 @@ export const register = async (req, res) => {
     const hashedPassword = await hashPassword(password);
 
     // register
-    const user = new User({
+    const user = {
       name,
       email,
       password: hashedPassword,
+    };
+
+    const activation_token = createActivationToken(user);
+    const url = `${process.env.CLIENT_URL}/activate-mail/${activation_token}`;
+    sendMail(email, url, "Verify your email address");
+
+    res.json({
+      ok: true,
+      msg: "Register successful. Please activate your email to start",
     });
-    await user.save();
-    return res.json({ ok: true });
   } catch (error) {
     console.log("ERROR: ", error);
     return res.status(400).send("Error. Try again.");
+  }
+};
+
+export const activateEmail = async (req, res) => {
+  try {
+    const { activation_token } = req.body;
+    const user = jwt.verify(
+      activation_token,
+      process.env.ACTIVATION_TOKEN_SECRET
+    );
+
+    const { name, email, password } = user;
+    const userExist = await User.findOne({ email });
+    if (userExist) return res.status(400).json({ msg: "Account has exist" });
+
+    const newUser = new User({
+      name,
+      email,
+      password,
+    });
+
+    await newUser.save();
+    res.json({ msg: "Account has been activated" });
+  } catch (error) {
+    return res.status(500).json({
+      msg: error.message,
+    });
   }
 };
 
@@ -322,12 +356,6 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-function createAccessToken(payload) {
-  return jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: "7d",
-  });
-}
-
 export const googleLogin = async (req, res) => {
   try {
     const { tokenId } = req.body;
@@ -394,3 +422,15 @@ export const googleLogin = async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 };
+
+function createAccessToken(payload) {
+  return jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
+}
+
+function createActivationToken(payload) {
+  return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, {
+    expiresIn: "5m",
+  });
+}

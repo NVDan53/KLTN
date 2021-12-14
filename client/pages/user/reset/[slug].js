@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { SyncOutlined } from "@ant-design/icons";
 
-function forgotPassword() {
+function resetPassword() {
   const [data, setData] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Context
   const {
@@ -23,25 +24,50 @@ function forgotPassword() {
     setData(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     try {
+      setLoading(true);
       const resetPassword = async () => {
         const res = await axios.post("/api/reset-password", { password: data });
+        setLoading(false);
         toast(res.data.msg);
+        router.push("/login");
       };
       resetPassword();
     } catch (error) {
+      setLoading(false);
       error.response.data.msg && toast(error.response.data.msg);
     }
   };
 
   return (
     <div>
-      <label>Enter new password</label>
-      <input type="password" value={data} onChange={handleChangePassword} />
-      <button onClick={handleSubmit}>OK</button>
+      <h1 className="jumbotron text-center bg-primary square">
+        Enter new password
+      </h1>
+      <div className="container col-md-4 offset-md-4 pb-5">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            className="form-control mb-4 p-4"
+            value={data}
+            onChange={handleChangePassword}
+            placeholder="Enter new password"
+            required
+          />
+
+          <button
+            type="submit"
+            className="btn btn-block btn-primary p-2"
+            disabled={!data || loading}
+          >
+            {loading ? <SyncOutlined spin /> : "Submit"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
 
-export default forgotPassword;
+export default resetPassword;
