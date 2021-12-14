@@ -28,7 +28,7 @@ export const uploadImage = async (req, res) => {
 
     // image params
     const params = {
-      Bucket: "post-image-bucket",
+      Bucket: "stress-bucket",
       Key: `${nanoid()}.${type}`,
       Body: base64Data,
       ACL: "public-read",
