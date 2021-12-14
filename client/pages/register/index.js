@@ -34,7 +34,8 @@ const Register = () => {
       // console.log(data);
       if (data.ok) {
         // toast("Registration successful. Please login");
-        toast("Please check your email and click on the activation link.");
+        // toast("Please check your email and click on the activation link.");
+        toast("Register successfully");
         setName("");
         setEmail("");
         setPassword("");
