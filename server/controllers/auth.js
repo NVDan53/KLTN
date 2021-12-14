@@ -22,42 +22,73 @@ const ses = new SES({
   apiVersion: process.env.AWS_API_VERSION,
 });
 
+// export const register = async (req, res) => {
+//   try {
+//     // console.log(req.body);
+//     const { name, email, password } = req.body;
+//     // validation
+//     if (!name) return res.status(400).send("Name is required");
+//     if (!password || password.length < 6)
+//       return res
+//         .status(400)
+//         .send("Password is required and should be min 6 characters long");
+//     // use .lean() on queries for improved performance
+//     // it returns plain json object instead of mongoose document
+//     let userExist = await User.findOne({ email }).exec();
+//     if (userExist) return res.status(400).send("Email is taken");
+
+//     // send email with register activation link
+//     const jwtLink = jwt.sign(
+//       { name, email, password },
+//       process.env.JWT_REGISTER_COMPLETE,
+//       {
+//         expiresIn: "90d",
+//       }
+//     );
+//     const params = completeRegistrationParams(email, jwtLink);
+//     // send
+//     const emailSent = ses.sendEmail(params).promise();
+//     emailSent
+//       .then((data) => {
+//         // console.log(data);
+//         return res.json({ ok: true });
+//       })
+//       .catch((err) => {
+//         console.log("ERRRRRRRRRRRRRRRRR ===>", err);
+//       });
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(400).send("Error. Try again.");
+//   }
+// };
+
+// REGISTER
 export const register = async (req, res) => {
   try {
-    // console.log(req.body);
     const { name, email, password } = req.body;
-    // validation
+    // validate
     if (!name) return res.status(400).send("Name is required");
-    if (!password || password.length < 6)
+    if (!password || password.length < 6) {
       return res
         .status(400)
         .send("Password is required and should be min 6 characters long");
-    // use .lean() on queries for improved performance
-    // it returns plain json object instead of mongoose document
-    let userExist = await User.findOne({ email }).exec();
-    if (userExist) return res.status(400).send("Email is taken");
+    }
+    let userExit = await User.findOne({ email }).exec();
+    if (userExit) return res.status(400).send("Email is taken");
 
-    // send email with register activation link
-    const jwtLink = jwt.sign(
-      { name, email, password },
-      process.env.JWT_REGISTER_COMPLETE,
-      {
-        expiresIn: "90d",
-      }
-    );
-    const params = completeRegistrationParams(email, jwtLink);
-    // send
-    const emailSent = ses.sendEmail(params).promise();
-    emailSent
-      .then((data) => {
-        // console.log(data);
-        return res.json({ ok: true });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } catch (err) {
-    console.log(err);
+    // hash password
+    const hashedPassword = await hashPassword(password);
+
+    // register
+    const user = new User({
+      name,
+      email,
+      password: hashedPassword,
+    });
+    await user.save();
+    return res.json({ ok: true });
+  } catch (error) {
+    console.log("ERROR: ", error);
     return res.status(400).send("Error. Try again.");
   }
 };
