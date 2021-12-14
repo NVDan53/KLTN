@@ -34,8 +34,13 @@ const PostCreate = () => {
   const [loadedCategories, setLoadedCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  const [thumbnail, setThumbnail] = useState("");
+  const [uploadButtonText, setUploadButtonText] = useState("Upload thumbnail");
+
   // markdown cheetsheet modal
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
+
   // router
   const router = useRouter();
 
@@ -64,6 +69,7 @@ const PostCreate = () => {
     setUploading(true);
     // console.log(e.target.files[0]);
     let file = e.target.files[0];
+    setUploadButtonText(file.name);
 
     Resizer.imageFileResizer(
       file, // file
@@ -87,6 +93,7 @@ const PostCreate = () => {
               `${body} ![${file.name.replace(/\.[^/.]+$/, "")}](${data})`
             )
           );
+          setThumbnail(data);
           setUploading(false);
         } catch (err) {
           setUploading(false);
@@ -103,6 +110,7 @@ const PostCreate = () => {
     try {
       const { data } = await axios.post("/api/post", {
         title,
+        thumbnail,
         body,
         categories,
       });
@@ -133,6 +141,19 @@ const PostCreate = () => {
             autoFocus
             required
           />
+
+          <div className="form-group mt-3">
+            <label className="btn btn-dark btn-block text-left p-5">
+              {uploadButtonText}
+              <input
+                name="image"
+                onChange={handleImage}
+                type="file"
+                accept="image/*"
+                hidden
+              />
+            </label>
+          </div>
 
           <div
             onClick={() => setMarkdownCheetsheetModal(!markdownCheetsheetModal)}

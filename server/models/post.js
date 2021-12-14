@@ -11,6 +11,12 @@ const postSchema = new mongoose.Schema(
       maxlength: 240,
       required: true,
     },
+    thumbnail: {
+      type: {
+        type: String,
+        trim: true,
+      },
+    },
     slug: {
       type: String,
       unique: true,

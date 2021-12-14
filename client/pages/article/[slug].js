@@ -94,7 +94,8 @@ const SinglePost = ({ post }) => {
           </div>
 
           <div className="col-md-4">
-            <CoursePromo />
+            <h2>Relative blogs</h2>
+            <cite>(Comming soon by Henry)</cite>
           </div>
         </div>
         {/* col 4 for promo */}
@@ -116,6 +117,7 @@ export async function getServerSideProps(ctx) {
     `${process.env.API}/post/${ctx.params.slug}`
   );
   // console.log("DATA LENGTH =====> ", data.length);
+  console.log("DATA =>>>", data);
   return {
     props: {
       post: data,

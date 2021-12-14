@@ -50,9 +50,9 @@ export const uploadImage = async (req, res) => {
   }
 };
 
-exports.create = async (req, res) => {
+export const create = async (req, res) => {
   try {
-    const { title, body, categories } = req.body;
+    const { title, thumbnail, body, categories } = req.body;
     // check if title is taken
     const alreadyExist = await Post.findOne({
       slug: slugify(title.toLowerCase()),
@@ -74,6 +74,7 @@ exports.create = async (req, res) => {
     setTimeout(async () => {
       const newPost = await new Post({
         title,
+        thumbnail,
         slug: slugify(title.toLowerCase()),
         body,
         categories: ids,
@@ -128,7 +129,7 @@ export const read = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    const { postId, title, body, categories } = req.body;
+    const { postId, title, thumbnail, body, categories } = req.body;
     // find post
     const foundPost = await Post.findById(postId).select("postedBy").exec();
     // is owner?
@@ -150,6 +151,7 @@ exports.update = async (req, res) => {
         { slug: req.params.slug },
         {
           title,
+          thumbnail,
           slug: slugify(title),
           body,
           categories: ids,
