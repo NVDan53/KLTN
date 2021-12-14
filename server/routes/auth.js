@@ -24,7 +24,8 @@ router.get("/current-user", requireSignin, currentUser);
 router.get("/logout", logout);
 
 router.post("/forgot-password", forgotPassword);
-router.post("/reset-password", resetPassword);
+router.post("/reset-password", requireSignin, resetPassword);
+
 // social
 router.post("/google_login", googleLogin);
 
