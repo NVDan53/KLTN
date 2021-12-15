@@ -52,7 +52,7 @@ const CourseEditForm = ({
             </div>
 
             <div>
-              <label className="btn btn-dark btn-block text-left square">
+              <label className="btn btn-light btn-block text-left square">
                 {uploadButtonText}
                 <input
                   name="image"

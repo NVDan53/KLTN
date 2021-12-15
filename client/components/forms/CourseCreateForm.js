@@ -121,7 +121,7 @@ const CourseCreateForm = ({
         <div className="form-row">
           <div className="col">
             <div className="form-group">
-              <label className="btn btn-dark btn-block text-left p-5">
+              <label className="btn btn-light btn-block text-left p-5">
                 {uploadButtonText}
                 <input
                   name="image"
