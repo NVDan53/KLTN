@@ -410,13 +410,13 @@ export const googleLogin = async (req, res) => {
         expiresIn: "7d",
       });
       // return user and token to client, exclude hashed password
-      user.password = undefined;
+      // user.password = undefined;
       // send token to cookie
       res.cookie("token", token, {
         // httpOnly: true,
         // secure: true, // only works on https
       });
-      res.json(user);
+      res.json(newUser);
     }
   } catch (err) {
     return res.status(500).json({ msg: err.message });

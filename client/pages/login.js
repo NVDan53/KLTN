@@ -71,13 +71,18 @@ const Login = () => {
       });
 
       toast.success("Login successfully");
-      setLoading(false);
 
       window.localStorage.setItem("user", JSON.stringify(res.data));
 
-      router.push("/");
+      if (res.data.role.includes("Admin")) {
+        router.push("/admin");
+      } else if (res.data.role.includes("Instructor")) {
+        router.push("/instructor");
+      } else {
+        router.push("/user");
+      }
+      setLoading(false);
     } catch (error) {
-      console.log(error.response.data.msg);
       toast(error.response.data.msg);
       setLoading(false);
     }
