@@ -19,6 +19,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
+import SearchForm from "../forms/SearchForm";
 
 // https://prawira.medium.com/react-conditional-import-conditional-css-import-110cc58e0da6
 
@@ -123,6 +124,10 @@ const TopNav = () => {
             </Link>
           </Item>
         )}
+
+        <Item>
+          <SearchForm />
+        </Item>
 
         {user === null && (
           <>

@@ -77,3 +77,7 @@ blockquote p {
     width: 100%;
   }
 }
+
+.reset-before::before {
+  display: none;
+}
