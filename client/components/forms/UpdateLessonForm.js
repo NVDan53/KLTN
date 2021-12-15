@@ -59,7 +59,7 @@ const UpdateLessonForm = ({
               />
             </div>
           )}
-          <label className="btn btn-dark btn-block text-left mt-3">
+          <label className="btn btn-light btn-block text-left mt-3">
             {uploadVideoButtonText}
             <input onChange={handleVideo} type="file" accept="video/*" hidden />
           </label>

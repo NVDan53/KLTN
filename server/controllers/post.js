@@ -6,6 +6,7 @@ import S3 from "aws-sdk/clients/s3";
 import slugify from "slugify";
 import { nanoid } from "nanoid";
 import { readFileSync } from "fs";
+import Course from "../models/course";
 
 const s3 = new S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -305,5 +306,19 @@ export const unpublishPostByAdmin = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(400).send("Unpublish post failed");
+  }
+};
+
+export const search = async (req, res) => {
+  const name = { $regex: req.query.name };
+  console.log("NAME:", name);
+  try {
+    const courses = await Course.find({ name }).exec();
+
+    const posts = await Post.find({ title: name }).exec();
+
+    res.json({ courses, posts });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
   }
 };

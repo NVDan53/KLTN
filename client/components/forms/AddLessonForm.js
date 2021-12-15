@@ -46,7 +46,7 @@ const AddLessonForm = ({
         ></textarea>
 
         <div className="d-flex justify-content-center">
-          <label className="btn btn-dark btn-block text-left mt-3">
+          <label className="btn btn-light btn-block text-left mt-3">
             {uploadButtonText}
             <input onChange={handleVideo} type="file" accept="video/*" hidden />
           </label>

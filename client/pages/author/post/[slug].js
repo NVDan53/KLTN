@@ -147,7 +147,7 @@ const PostEdit = () => {
             required
           />
           <div className="form-group mt-3">
-            <label className="btn btn-dark btn-block text-left p-5">
+            <label className="btn btn-light btn-block text-left p-5">
               {uploadButtonText}
               <input
                 name="image"

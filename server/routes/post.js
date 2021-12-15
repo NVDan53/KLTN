@@ -22,6 +22,8 @@ const {
   prevPost,
   nextPost,
   listForAdmin,
+
+  search,
 } = require("../controllers/post");
 
 // image
@@ -57,5 +59,7 @@ router.put(
   isAdmin,
   unpublishPostByAdmin
 );
+
+router.get("/search", search);
 
 module.exports = router;
