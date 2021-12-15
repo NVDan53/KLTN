@@ -48,7 +48,8 @@ function SearchForm() {
           maxHeight: "calc(100vh - 150px)",
           overflow: "auto",
           marginTop: "3px",
-          background: "#333",
+          background: "#fff",
+          padding: "0 11px",
         }}
       >
         {search && courses?.map((course) => <p>{course.name}</p>)}
@@ -56,7 +57,14 @@ function SearchForm() {
         {search &&
           posts?.map((post) => {
             return (
-              <li>
+              <li
+                style={{
+                  overflow: "hidden",
+                  display: "-webkit-box",
+                  webkitBoxOrient: "vertical",
+                  webkitLineClamp: "1",
+                }}
+              >
                 <Link href={`/article/${post.slug}`}>
                   <a className="reset-before">{post.title}</a>
                 </Link>
