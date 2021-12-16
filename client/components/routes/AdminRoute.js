@@ -16,7 +16,9 @@ const AdminRoute = ({ children }) => {
 
   const fetchAdmin = async () => {
     try {
-      let { data } = await axios.get(`${URL_DEPLOY}/api/current-admin`);
+      let { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/current-admin"
+      );
       // console.log("current-user", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

@@ -31,9 +31,10 @@ function resetPassword() {
     try {
       setLoading(true);
       const resetPassword = async () => {
-        const res = await axios.post(`${URL_DEPLOY}/api/reset-password`, {
-          password: data,
-        });
+        const res = await axios.post(
+          "https://stress-apps.herokuapp.com/api/reset-password",
+          { password: data }
+        );
         setLoading(false);
         toast(res.data.msg);
         router.push("/login");

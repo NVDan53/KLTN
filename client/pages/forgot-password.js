@@ -32,9 +32,12 @@ const ForgotPassword = () => {
     try {
       setLoading(true);
       // send code to user email
-      let { data } = await axios.post(`${URL_DEPLOY}/api/forgot-password`, {
-        email,
-      });
+      let { data } = await axios.post(
+        `https://stress-apps.herokuapp.com/api/forgot-password`,
+        {
+          email,
+        }
+      );
       // shoe code input field
       // setSuccess(true);
       setLoading(false);
@@ -51,7 +54,7 @@ const ForgotPassword = () => {
   //   try {
   //     setLoading(true);
   //     // send code to user email
-  //     let { data } = await axios.post(`/api/reset-password`, {
+  //     let { data } = await axios.post(`https://stress-apps.herokuapp.com/api/reset-password`, {
   //       email,
   //       code,
   //       newPassword,

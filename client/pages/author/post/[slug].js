@@ -44,7 +44,9 @@ const PostEdit = () => {
 
   const loadPost = async () => {
     try {
-      const { data } = await axios.get(`${URL_DEPLOY}/api/post/${slug}`);
+      const { data } = await axios.get(
+        `https://stress-apps.herokuapp.com/api/post/${slug}`
+      );
       console.log("SINGLE POST", data);
       setPostedBy(data.postedBy);
       setTitle(data.title);
@@ -60,7 +62,9 @@ const PostEdit = () => {
   };
 
   const loadCategories = async () => {
-    const { data } = await axios.get(`${URL_DEPLOY}/api/categories`);
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/categories"
+    );
     // console.log(data);
     setLoadedCategories(data);
   };
@@ -90,7 +94,7 @@ const PostEdit = () => {
         // post to s3
         try {
           let { data } = await axios.post(
-            `${URL_DEPLOY}/api/post/upload-image`,
+            "https://stress-apps.herokuapp.com/api/post/upload-image",
             {
               image: uri,
             }
@@ -119,13 +123,16 @@ const PostEdit = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.put(`${URL_DEPLOY}/api/post/${slug}`, {
-        postId,
-        title,
-        thumbnail,
-        body,
-        categories,
-      });
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/post/${slug}`,
+        {
+          postId,
+          title,
+          thumbnail,
+          body,
+          categories,
+        }
+      );
       toast("Post updated");
       router.push("/author");
     } catch (err) {

@@ -24,7 +24,9 @@ const UserIndex = () => {
   }, []);
 
   const loadUserIssues = async () => {
-    const { data } = await axios.get(`${URL_DEPLOY}/api/user/issues`);
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/user/issues"
+    );
     console.log(data);
     setIssues(data);
   };
@@ -33,7 +35,7 @@ const UserIndex = () => {
     setLoading(true);
     try {
       const { data } = await axios.put(
-        `${URL_DEPLOY}/api/user/issue/mark-resolved`,
+        `https://stress-apps.herokuapp.com/api/user/issue/mark-resolved`,
         {
           issueId,
         }
@@ -54,7 +56,7 @@ const UserIndex = () => {
     setLoading(true);
     try {
       const { data } = await axios.delete(
-        `${URL_DEPLOY}/api/user/issue/delete/${issueId}`
+        `https://stress-apps.herokuapp.com/api/user/issue/delete/${issueId}`
       );
       loadUserIssues();
       // console.log("ISSUE RESOLVED =>", data);

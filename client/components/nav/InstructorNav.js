@@ -19,7 +19,7 @@ const InstructorNav = () => {
 
   const loadQuestionCount = async () => {
     const { data } = await axios.get(
-      `${URL_DEPLOY}/api/instructor/question-count`
+      `https://stress-apps.herokuapp.com/api/instructor/question-count`
     );
     setQuestionCount(data);
   };

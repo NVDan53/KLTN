@@ -16,7 +16,9 @@ const InstructorRoute = ({ children }) => {
 
   const fetchInstructor = async () => {
     try {
-      let { data } = await axios.get(`${URL_DEPLOY}/api/current-instructor`);
+      let { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/current-instructor"
+      );
       // console.log("current-user", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

@@ -15,7 +15,9 @@ const InstructorIndex = () => {
   }, []);
 
   const loadCourses = async () => {
-    const { data } = await axios.get(`${URL_DEPLOY}/api/instructor-courses`);
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/instructor-courses"
+    );
     // console.log(data);
     setCourses(data);
   };

@@ -19,7 +19,9 @@ const AuthorIndex = () => {
   }, []);
 
   const loadPostsByAuthor = async () => {
-    const { data } = await axios.get(`${URL_DEPLOY}/api/posts-by-author`);
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/posts-by-author"
+    );
     setPosts(data);
   };
 
@@ -27,7 +29,9 @@ const AuthorIndex = () => {
     try {
       const answer = window.confirm("Are you sure?");
       if (!answer) return;
-      const { data } = await axios.delete(`${URL_DEPLOY}/api/post/${post._id}`);
+      const { data } = await axios.delete(
+        `https://stress-apps.herokuapp.com/api/post/${post._id}`
+      );
       loadPostsByAuthor();
       toast("Post deleted!");
     } catch (err) {
@@ -42,7 +46,7 @@ const AuthorIndex = () => {
       let answer = window.confirm("Are you sure you want to publish?");
       if (!answer) return;
       const { data } = await axios.put(
-        `${URL_DEPLOY}/api/post/publish/${post._id}`
+        `https://stress-apps.herokuapp.com/api/post/publish/${post._id}`
       );
       // console.log("COURSE PUBLISHED RES", data);
       toast("Congrats. Your post live published!");
@@ -59,7 +63,7 @@ const AuthorIndex = () => {
       let answer = window.confirm("Are you sure you want to unpublish?");
       if (!answer) return;
       const { data } = await axios.put(
-        `${URL_DEPLOY}/api/post/unpublish/${post._id}`
+        `https://stress-apps.herokuapp.com/api/post/unpublish/${post._id}`
       );
       toast("Your post is unpublished");
       loadPostsByAuthor();

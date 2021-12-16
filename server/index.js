@@ -37,7 +37,7 @@ readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 // put under routes
 app.use(csrfProtection);
 
-app.get("/api/csrf-token", (req, res) => {
+app.get("https://stress-apps.herokuapp.com/api/csrf-token", (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
 });
 

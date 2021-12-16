@@ -56,7 +56,9 @@ const UserQa = () => {
   }, []);
 
   const loadQuestions = async () => {
-    const { data } = await axios.get(`${URL_DEPLOY}/api/user/qas`);
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/user/qas"
+    );
     console.log("DATA ON LOAD_QUESTIONS => => ", data);
     setQas(data);
   };
@@ -73,7 +75,7 @@ const UserQa = () => {
       // if (answer) console.log("handle qa delete", qaId);
       if (!answer) return;
       const { data } = await axios.delete(
-        `${URL_DEPLOY}/api/qa/${q._id}/${q.postedBy}`
+        `https://stress-apps.herokuapp.com/api/qa/${q._id}/${q.postedBy}`
       );
       // console.log("DELETED QA => ", data);
       loadQuestions();
@@ -93,7 +95,7 @@ const UserQa = () => {
       //   console.log("EDIT POST REQ => ", editValues);
       //   return;
       const { data } = await axios.put(
-        `${URL_DEPLOY}/api/user/qa/${editValues._id}`,
+        `https://stress-apps.herokuapp.com/api/user/qa/${editValues._id}`,
         editValues
       );
       // console.log("EDIT POST RES => ", data);
@@ -121,11 +123,14 @@ const UserQa = () => {
     // return;
     try {
       setAnswerLoading(true);
-      const { data } = await axios.put(`${URL_DEPLOY}/api/qa/answer`, {
-        questionId: currentQuestion._id,
-        content: answerContent,
-        userId: user._id,
-      });
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/qa/answer`,
+        {
+          questionId: currentQuestion._id,
+          content: answerContent,
+          userId: user._id,
+        }
+      );
       setAnswerContent("");
       setAnswerModalVisible(false);
       loadQuestions();
@@ -150,7 +155,7 @@ const UserQa = () => {
       setAnswerEditLoading(true);
       // console.log("handleEditAnswerPost => currentanswer", currentAnswer);
       const { data } = await axios.put(
-        `${URL_DEPLOY}/api/qa/answer-edit`,
+        `https://stress-apps.herokuapp.com/api/qa/answer-edit`,
         currentAnswer
       );
       // console.log("ANSWER EDIT RES", data);
@@ -174,7 +179,7 @@ const UserQa = () => {
       if (!answer) return;
       // console.log("handle delete ans qa", a._id);
       const { data } = await axios.delete(
-        `${URL_DEPLOY}/api/qa/answer-delete/${a._id}/${a.postedBy._id}`
+        `https://stress-apps.herokuapp.com/api/qa/answer-delete/${a._id}/${a.postedBy._id}`
       );
       loadQuestions();
       toast("Answer successfully deleted");
@@ -188,10 +193,13 @@ const UserQa = () => {
       //   console.log("QQQ markQaAsResolved => ", q);
       //   return;
       // console.log("mark as resolved", q._id, q.postedBy._id);
-      const { data } = await axios.put(`${URL_DEPLOY}/api/qa/mark-resolved`, {
-        questionId: q._id,
-        postedBy: q.postedBy,
-      });
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/qa/mark-resolved`,
+        {
+          questionId: q._id,
+          postedBy: q.postedBy,
+        }
+      );
       loadQuestions();
       //   console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");
@@ -205,10 +213,13 @@ const UserQa = () => {
     try {
       //   console.log("QQQ markQaAsNotResolved => ", q);
       //   return;
-      const { data } = await axios.put(`${URL_DEPLOY}/api/qa/mark-unresolved`, {
-        questionId: q._id,
-        postedBy: q.postedBy,
-      });
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/qa/mark-unresolved`,
+        {
+          questionId: q._id,
+          postedBy: q.postedBy,
+        }
+      );
       loadQuestions();
       //   console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");

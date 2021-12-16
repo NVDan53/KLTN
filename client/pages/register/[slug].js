@@ -32,9 +32,10 @@ const RegisterActivate = () => {
 
   const handleSubmit = async (jwtLink) => {
     try {
-      let { data } = await axios.post(`${URL_DEPLOY}/api/register-activate`, {
-        jwtLink,
-      });
+      let { data } = await axios.post(
+        `https://stress-apps.herokuapp.com/api/register-activate`,
+        { jwtLink }
+      );
 
       if (data.ok) {
         toast("Registration successful. Please login");

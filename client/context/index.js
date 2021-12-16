@@ -56,7 +56,7 @@ const Provider = ({ children }) => {
       if (res.status === 401 && res.config && !res.config.__isRetryRequest) {
         return new Promise((resolve, reject) => {
           axios
-            .get(`${URL_DEPLOY}/api/logout`)
+            .get("https://stress-apps.herokuapp.com/api/logout")
             .then((data) => {
               console.log("/401 error > logout");
               dispatch({ type: "LOGOUT" });
@@ -78,7 +78,9 @@ const Provider = ({ children }) => {
   // https://www.synopsys.com/glossary/what-is-csrf.html
   useEffect(() => {
     const getCsrfToken = async () => {
-      const { data } = await axios.get(`${URL_DEPLOY}/api/csrf-token`);
+      const { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/csrf-token"
+      );
       // console.log(data);
       axios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
     };

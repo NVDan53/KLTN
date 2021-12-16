@@ -23,7 +23,7 @@ function SearchForm() {
     try {
       setLoad(true);
       const res = await axios.get(
-        `${URL_DEPLOY}/api/search?name=${value.search}`
+        `https://stress-apps.herokuapp.com/api/search?name=${value.search}`
       );
       console.log("SEARCH RESULT:", res);
       setData(res.data);

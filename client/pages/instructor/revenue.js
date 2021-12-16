@@ -21,7 +21,9 @@ const InstructorRevenue = () => {
 
   const sendBalanceRequest = async () => {
     // console.log("send balance request");
-    const { data } = await axios.get(`${URL_DEPLOY}/api/instructor/balance`);
+    const { data } = await axios.get(
+      `https://stress-apps.herokuapp.com/api/instructor/balance`
+    );
     // console.log(data);
     setBalance(data);
   };
@@ -30,7 +32,7 @@ const InstructorRevenue = () => {
     try {
       setLoading(true);
       let { data } = await axios.get(
-        "${URL_DEPLOY}/api/instructor/payout-settings"
+        "https://stress-apps.herokuapp.com/api/instructor/payout-settings"
       );
       console.log(data);
       window.location.href = data;

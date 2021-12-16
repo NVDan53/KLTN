@@ -18,7 +18,7 @@ const StripeSuccess = () => {
   const successRequest = async () => {
     try {
       const { data } = await axios.get(
-        `${URL_DEPLOY}/api/stripe-success/${id}`
+        `https://stress-apps.herokuapp.com/api/stripe-success/${id}`
       );
       // console.log("STRIPE SUCCESS FROM BACKEND => ", data);
       router.push(`/user/course/${data.course.slug}`);

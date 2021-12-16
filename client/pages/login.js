@@ -31,10 +31,13 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      let res = await axios.post(`${URL_DEPLOY}/api/login`, {
-        email,
-        password,
-      });
+      let res = await axios.post(
+        `https://stress-apps.herokuapp.com/api/login`,
+        {
+          email,
+          password,
+        }
+      );
       console.log("login res ==> ", res);
       // return;
       dispatch({
@@ -61,10 +64,13 @@ const Login = () => {
 
   const responseGoogle = async (response) => {
     try {
-      // setLoading(true);
-      const res = await axios.post(`${URL_DEPLOY}/api/google_login`, {
-        tokenId: response.tokenId,
-      });
+      setLoading(true);
+      const res = await axios.post(
+        "https://stress-apps.herokuapp.com/api/google_login",
+        {
+          tokenId: response.tokenId,
+        }
+      );
 
       dispatch({
         type: "LOGIN",

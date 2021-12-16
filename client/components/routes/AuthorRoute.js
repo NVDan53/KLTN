@@ -16,7 +16,9 @@ const AuthorRoute = ({ children }) => {
 
   const fetchAuthor = async () => {
     try {
-      let { data } = await axios.get(`${URL_DEPLOY}/api/current-author`);
+      let { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/current-author"
+      );
       // console.log("current-author", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

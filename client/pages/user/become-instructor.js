@@ -22,7 +22,7 @@ const BecomeInstructor = () => {
   const becomeInstructor = () => {
     setLoading(true);
     axios
-      .post(`${URL_DEPLOY}/api/make-instructor`)
+      .post("https://stress-apps.herokuapp.com/api/make-instructor")
       .then((res) => {
         window.location.href = res.data;
       })

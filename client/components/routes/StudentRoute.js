@@ -15,7 +15,9 @@ const StudentRoute = ({ children, showNav = true }) => {
 
   const fetchUser = async () => {
     try {
-      let { data } = await axios.get(`${URL_DEPLOY}/api/current-user`);
+      let { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/current-user"
+      );
       // console.log("current-user", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);
