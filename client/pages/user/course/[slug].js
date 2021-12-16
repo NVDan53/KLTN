@@ -22,6 +22,8 @@ import { Context } from "../../../context";
 import { useWindowWidth } from "@react-hook/window-size";
 import CodeBlock from "../../../components/marked/CodeBlock";
 
+const { URL_DEPLOY } = process.env.local;
+
 const { Item } = Menu;
 
 const SingleCourse = () => {
@@ -79,14 +81,14 @@ const SingleCourse = () => {
   }, [course]);
 
   const loadCourse = async () => {
-    const { data } = await axios.get(`/api/user/course/${slug}`);
+    const { data } = await axios.get(`${URL_DEPLOY}/api/user/course/${slug}`);
     console.log("USER COURSE => ", data);
     setCourse(data);
   };
 
   // use POST route to avoid mongo objectId string issue
   const loadCompletedLessons = async () => {
-    const { data } = await axios.post(`/api/list-completed`, {
+    const { data } = await axios.post(`${URL_DEPLOY}/api/list-completed`, {
       courseId: course._id,
     });
     console.log("COMPLETED LESSONS => ", data);
@@ -97,7 +99,7 @@ const SingleCourse = () => {
   // each time video ends, send lesson id to backend and store as completed
   const markCompleted = async () => {
     // console.log(course.lessons[clicked]._id, course._id);
-    const { data } = await axios.post(`/api/mark-completed`, {
+    const { data } = await axios.post(`${URL_DEPLOY}/api/mark-completed`, {
       courseId: course._id,
       lessonId: course.lessons[clicked]._id,
     });
@@ -108,7 +110,7 @@ const SingleCourse = () => {
   const markIncomplete = async () => {
     try {
       // console.log(course.lessons[clicked]._id, course._id);
-      const { data } = await axios.post(`/api/mark-incomplete`, {
+      const { data } = await axios.post(`${URL_DEPLOY}/api/mark-incomplete`, {
         courseId: course._id,
         lessonId: course.lessons[clicked]._id,
       });
@@ -145,7 +147,7 @@ const SingleCourse = () => {
         lessonId: course.lessons[clicked]._id,
         userId: user._id,
       };
-      const { data } = await axios.post("/api/qa", allData);
+      const { data } = await axios.post(`${URL_DEPLOY}/api/qa`, allData);
       // console.log("QA CREATE => ", data);
       setValues({ ...values, title: "", description: "", loading: false });
       // setClickedLessonQa([data, ...clickedLessonQa]);
@@ -163,7 +165,9 @@ const SingleCourse = () => {
   }, [clicked]);
 
   const loadQuestions = async (req, res) => {
-    const { data } = await axios.get(`/api/qa/${course.lessons[clicked]._id}`);
+    const { data } = await axios.get(
+      `${URL_DEPLOY}/api/qa/${course.lessons[clicked]._id}`
+    );
     // console.log(data);
     setClickedLessonQa(data);
   };
@@ -173,7 +177,9 @@ const SingleCourse = () => {
       let answer = confirm("Are you sure you want to delete?");
       // if (answer) console.log("handle qa delete", qaId);
       if (!answer) return;
-      const { data } = await axios.delete(`/api/qa/${q._id}/${q.postedBy._id}`);
+      const { data } = await axios.delete(
+        `${URL_DEPLOY}/api/qa/${q._id}/${q.postedBy._id}`
+      );
       // console.log("DELETED QA => ", data);
       loadQuestions();
     } catch (err) {
@@ -191,7 +197,10 @@ const SingleCourse = () => {
     console.log("editvalues => ", editValues);
     try {
       // console.log("EDIT POST REQ => ", editValues);
-      const { data } = await axios.put(`/api/qa/${editValues._id}`, editValues);
+      const { data } = await axios.put(
+        `${URL_DEPLOY}/api/qa/${editValues._id}`,
+        editValues
+      );
       // console.log("EDIT POST RES => ", data);
       loadQuestions();
       setEditModalVisible(false);
@@ -214,7 +223,7 @@ const SingleCourse = () => {
   const handleAnswerPost = async () => {
     try {
       setAnswerLoading(true);
-      const { data } = await axios.put(`/api/qa/answer`, {
+      const { data } = await axios.put(`${URL_DEPLOY}/api/qa/answer`, {
         questionId: currentQuestion._id,
         content: answerContent,
         userId: user._id,
@@ -242,7 +251,10 @@ const SingleCourse = () => {
     try {
       setAnswerEditLoading(true);
       // console.log("handleEditAnswerPost => currentanswer", currentAnswer);
-      const { data } = await axios.put(`/api/qa/answer-edit`, currentAnswer);
+      const { data } = await axios.put(
+        `${URL_DEPLOY}/api/qa/answer-edit`,
+        currentAnswer
+      );
       // console.log("ANSWER EDIT RES", data);
       loadQuestions();
       setAnswerEditModalVisible(false);
@@ -262,7 +274,7 @@ const SingleCourse = () => {
       if (!answer) return;
       // console.log("handle delete ans qa", a._id);
       const { data } = await axios.delete(
-        `/api/qa/answer-delete/${a._id}/${a.postedBy._id}`
+        `${URL_DEPLOY}/api/qa/answer-delete/${a._id}/${a.postedBy._id}`
       );
       loadQuestions();
       toast("Answer successfully deleted");
@@ -274,7 +286,7 @@ const SingleCourse = () => {
   const markQaAsResolved = async (q) => {
     try {
       // console.log("mark as resolved", q._id, q.postedBy._id);
-      const { data } = await axios.put(`/api/qa/mark-resolved`, {
+      const { data } = await axios.put(`${URL_DEPLOY}/api/qa/mark-resolved`, {
         questionId: q._id,
         postedBy: q.postedBy._id,
       });
@@ -290,7 +302,7 @@ const SingleCourse = () => {
   const markQaAsNotResolved = async (q) => {
     try {
       // console.log("mark as resolved", q._id, q.postedBy._id);
-      const { data } = await axios.put(`/api/qa/mark-unresolved`, {
+      const { data } = await axios.put(`${URL_DEPLOY}/api/qa/mark-unresolved`, {
         questionId: q._id,
         postedBy: q.postedBy._id,
       });

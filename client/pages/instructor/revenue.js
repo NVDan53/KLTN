@@ -9,6 +9,8 @@ import {
 } from "@ant-design/icons";
 import { stripeCurrencyFormatter } from "../../utils/helpers";
 
+const { URL_DEPLOY } = process.env.local;
+
 const InstructorRevenue = () => {
   const [balance, setBalance] = useState({ pending: [] });
   const [loading, setLoading] = useState(false);
@@ -19,7 +21,7 @@ const InstructorRevenue = () => {
 
   const sendBalanceRequest = async () => {
     // console.log("send balance request");
-    const { data } = await axios.get(`/api/instructor/balance`);
+    const { data } = await axios.get(`${URL_DEPLOY}/api/instructor/balance`);
     // console.log(data);
     setBalance(data);
   };
@@ -27,7 +29,9 @@ const InstructorRevenue = () => {
   const handlePayoutSetting = async () => {
     try {
       setLoading(true);
-      let { data } = await axios.get("/api/instructor/payout-settings");
+      let { data } = await axios.get(
+        "${URL_DEPLOY}/api/instructor/payout-settings"
+      );
       console.log(data);
       window.location.href = data;
     } catch (err) {

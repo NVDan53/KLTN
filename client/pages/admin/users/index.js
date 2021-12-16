@@ -4,6 +4,8 @@ import { Tooltip } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
 import AdminRoute from "../../../components/routes/AdminRoute";
 
+const { URL_DEPLOY } = process.env.local;
+
 const AdminUsersIndex = () => {
   const [users, setUsers] = useState([
     {
@@ -26,7 +28,7 @@ const AdminUsersIndex = () => {
   }, []);
 
   const loadUsers = async () => {
-    const { data } = await axios.get("/api/admin/users");
+    const { data } = await axios.get(`${URL_DEPLOY}/api/admin/users`);
     setUsers(data);
   };
 

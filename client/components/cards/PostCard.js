@@ -5,7 +5,7 @@ const { Meta } = Card;
 
 const PostCard = ({ post }) => {
   // destructure
-  const { title, slug, categories, postedBy } = post;
+  const { title, thumbnail, slug, categories, postedBy } = post;
   return (
     <>
       <Link href="/article/[slug]" as={`/article/${slug}`}>
@@ -22,11 +22,16 @@ const PostCard = ({ post }) => {
             //     />
             //   }
           >
-            <h2 className="h4 font-weight-bold">
+            <img
+              src={thumbnail}
+              alt={title}
+              style={{ height: "200px", width: "100%", objectFit: "cover" }}
+            />
+            <h2 className="h4 font-weight-bold mt-2">
               {title && title.substring(0, 160)}
             </h2>
-            <p>by {postedBy.name}</p>
-
+            <cite>by {postedBy.name}</cite>
+            <br></br>
             {categories.map((c) => (
               <Badge
                 key={c._id}

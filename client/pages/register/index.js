@@ -5,6 +5,8 @@ import { SyncOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { Context } from "../../context";
 
+const { URL_DEPLOY } = process.env.local;
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,7 +28,7 @@ const Register = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      let { data } = await axios.post(`/api/register`, {
+      let { data } = await axios.post(`${URL_DEPLOY}/api/register`, {
         name,
         email,
         password,
@@ -34,7 +36,8 @@ const Register = () => {
       // console.log(data);
       if (data.ok) {
         // toast("Registration successful. Please login");
-        toast("Please check your email and click on the activation link.");
+        // toast("Please check your email and click on the activation link.");
+        toast(data.msg);
         setName("");
         setEmail("");
         setPassword("");

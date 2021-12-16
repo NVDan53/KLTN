@@ -1,4 +1,5 @@
 import axios from "axios";
+const { URL_DEPLOY } = process.env.local;
 
 export default function withAuth(Component) {
   const withAuth = (props) => {
@@ -7,7 +8,7 @@ export default function withAuth(Component) {
 
   withAuth.getServerSideProps = async (ctx) => {
     try {
-      const { data } = await axios.get(`/api/current-user`);
+      const { data } = await axios.get(`${URL_DEPLOY}/api/current-user`);
       console.log("data ===> ", data);
       if (data)
         return {

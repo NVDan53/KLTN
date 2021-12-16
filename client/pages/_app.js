@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import "antd/dist/antd.dark.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../public/css/styles.css";
-import "../public/css/ant-dark.css";
+// import "../public/css/ant-dark.css";
 import "nprogress/nprogress.css";
 import Footer from "../components/nav/Footer";
 import ScrollToTop from "react-scroll-up";

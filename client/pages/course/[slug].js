@@ -11,6 +11,8 @@ import Head from "next/head";
 import { markdownToTxt } from "markdown-to-txt";
 import DisqusThread from "../../components/DisqusThread";
 
+const { URL_DEPLOY } = process.env.local;
+
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
   const [preview, setPreview] = useState("");
@@ -73,7 +75,9 @@ const SingleCourse = ({ course }) => {
   }, [course, user]);
 
   const checkEnrollment = async () => {
-    const { data } = await axios.get(`/api/check-enrollment/${course._id}`);
+    const { data } = await axios.get(
+      `${URL_DEPLOY}/api/check-enrollment/${course._id}`
+    );
     // console.log("CHECK ENROLLMENT => ", data);
     setEnrolled(data);
   };
@@ -88,7 +92,9 @@ const SingleCourse = ({ course }) => {
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
       // console.log("enroll to this course > ", course._id);
-      const { data } = await axios.post(`/api/paid-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `${URL_DEPLOY}/api/paid-enrollment/${course._id}`
+      );
       // console.log("PAID ENROLLMENT => ", data);
       // load stripe for payment
       // on successful payment, user will get redirected to /stripe/success page
@@ -111,7 +117,9 @@ const SingleCourse = ({ course }) => {
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
       // console.log("enroll to this course > ", course._id);
-      const { data } = await axios.post(`/api/free-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `${URL_DEPLOY}/api/free-enrollment/${course._id}`
+      );
       console.log("FREE ENROLLMENT => ", data);
       toast(data.message);
       // redirect user to course page

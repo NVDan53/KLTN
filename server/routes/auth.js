@@ -14,18 +14,22 @@ import {
   resetPassword,
   registerActivate,
   googleLogin,
+  activateEmail,
 } from "../controllers/auth";
 
 router.post("/register", register);
-router.post("/register-activate", registerActivate);
+// router.post("/register-activate", registerActivate);
 router.post("/login", login);
 
 router.get("/current-user", requireSignin, currentUser);
 router.get("/logout", logout);
 
 router.post("/forgot-password", forgotPassword);
-router.post("/reset-password", resetPassword);
+router.post("/reset-password", requireSignin, resetPassword);
+
 // social
 router.post("/google_login", googleLogin);
+
+router.post("/activate", activateEmail);
 
 module.exports = router;

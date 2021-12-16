@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Context } from "../../context";
 import { useRouter } from "next/router";
 
+const { URL_DEPLOY } = process.env.local;
+
 const RegisterActivate = () => {
   // state
   const [loading, setLoading] = useState(true);
@@ -30,7 +32,9 @@ const RegisterActivate = () => {
 
   const handleSubmit = async (jwtLink) => {
     try {
-      let { data } = await axios.post(`/api/register-activate`, { jwtLink });
+      let { data } = await axios.post(`${URL_DEPLOY}/api/register-activate`, {
+        jwtLink,
+      });
 
       if (data.ok) {
         toast("Registration successful. Please login");

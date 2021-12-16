@@ -2,6 +2,8 @@ import { useReducer, createContext, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
+const { URL_DEPLOY } = process.env.local;
+
 // initial state
 const initialState = {
   user: null,
@@ -54,7 +56,7 @@ const Provider = ({ children }) => {
       if (res.status === 401 && res.config && !res.config.__isRetryRequest) {
         return new Promise((resolve, reject) => {
           axios
-            .get("/api/logout")
+            .get(`${URL_DEPLOY}/api/logout`)
             .then((data) => {
               console.log("/401 error > logout");
               dispatch({ type: "LOGOUT" });
@@ -76,7 +78,7 @@ const Provider = ({ children }) => {
   // https://www.synopsys.com/glossary/what-is-csrf.html
   useEffect(() => {
     const getCsrfToken = async () => {
-      const { data } = await axios.get("/api/csrf-token");
+      const { data } = await axios.get(`${URL_DEPLOY}/api/csrf-token`);
       // console.log(data);
       axios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
     };

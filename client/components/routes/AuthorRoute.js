@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import AuthorNav from "../nav/AuthorNav";
 
+const { URL_DEPLOY } = process.env.local;
+
 const AuthorRoute = ({ children }) => {
   const [ok, setOk] = useState(false);
   const router = useRouter();
@@ -14,7 +16,7 @@ const AuthorRoute = ({ children }) => {
 
   const fetchAuthor = async () => {
     try {
-      let { data } = await axios.get("/api/current-author");
+      let { data } = await axios.get(`${URL_DEPLOY}/api/current-author`);
       // console.log("current-author", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

@@ -43,7 +43,7 @@ const SingleCourseJumbotron = ({
       <div className="row">
         <div className="col-md-8">
           {/* title */}
-          <h1 className="text-light font-weight-bold">{name}</h1>
+          <h1 className="text-dark font-weight-bold">{name}</h1>
           {/* description */}
           <p className="lead">
             {description && description.substring(0, 160)}..
@@ -62,7 +62,7 @@ const SingleCourseJumbotron = ({
           {/* updated date */}
           <p>Last updated {new Date(updatedAt).toLocaleDateString()}</p>
           {/* price */}
-          <h4 className="text-light">
+          <h4 className="text-dark">
             {paid
               ? currencyFormatter({
                   amount: price,
@@ -100,7 +100,7 @@ const SingleCourseJumbotron = ({
               /> */}
 
               <PlayCircleFilled
-                className="align-self-center display-4 text-light"
+                className="align-self-center display-4 text-dark"
                 style={{ padding: "90px 90px 90px 90px" }}
               />
               {/* <img src={image.Location} alt={name} className="img img-fluid" /> */}
@@ -117,7 +117,7 @@ const SingleCourseJumbotron = ({
               className="d-flex justify-content-center"
             >
               <span
-                className="align-self-center display-4 text-light"
+                className="align-self-center display-4 text-dark"
                 style={{ padding: "90px 90px 90px 90px" }}
               ></span>
             </div>

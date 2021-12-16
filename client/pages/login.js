@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 
 import { GoogleLogin } from "react-google-login";
 
+const { URL_DEPLOY } = process.env.local;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +31,7 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      let res = await axios.post(`/api/login`, {
+      let res = await axios.post(`${URL_DEPLOY}/api/login`, {
         email,
         password,
       });
@@ -61,7 +63,7 @@ const Login = () => {
     console.log(response);
     try {
       setLoading(true);
-      const res = await axios.post("/api/google_login", {
+      const res = await axios.post(`${URL_DEPLOY}/api/google_login`, {
         tokenId: response.tokenId,
       });
 
@@ -71,13 +73,18 @@ const Login = () => {
       });
 
       toast.success("Login successfully");
-      setLoading(false);
 
       window.localStorage.setItem("user", JSON.stringify(res.data));
 
-      router.push("/");
+      if (res.data.role.includes("Admin")) {
+        router.push("/admin");
+      } else if (res.data.role.includes("Instructor")) {
+        router.push("/instructor");
+      } else {
+        router.push("/user");
+      }
+      setLoading(false);
     } catch (error) {
-      console.log(error.response.data.msg);
       toast(error.response.data.msg);
       setLoading(false);
     }

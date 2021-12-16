@@ -14,6 +14,8 @@ import AuthorTerms from "../../components/modal/AuthorTerms";
 import { Context } from "../../context";
 import { useRouter } from "next/router";
 
+const { URL_DEPLOY } = process.env.local;
+
 const BecomeAuthor = () => {
   const {
     state: { user },
@@ -27,7 +29,7 @@ const BecomeAuthor = () => {
   const makeAuthor = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/make-author");
+      const { data } = await axios.post(`${URL_DEPLOY}/api/make-author`);
       setLoading(false);
       dispatch({
         type: "LOGIN",

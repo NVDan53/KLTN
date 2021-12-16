@@ -10,6 +10,8 @@ import Resizer from "react-image-file-resizer";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
+const { URL_DEPLOY } = process.env.local;
+
 const { Option } = Select;
 
 const PostCreate = () => {
@@ -34,8 +36,13 @@ const PostCreate = () => {
   const [loadedCategories, setLoadedCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  const [thumbnail, setThumbnail] = useState("");
+  const [uploadButtonText, setUploadButtonText] = useState("Upload thumbnail");
+
   // markdown cheetsheet modal
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
+
   // router
   const router = useRouter();
 
@@ -45,7 +52,7 @@ const PostCreate = () => {
   }, []);
 
   const loadCategories = async () => {
-    const { data } = await axios.get("/api/categories");
+    const { data } = await axios.get(`${URL_DEPLOY}/api/categories`);
     // console.log(data);
     setLoadedCategories(data);
   };
@@ -64,6 +71,7 @@ const PostCreate = () => {
     setUploading(true);
     // console.log(e.target.files[0]);
     let file = e.target.files[0];
+    setUploadButtonText(file.name);
 
     Resizer.imageFileResizer(
       file, // file
@@ -75,9 +83,12 @@ const PostCreate = () => {
       async (uri) => {
         // post to s3
         try {
-          let { data } = await axios.post("/api/post/upload-image", {
-            image: uri,
-          });
+          let { data } = await axios.post(
+            `${URL_DEPLOY}/api/post/upload-image`,
+            {
+              image: uri,
+            }
+          );
           console.log("image uploaded", data);
           setBody(`${body} ![${file.name.replace(/\.[^/.]+$/, "")}](${data})`);
           // update local storage with image
@@ -87,6 +98,7 @@ const PostCreate = () => {
               `${body} ![${file.name.replace(/\.[^/.]+$/, "")}](${data})`
             )
           );
+          setThumbnail(data);
           setUploading(false);
         } catch (err) {
           setUploading(false);
@@ -101,8 +113,9 @@ const PostCreate = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/post", {
+      const { data } = await axios.post(`${URL_DEPLOY}/api/post`, {
         title,
+        thumbnail,
         body,
         categories,
       });
@@ -133,6 +146,19 @@ const PostCreate = () => {
             autoFocus
             required
           />
+
+          <div className="form-group mt-3">
+            <label className="btn btn-light btn-block text-left p-5">
+              {uploadButtonText}
+              <input
+                name="image"
+                onChange={handleImage}
+                type="file"
+                accept="image/*"
+                hidden
+              />
+            </label>
+          </div>
 
           <div
             onClick={() => setMarkdownCheetsheetModal(!markdownCheetsheetModal)}

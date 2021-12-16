@@ -4,7 +4,8 @@
 
 .jumbotron {
   background-image: linear-gradient(to right, #007bff, #000);
-  color: #fff;
+  /* color: #fff; */
+  color: black;
 }
 
 .pointer {
@@ -27,9 +28,9 @@
 input,
 textarea,
 .list-group-item {
-  background-color: #000 !important;
-  color: white !important;
-  border: 1px solid #333 !important;
+  /* background-color: #000 !important; */
+  /* color: white !important; */
+  /* border: 1px solid #333 !important; */
 }
 
 /* markdown body img */
@@ -41,13 +42,15 @@ textarea,
 
 /* markdown blockquote */
 blockquote {
-  border-left: 10px solid #ccc;
+  /* border-left: 10px solid #ccc; */
+  border-left: 10px solid black;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
 }
 blockquote:before {
-  color: #ccc;
+  /* color: #ccc; */
+  color: black;
   content: open-quote;
   font-size: 4em;
   line-height: 0.1em;
@@ -76,4 +79,12 @@ blockquote p {
   to {
     width: 100%;
   }
+}
+
+.reset-before::before {
+  display: none;
+}
+
+a {
+  text-decoration: none !important;
 }

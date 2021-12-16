@@ -19,12 +19,15 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
+import SearchForm from "../forms/SearchForm";
+
+const { URL_DEPLOY } = process.env.local;
 
 // https://prawira.medium.com/react-conditional-import-conditional-css-import-110cc58e0da6
 
 // import themes
-const LightTheme = React.lazy(() => import("../themes/LightTheme"));
-const DarkTheme = React.lazy(() => import("../themes/DarkTheme"));
+// const LightTheme = React.lazy(() => import("../themes/LightTheme"));
+// const DarkTheme = React.lazy(() => import("../themes/DarkTheme"));
 
 const TopNav = () => {
   const [current, setCurrent] = useState("");
@@ -43,23 +46,23 @@ const TopNav = () => {
   }, [process.browser && window.location.pathname]);
 
   // create a parent component that will load the components conditionally using React.Suspense
-  const ThemeSelector = ({ children }) => {
-    const CHOSEN_THEME = "LIGHT_MODE";
-    return (
-      <>
-        <React.Suspense fallback={<></>}>
-          <DarkTheme />
-          {CHOSEN_THEME === TYPE_OF_THEME.LIGHT_MODE && <LightTheme />}
-          {CHOSEN_THEME === TYPE_OF_THEME.DARK_MODE && <DarkTheme />}
-        </React.Suspense>
-        {children}
-      </>
-    );
-  };
+  // const ThemeSelector = ({ children }) => {
+  //   const CHOSEN_THEME = "LIGHT_MODE";
+  //   return (
+  //     <>
+  //       <React.Suspense fallback={<></>}>
+  //         <DarkTheme />
+  //         {CHOSEN_THEME === TYPE_OF_THEME.LIGHT_MODE && <LightTheme />}
+  //         {CHOSEN_THEME === TYPE_OF_THEME.DARK_MODE && <DarkTheme />}
+  //       </React.Suspense>
+  //       {children}
+  //     </>
+  //   );
+  // };
 
   const logout = async () => {
     try {
-      const { data } = await axios.get("/api/logout");
+      const { data } = await axios.get(`${URL_DEPLOY}/api/logout`);
       dispatch({ type: "LOGOUT" });
       window.localStorage.removeItem("user");
       if (data) {
@@ -123,6 +126,10 @@ const TopNav = () => {
             </Link>
           </Item>
         )}
+
+        <Item>
+          <SearchForm />
+        </Item>
 
         {user === null && (
           <>

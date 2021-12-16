@@ -4,6 +4,8 @@ import UserRoute from "../../../components/routes/UserRoute";
 import { useRouter } from "next/router";
 import axios from "axios";
 
+const { URL_DEPLOY } = process.env.local;
+
 const StripeSuccess = () => {
   // router
   const router = useRouter();
@@ -15,7 +17,9 @@ const StripeSuccess = () => {
 
   const successRequest = async () => {
     try {
-      const { data } = await axios.get(`/api/stripe-success/${id}`);
+      const { data } = await axios.get(
+        `${URL_DEPLOY}/api/stripe-success/${id}`
+      );
       // console.log("STRIPE SUCCESS FROM BACKEND => ", data);
       router.push(`/user/course/${data.course.slug}`);
     } catch (err) {

@@ -6,6 +6,8 @@ import Resizer from "react-image-file-resizer";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
+const { URL_DEPLOY } = process.env.local;
+
 const CourseCreate = () => {
   // state
   const [values, setValues] = useState({
@@ -35,7 +37,7 @@ const CourseCreate = () => {
   }, []);
 
   const loadCategories = async () => {
-    const { data } = await axios.get("/api/categories");
+    const { data } = await axios.get(`${URL_DEPLOY}/api/categories`);
     // console.log(data);
     setCategoryList(data);
   };
@@ -47,7 +49,7 @@ const CourseCreate = () => {
 
   const handleSubmit = async (e) => {
     try {
-      const { data } = await axios.post("/api/course", {
+      const { data } = await axios.post(`${URL_DEPLOY}/api/course`, {
         ...values,
         categories: selectedCategories,
         image,
@@ -78,9 +80,12 @@ const CourseCreate = () => {
       async (uri) => {
         // post to s3
         try {
-          let { data } = await axios.post("/api/course/upload-image", {
-            image: uri,
-          });
+          let { data } = await axios.post(
+            `${URL_DEPLOY}/api/course/upload-image`,
+            {
+              image: uri,
+            }
+          );
           // console.log("image uploaded", data);
           setImage(data);
           setValues({ ...values, loading: false });
@@ -98,7 +103,9 @@ const CourseCreate = () => {
     try {
       console.log("remove image from s3 ===> ", image.Key);
       setValues({ ...values, loading: true });
-      let { data } = await axios.post("/api/course/remove-image", { image });
+      let { data } = await axios.post(`${URL_DEPLOY}/api/course/remove-image`, {
+        image,
+      });
       // console.log("Remove image ===> ", data);
       if (data.ok) {
         setImage({});

@@ -9,6 +9,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
+const { URL_DEPLOY } = process.env.local;
 
 const AuthorIndex = () => {
   const [posts, setPosts] = useState([]);
@@ -18,7 +19,7 @@ const AuthorIndex = () => {
   }, []);
 
   const loadPostsByAuthor = async () => {
-    const { data } = await axios.get("/api/posts-by-author");
+    const { data } = await axios.get(`${URL_DEPLOY}/api/posts-by-author`);
     setPosts(data);
   };
 
@@ -26,7 +27,7 @@ const AuthorIndex = () => {
     try {
       const answer = window.confirm("Are you sure?");
       if (!answer) return;
-      const { data } = await axios.delete(`/api/post/${post._id}`);
+      const { data } = await axios.delete(`${URL_DEPLOY}/api/post/${post._id}`);
       loadPostsByAuthor();
       toast("Post deleted!");
     } catch (err) {
@@ -40,7 +41,9 @@ const AuthorIndex = () => {
     try {
       let answer = window.confirm("Are you sure you want to publish?");
       if (!answer) return;
-      const { data } = await axios.put(`/api/post/publish/${post._id}`);
+      const { data } = await axios.put(
+        `${URL_DEPLOY}/api/post/publish/${post._id}`
+      );
       // console.log("COURSE PUBLISHED RES", data);
       toast("Congrats. Your post live published!");
       loadPostsByAuthor();
@@ -55,7 +58,9 @@ const AuthorIndex = () => {
     try {
       let answer = window.confirm("Are you sure you want to unpublish?");
       if (!answer) return;
-      const { data } = await axios.put(`/api/post/unpublish/${post._id}`);
+      const { data } = await axios.put(
+        `${URL_DEPLOY}/api/post/unpublish/${post._id}`
+      );
       toast("Your post is unpublished");
       loadPostsByAuthor();
     } catch (err) {
@@ -75,7 +80,10 @@ const AuthorIndex = () => {
             <div className="media-body pl-2">
               <div className="row">
                 <div className="col">
-                  <Link href={`/author/post/${post.slug}`} className="pointer">
+                  <Link
+                    href={`${URL_DEPLOY}/author/post/${post.slug}`}
+                    className="pointer"
+                  >
                     <a>
                       <h5 className="mt-2 text-primary">
                         <Avatar>{index + 1}</Avatar> {post.title}

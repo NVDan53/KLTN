@@ -6,6 +6,7 @@ import S3 from "aws-sdk/clients/s3";
 import slugify from "slugify";
 import { nanoid } from "nanoid";
 import { readFileSync } from "fs";
+import Course from "../models/course";
 
 const s3 = new S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -28,7 +29,7 @@ export const uploadImage = async (req, res) => {
 
     // image params
     const params = {
-      Bucket: "post-image-bucket",
+      Bucket: "stress-bucket",
       Key: `${nanoid()}.${type}`,
       Body: base64Data,
       ACL: "public-read",
@@ -50,9 +51,9 @@ export const uploadImage = async (req, res) => {
   }
 };
 
-exports.create = async (req, res) => {
+export const create = async (req, res) => {
   try {
-    const { title, body, categories } = req.body;
+    const { title, thumbnail, body, categories } = req.body;
     // check if title is taken
     const alreadyExist = await Post.findOne({
       slug: slugify(title.toLowerCase()),
@@ -74,6 +75,7 @@ exports.create = async (req, res) => {
     setTimeout(async () => {
       const newPost = await new Post({
         title,
+        thumbnail,
         slug: slugify(title.toLowerCase()),
         body,
         categories: ids,
@@ -128,7 +130,7 @@ export const read = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    const { postId, title, body, categories } = req.body;
+    const { postId, title, thumbnail, body, categories } = req.body;
     // find post
     const foundPost = await Post.findById(postId).select("postedBy").exec();
     // is owner?
@@ -150,6 +152,7 @@ exports.update = async (req, res) => {
         { slug: req.params.slug },
         {
           title,
+          thumbnail,
           slug: slugify(title),
           body,
           categories: ids,
@@ -303,5 +306,19 @@ export const unpublishPostByAdmin = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(400).send("Unpublish post failed");
+  }
+};
+
+export const search = async (req, res) => {
+  const name = { $regex: req.query.name };
+  console.log("NAME:", name);
+  try {
+    const courses = await Course.find({ name }).exec();
+
+    const posts = await Post.find({ title: name }).exec();
+
+    res.json({ courses, posts });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
   }
 };

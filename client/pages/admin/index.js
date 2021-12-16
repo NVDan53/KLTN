@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Tabs } from "antd";
 import AdminRoute from "../../components/routes/AdminRoute";
-
+const { URL_DEPLOY } = process.env.local;
 const { TabPane } = Tabs;
 
 const AdminIndex = () => {
@@ -27,7 +27,7 @@ const AdminIndex = () => {
   }, []);
 
   const loadUsers = async () => {
-    const { data } = await axios.get("/api/admin/users");
+    const { data } = await axios.get(`${URL_DEPLOY}/api/admin/users`);
     setUsers(data);
   };
 

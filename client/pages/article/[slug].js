@@ -8,34 +8,37 @@ import { withRouter } from "next/router";
 import { markdownToTxt } from "markdown-to-txt";
 import axios from "axios";
 import CoursePromo from "../../components/misc/CoursePromo";
+import PostCard from "../../components/cards/PostCard";
 
-const SinglePost = ({ post }) => {
+const SinglePost = ({ postItem, posts }) => {
+  // console.log("POST:", post);
+
   const head = () => (
     <Head>
       <title>
-        {post.title} | {process.env.APP_NAME}
+        {postItem.title} | {process.env.APP_NAME}
       </title>
       <meta
         name="description"
-        content={markdownToTxt(post.body.substring(0, 300))}
+        content={markdownToTxt(postItem.body.substring(0, 300))}
       />
       <link
         rel="canonical"
-        href={`${process.env.DOMAIN}/article/${post.slug}`}
+        href={`${process.env.DOMAIN}/article/${postItem.slug}`}
       />
       <meta
         property="og:title"
-        content={`${post.title} | ${process.env.APP_NAME}`}
+        content={`${postItem.title} | ${process.env.APP_NAME}`}
       />
       <meta
         property="og:description"
-        content={`${post.title} | ${process.env.APP_NAME}`}
+        content={`${postItem.title} | ${process.env.APP_NAME}`}
       />
-      <meta name="author" content={post.postedBy.name} />
+      <meta name="author" content={postItem.postedBy.name} />
       <meta property="og:type" content="website" />
       <meta
         property="og:url"
-        content={`${process.env.DOMAIN}/post/${post.slug}`}
+        content={`${process.env.DOMAIN}/post/${postItem.slug}`}
       />
       <meta property="og:site_name" content={process.env.APP_NAME} />
       <meta property="og:image" content={`${process.env.DOMAIN}/default.jpg`} />
@@ -55,11 +58,11 @@ const SinglePost = ({ post }) => {
         {/* full width row for heading */}
         <div className="row">
           <div className="col pt-3">
-            <h1>{post.title}</h1>
+            <h1>{postItem.title}</h1>
             <p>
               <small className="text-muted">
-                {post.postedBy ? post.postedBy.name : ""}{" "}
-                {new Date(post.updatedAt).toLocaleDateString()}
+                {postItem.postedBy ? postItem.postedBy.name : ""}{" "}
+                {new Date(postItem.updatedAt).toLocaleDateString()}
               </small>
             </p>
           </div>
@@ -69,13 +72,13 @@ const SinglePost = ({ post }) => {
           <div className="col-md-8 single-post">
             <hr />
             <ReactMarkdown
-              source={post.body}
+              source={postItem.body}
               renderers={{ code: CodeBlock }}
               className="lead single-post"
             />
             <br />
-            {post.categories &&
-              post.categories.map((c) => (
+            {postItem.categories &&
+              postItem.categories.map((c) => (
                 <Tag key={c.name}>
                   {c.name}
                   {/* <Link href="/category/[slug]" as={`/category/${c.slug}`}>
@@ -87,14 +90,24 @@ const SinglePost = ({ post }) => {
             <div className="p-4"></div>
 
             <DisqusThread
-              id={post._id}
-              title={post.title}
-              path={`/article/${post.slug}`}
+              id={postItem._id}
+              title={postItem.title}
+              path={`/article/${postItem.slug}`}
             />
           </div>
 
           <div className="col-md-4">
-            <CoursePromo />
+            <h2>Relative blogs</h2>
+            {/* <cite>(Comming soon by Henry)</cite> */}
+
+            {posts
+              ?.filter((post) => post.title !== postItem.title)
+              .slice(0, 5)
+              .map((post) => (
+                <div key={post._id}>
+                  <PostCard post={post} />
+                </div>
+              ))}
           </div>
         </div>
         {/* col 4 for promo */}
@@ -115,10 +128,11 @@ export async function getServerSideProps(ctx) {
   const { data } = await axios.get(
     `${process.env.API}/post/${ctx.params.slug}`
   );
-  // console.log("DATA LENGTH =====> ", data.length);
+  const postList = await axios.get(`${process.env.API}/posts`);
   return {
     props: {
-      post: data,
+      postItem: data,
+      posts: postList.data,
     },
   };
 }

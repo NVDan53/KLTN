@@ -6,11 +6,13 @@ import Link from "next/link";
 import { Context } from "../context";
 import { useRouter } from "next/router";
 
+const { URL_DEPLOY } = process.env.local;
+
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [code, setCode] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  // const [success, setSuccess] = useState(false);
+  // const [code, setCode] = useState("");
+  // const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   // context
   const {
@@ -30,11 +32,11 @@ const ForgotPassword = () => {
     try {
       setLoading(true);
       // send code to user email
-      let { data } = await axios.post(`/api/forgot-password`, {
+      let { data } = await axios.post(`${URL_DEPLOY}/api/forgot-password`, {
         email,
       });
       // shoe code input field
-      setSuccess(true);
+      // setSuccess(true);
       setLoading(false);
       // ask user to check email and enter code
       toast("Check your email for the secret code.");
@@ -44,28 +46,28 @@ const ForgotPassword = () => {
     }
   };
 
-  const handleResetPassword = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      // send code to user email
-      let { data } = await axios.post(`/api/reset-password`, {
-        email,
-        code,
-        newPassword,
-      });
-      setEmail("");
-      setCode("");
-      setNewPassword("");
-      setLoading(false);
-      // ask user to check email and enter code
-      toast("Great! Now you can login with your new password");
-      router.push("/login");
-    } catch (err) {
-      setLoading(false);
-      toast(err.response.data);
-    }
-  };
+  // const handleResetPassword = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     setLoading(true);
+  //     // send code to user email
+  //     let { data } = await axios.post(`/api/reset-password`, {
+  //       email,
+  //       code,
+  //       newPassword,
+  //     });
+  //     setEmail("");
+  //     setCode("");
+  //     setNewPassword("");
+  //     setLoading(false);
+  //     // ask user to check email and enter code
+  //     toast("Great! Now you can login with your new password");
+  //     router.push("/login");
+  //   } catch (err) {
+  //     setLoading(false);
+  //     toast(err.response.data);
+  //   }
+  // };
 
   return (
     <>
@@ -73,7 +75,7 @@ const ForgotPassword = () => {
         Password Reset
       </h1>
       <div className="container col-md-4 offset-md-4 pb-5">
-        <form onSubmit={success ? handleResetPassword : handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <input
             type="email"
             className="form-control mb-4 p-4"
@@ -82,27 +84,27 @@ const ForgotPassword = () => {
             placeholder="Enter email"
             required
           />
-          {success && (
+          {
             <>
-              <input
+              {/* <input
                 type="text"
                 className="form-control mb-4 p-4"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 placeholder="Enter secret code"
                 required
-              />
+              /> */}
 
-              <input
+              {/* <input
                 type="password"
                 className="form-control mb-4 p-4"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Enter new password"
                 required
-              />
+              /> */}
             </>
-          )}
+          }
 
           <button
             type="submit"

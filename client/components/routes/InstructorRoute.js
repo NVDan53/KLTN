@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import InstructorNav from "../nav/InstructorNav";
 
+const { URL_DEPLOY } = process.env.local;
+
 const InstructorRoute = ({ children }) => {
   const [ok, setOk] = useState(false);
   const router = useRouter();
@@ -14,7 +16,7 @@ const InstructorRoute = ({ children }) => {
 
   const fetchInstructor = async () => {
     try {
-      let { data } = await axios.get("/api/current-instructor");
+      let { data } = await axios.get(`${URL_DEPLOY}/api/current-instructor`);
       // console.log("current-user", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

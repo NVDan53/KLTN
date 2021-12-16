@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { Context } from "../../context";
 import { SyncOutlined } from "@ant-design/icons";
 
+const { URL_DEPLOY } = process.env.local;
+
 const ContactForm = ({ loadUserIssues = (f) => f }) => {
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
@@ -27,7 +29,7 @@ const ContactForm = ({ loadUserIssues = (f) => f }) => {
     event.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/contact-support", {
+      const { data } = await axios.post(`${URL_DEPLOY}/api/contact-support`, {
         url,
         name,
         email,
