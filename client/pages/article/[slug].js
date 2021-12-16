@@ -126,9 +126,9 @@ const SinglePost = ({ postItem, posts }) => {
 
 export async function getServerSideProps(ctx) {
   const { data } = await axios.get(
-    `${process.env.API}/post/${ctx.params.slug}`
+    `${process.env.URL_DEPLOY}/api/post/${ctx.params.slug}`
   );
-  const postList = await axios.get(`${process.env.API}/posts`);
+  const postList = await axios.get(`${process.env.URL_DEPLOY}/api/posts`);
   return {
     props: {
       postItem: data,

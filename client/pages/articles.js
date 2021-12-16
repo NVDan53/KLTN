@@ -58,7 +58,7 @@ const Articles = ({ posts, router }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.API}/posts`);
+  const { data } = await axios.get(`${process.env.URL_DEPLOY}/api/posts`);
   // console.log("DATA LENGTH =====> ", data.length);
   return {
     props: {

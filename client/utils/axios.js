@@ -1,11 +1,12 @@
 import axios from "axios";
 
 export const axiosPublic = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API,
+  // baseURL: process.env.NEXT_PUBLIC_API,
+  baseURL: `${process.env.URL_DEPLOY}/deploy`,
 });
 
 export const axiosAuth = axios.create({
-  baseURL: process.env.API,
+  baseURL: `${process.env.URL_DEPLOY}/deploy`,
 });
 
 // axiosAuth.interceptors.request.use(
