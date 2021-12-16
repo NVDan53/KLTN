@@ -31,7 +31,7 @@ const PostCard = ({ post }) => {
               {title && title.substring(0, 160)}
             </h2>
             <cite>by {postedBy.name}</cite>
-
+            <br></br>
             {categories.map((c) => (
               <Badge
                 key={c._id}
