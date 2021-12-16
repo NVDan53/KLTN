@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { stripeCurrencyFormatter } from "../../utils/helpers";
 
-const URL_DEPLOY = process.env.URL_DEPLOY;
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const InstructorRevenue = () => {
   const [balance, setBalance] = useState({ pending: [] });

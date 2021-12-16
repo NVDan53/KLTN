@@ -22,7 +22,7 @@ import { Context } from "../../../context";
 import { useWindowWidth } from "@react-hook/window-size";
 import CodeBlock from "../../../components/marked/CodeBlock";
 
-const URL_DEPLOY = process.env.URL_DEPLOY;
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const { Item } = Menu;
 

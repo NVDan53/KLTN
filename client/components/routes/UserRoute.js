@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import UserNav from "../nav/UserNav";
 
-const URL_DEPLOY = process.env.URL_DEPLOY;
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const UserRoute = ({ children, showNav = true }) => {
   const [ok, setOk] = useState(false);

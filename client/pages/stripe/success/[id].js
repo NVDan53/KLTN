@@ -4,7 +4,7 @@ import UserRoute from "../../../components/routes/UserRoute";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const URL_DEPLOY = process.env.URL_DEPLOY;
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const StripeSuccess = () => {
   // router

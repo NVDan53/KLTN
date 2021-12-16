@@ -63,7 +63,9 @@ const Index = ({ courses, router }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.URL_DEPLOY}/api/courses`);
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL_DEPLOY}/api/courses`
+  );
   // console.log("DATA LENGTH =====> ", data.length);
   return {
     props: {

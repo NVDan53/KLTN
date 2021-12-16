@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Tabs } from "antd";
 import AdminRoute from "../../components/routes/AdminRoute";
-const URL_DEPLOY = process.env.URL_DEPLOY;
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 const { TabPane } = Tabs;
 
 const AdminIndex = () => {

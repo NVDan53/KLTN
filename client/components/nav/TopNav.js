@@ -21,7 +21,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import SearchForm from "../forms/SearchForm";
 
-const URL_DEPLOY = process.env.URL_DEPLOY
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 // https://prawira.medium.com/react-conditional-import-conditional-css-import-110cc58e0da6
 
