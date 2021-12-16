@@ -53,7 +53,7 @@ function SearchForm() {
     <form style={{ position: "relative" }} autoComplete="off">
       <Search
         value={search}
-        placeholder="input search text"
+        placeholder="Find courses and blogs"
         enterButton="Search"
         size="large"
         loading={load}
