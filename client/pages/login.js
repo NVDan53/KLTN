@@ -64,7 +64,7 @@ const Login = () => {
 
   const responseGoogle = async (response) => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const res = await axios.post(
         "https://stress-apps.herokuapp.com/api/google_login",
         {
