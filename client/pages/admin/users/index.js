@@ -4,7 +4,7 @@ import { Tooltip } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
 import AdminRoute from "../../../components/routes/AdminRoute";
 
-const { URL_DEPLOY } = process.env;
+const URL_DEPLOY = process.env.URL_DEPLOY;
 
 const AdminUsersIndex = () => {
   const [users, setUsers] = useState([

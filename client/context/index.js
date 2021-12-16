@@ -2,7 +2,7 @@ import { useReducer, createContext, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-const { URL_DEPLOY } = process.env;
+const URL_DEPLOY = process.env.URL_DEPLOY;
 
 // initial state
 const initialState = {

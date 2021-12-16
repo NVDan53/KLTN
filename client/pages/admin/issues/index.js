@@ -11,7 +11,7 @@ import AdminRoute from "../../../components/routes/AdminRoute";
 import Link from "next/link";
 import { toast } from "react-toastify";
 
-const { URL_DEPLOY } = process.env;
+const URL_DEPLOY = process.env.URL_DEPLOY;
 
 const AdminIssuesIndex = () => {
   const [issues, setIssues] = useState([]);

@@ -9,7 +9,7 @@ import { List, Avatar, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import UpdateLessonForm from "../../../../components/forms/UpdateLessonForm";
 
-const { URL_DEPLOY } = process.env;
+const URL_DEPLOY = process.env.URL_DEPLOY;
 
 const { Item } = List;
 

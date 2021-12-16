@@ -3,7 +3,7 @@ import Link from "next/link";
 import axios from "axios";
 import { Badge } from "antd";
 
-const { URL_DEPLOY } = process.env;
+const URL_DEPLOY = process.env.URL_DEPLOY;
 
 const InstructorNav = () => {
   const [current, setCurrent] = useState("");

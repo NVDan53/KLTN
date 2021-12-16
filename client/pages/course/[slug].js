@@ -11,7 +11,7 @@ import Head from "next/head";
 import { markdownToTxt } from "markdown-to-txt";
 import DisqusThread from "../../components/DisqusThread";
 
-const { URL_DEPLOY } = process.env;
+const URL_DEPLOY = process.env.URL_DEPLOY;
 
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);

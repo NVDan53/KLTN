@@ -4,7 +4,7 @@ import { SyncOutlined } from "@ant-design/icons";
 import UserRoute from "../../components/routes/UserRoute";
 import axios from "axios";
 
-const { URL_DEPLOY } = process.env;
+const URL_DEPLOY = process.env.URL_DEPLOY;
 
 const StripeCallback = () => {
   const {

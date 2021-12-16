@@ -9,7 +9,7 @@ import {
   PlayCircleOutlined,
 } from "@ant-design/icons";
 
-const { URL_DEPLOY } = process.env;
+const URL_DEPLOY = process.env.URL_DEPLOY;
 
 const UserIndex = () => {
   const [courses, setCourses] = useState([]);
