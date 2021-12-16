@@ -27,7 +27,9 @@ const BecomeAuthor = () => {
   const makeAuthor = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/make-author");
+      const { data } = await axios.post(
+        "https://stress-apps.herokuapp.com/api/make-author"
+      );
       setLoading(false);
       dispatch({
         type: "LOGIN",

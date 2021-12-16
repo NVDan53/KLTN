@@ -20,7 +20,9 @@ const AdminIssuesIndex = () => {
   }, []);
 
   const loadIssues = async () => {
-    const { data } = await axios.get("/api/admin/issues");
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/admin/issues"
+    );
     setIssues(data);
   };
 
@@ -34,10 +36,13 @@ const AdminIssuesIndex = () => {
   const handleEnrollmentIssue = async (issue) => {
     setLoading(true);
     try {
-      const { data } = await axios.post(`/api/admin/refresh-user-status`, {
-        userId: issue.postedBy._id,
-        courseUrl: issue.course_url,
-      });
+      const { data } = await axios.post(
+        `https://stress-apps.herokuapp.com/api/admin/refresh-user-status`,
+        {
+          userId: issue.postedBy._id,
+          courseUrl: issue.course_url,
+        }
+      );
       console.log("SESSION REFRESH =>", data);
       toast(data.message);
       setLoading(false);
@@ -52,7 +57,9 @@ const AdminIssuesIndex = () => {
     console.log(issueId);
     setLoading(true);
     try {
-      const { data } = await axios.delete(`/api/admin/issue/delete/${issueId}`);
+      const { data } = await axios.delete(
+        `https://stress-apps.herokuapp.com/api/admin/issue/delete/${issueId}`
+      );
       loadIssues();
       // console.log("ISSUE RESOLVED =>", data);
       toast("Issue deleted");

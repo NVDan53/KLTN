@@ -50,7 +50,9 @@ const PostCreate = () => {
   }, []);
 
   const loadCategories = async () => {
-    const { data } = await axios.get("/api/categories");
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/categories"
+    );
     // console.log(data);
     setLoadedCategories(data);
   };
@@ -81,9 +83,12 @@ const PostCreate = () => {
       async (uri) => {
         // post to s3
         try {
-          let { data } = await axios.post("/api/post/upload-image", {
-            image: uri,
-          });
+          let { data } = await axios.post(
+            "https://stress-apps.herokuapp.com/api/post/upload-image",
+            {
+              image: uri,
+            }
+          );
           console.log("image uploaded", data);
           setBody(`${body} ![${file.name.replace(/\.[^/.]+$/, "")}](${data})`);
           // update local storage with image
@@ -108,12 +113,15 @@ const PostCreate = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/post", {
-        title,
-        thumbnail,
-        body,
-        categories,
-      });
+      const { data } = await axios.post(
+        "https://stress-apps.herokuapp.com/api/post",
+        {
+          title,
+          thumbnail,
+          body,
+          categories,
+        }
+      );
       localStorage.removeItem("title");
       localStorage.removeItem("body");
       toast("Post published");

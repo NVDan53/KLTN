@@ -73,7 +73,9 @@ const SingleCourse = ({ course }) => {
   }, [course, user]);
 
   const checkEnrollment = async () => {
-    const { data } = await axios.get(`/api/check-enrollment/${course._id}`);
+    const { data } = await axios.get(
+      `https://stress-apps.herokuapp.com/api/check-enrollment/${course._id}`
+    );
     // console.log("CHECK ENROLLMENT => ", data);
     setEnrolled(data);
   };
@@ -88,7 +90,9 @@ const SingleCourse = ({ course }) => {
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
       // console.log("enroll to this course > ", course._id);
-      const { data } = await axios.post(`/api/paid-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `https://stress-apps.herokuapp.com/api/paid-enrollment/${course._id}`
+      );
       // console.log("PAID ENROLLMENT => ", data);
       // load stripe for payment
       // on successful payment, user will get redirected to /stripe/success page
@@ -111,7 +115,9 @@ const SingleCourse = ({ course }) => {
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
       // console.log("enroll to this course > ", course._id);
-      const { data } = await axios.post(`/api/free-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `https://stress-apps.herokuapp.com/api/free-enrollment/${course._id}`
+      );
       console.log("FREE ENROLLMENT => ", data);
       toast(data.message);
       // redirect user to course page

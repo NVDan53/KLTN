@@ -7,7 +7,9 @@ export default function withAuth(Component) {
 
   withAuth.getServerSideProps = async (ctx) => {
     try {
-      const { data } = await axios.get(`/api/current-user`);
+      const { data } = await axios.get(
+        `https://stress-apps.herokuapp.com/api/current-user`
+      );
       console.log("data ===> ", data);
       if (data)
         return {

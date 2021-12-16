@@ -26,11 +26,14 @@ const Register = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      let { data } = await axios.post(`/api/register`, {
-        name,
-        email,
-        password,
-      });
+      let { data } = await axios.post(
+        `https://stress-apps.herokuapp.com/api/register`,
+        {
+          name,
+          email,
+          password,
+        }
+      );
       // console.log(data);
       if (data.ok) {
         // toast("Registration successful. Please login");

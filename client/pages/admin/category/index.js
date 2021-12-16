@@ -22,7 +22,9 @@ const AdminCategoryIndex = () => {
 
   const loadCategories = async () => {
     try {
-      let { data } = await axios.get("/api/categories");
+      let { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/categories"
+      );
       setCategories(data);
     } catch (err) {
       console.log(err);
@@ -33,7 +35,10 @@ const AdminCategoryIndex = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      let { data } = await axios.post("/api/category", { name });
+      let { data } = await axios.post(
+        "https://stress-apps.herokuapp.com/api/category",
+        { name }
+      );
       // console.log(data);
       setName("");
       setLoading(false);
@@ -49,7 +54,9 @@ const AdminCategoryIndex = () => {
 
   const handleDeleteClick = async (c) => {
     try {
-      let { data } = await axios.delete(`/api/category/${c.slug}`);
+      let { data } = await axios.delete(
+        `https://stress-apps.herokuapp.com/api/category/${c.slug}`
+      );
       // console.log(c.slug);
 
       toast(`${data.name} is deleted`);
@@ -72,7 +79,10 @@ const AdminCategoryIndex = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      let { data } = await axios.put(`/api/category/${slug}`, { name });
+      let { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/category/${slug}`,
+        { name }
+      );
       // console.log("updated", data);
       toast(`${data.name} is updated`);
       // update state, first remove updated category

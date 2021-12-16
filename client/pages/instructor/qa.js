@@ -54,7 +54,9 @@ const InstructorQa = () => {
   }, []);
 
   const loadQuestions = async () => {
-    const { data } = await axios.get("/api/instructor/qas");
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/instructor/qas"
+    );
     console.log("DATA ON LOAD_QUESTIONS => => ", data);
     setQas(data);
   };
@@ -70,7 +72,9 @@ const InstructorQa = () => {
       let answer = confirm("Are you sure you want to delete?");
       // if (answer) console.log("handle qa delete", qaId);
       if (!answer) return;
-      const { data } = await axios.delete(`/api/qa/${q._id}/${q.postedBy}`);
+      const { data } = await axios.delete(
+        `https://stress-apps.herokuapp.com/api/qa/${q._id}/${q.postedBy}`
+      );
       // console.log("DELETED QA => ", data);
       loadQuestions();
     } catch (err) {
@@ -89,7 +93,7 @@ const InstructorQa = () => {
       //   console.log("EDIT POST REQ => ", editValues);
       //   return;
       const { data } = await axios.put(
-        `/api/user/qa/${editValues._id}`,
+        `https://stress-apps.herokuapp.com/api/user/qa/${editValues._id}`,
         editValues
       );
       // console.log("EDIT POST RES => ", data);
@@ -117,11 +121,14 @@ const InstructorQa = () => {
     // return;
     try {
       setAnswerLoading(true);
-      const { data } = await axios.put(`/api/qa/answer`, {
-        questionId: currentQuestion._id,
-        content: answerContent,
-        userId: user._id,
-      });
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/qa/answer`,
+        {
+          questionId: currentQuestion._id,
+          content: answerContent,
+          userId: user._id,
+        }
+      );
       setAnswerContent("");
       setAnswerModalVisible(false);
       loadQuestions();
@@ -145,7 +152,10 @@ const InstructorQa = () => {
     try {
       setAnswerEditLoading(true);
       // console.log("handleEditAnswerPost => currentanswer", currentAnswer);
-      const { data } = await axios.put(`/api/qa/answer-edit`, currentAnswer);
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/qa/answer-edit`,
+        currentAnswer
+      );
       // console.log("ANSWER EDIT RES", data);
       loadQuestions();
       setAnswerEditModalVisible(false);
@@ -167,7 +177,7 @@ const InstructorQa = () => {
       if (!answer) return;
       // console.log("handle delete ans qa", a._id);
       const { data } = await axios.delete(
-        `/api/qa/answer-delete/${a._id}/${a.postedBy._id}`
+        `https://stress-apps.herokuapp.com/api/qa/answer-delete/${a._id}/${a.postedBy._id}`
       );
       loadQuestions();
       toast("Answer successfully deleted");
@@ -185,7 +195,7 @@ const InstructorQa = () => {
       if (!answer) return;
       // console.log("handle delete ans qa", a._id);
       const { data } = await axios.delete(
-        `/api/qa/answer-delete-by-instructor/${a._id}`
+        `https://stress-apps.herokuapp.com/api/qa/answer-delete-by-instructor/${a._id}`
       );
       loadQuestions();
       toast("Answer successfully deleted");
@@ -199,10 +209,13 @@ const InstructorQa = () => {
       //   console.log("QQQ markQaAsResolved => ", q);
       //   return;
       // console.log("mark as resolved", q._id, q.postedBy._id);
-      const { data } = await axios.put(`/api/qa/mark-resolved`, {
-        questionId: q._id,
-        postedBy: q.postedBy,
-      });
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/qa/mark-resolved`,
+        {
+          questionId: q._id,
+          postedBy: q.postedBy,
+        }
+      );
       loadQuestions();
       //   console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");
@@ -216,10 +229,13 @@ const InstructorQa = () => {
     try {
       //   console.log("QQQ markQaAsNotResolved => ", q);
       //   return;
-      const { data } = await axios.put(`/api/qa/mark-unresolved`, {
-        questionId: q._id,
-        postedBy: q.postedBy,
-      });
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/qa/mark-unresolved`,
+        {
+          questionId: q._id,
+          postedBy: q.postedBy,
+        }
+      );
       loadQuestions();
       //   console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");
@@ -237,7 +253,9 @@ const InstructorQa = () => {
       let answer = confirm("Are you sure you want to delete?");
       // if (answer) console.log("handle qa delete", qaId);
       if (!answer) return;
-      const { data } = await axios.delete(`/api/qa-by-instructor/${q._id}`);
+      const { data } = await axios.delete(
+        `https://stress-apps.herokuapp.com/api/qa-by-instructor/${q._id}`
+      );
       // console.log("DELETED QA => ", data);
       loadQuestions();
     } catch (err) {
@@ -250,9 +268,12 @@ const InstructorQa = () => {
       //   console.log("QQQ markQaAsResolved => ", q);
       //   return;
       // console.log("mark as resolved", q._id, q.postedBy._id);
-      const { data } = await axios.put(`/api/qa/mark-resolved-by-instructor`, {
-        questionId: q._id,
-      });
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/qa/mark-resolved-by-instructor`,
+        {
+          questionId: q._id,
+        }
+      );
       loadQuestions();
       //   console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");
@@ -267,7 +288,7 @@ const InstructorQa = () => {
       //   console.log("QQQ markQaAsNotResolved => ", q);
       //   return;
       const { data } = await axios.put(
-        `/api/qa/mark-unresolved-by-instructor`,
+        `https://stress-apps.herokuapp.com/api/qa/mark-unresolved-by-instructor`,
         {
           questionId: q._id,
         }

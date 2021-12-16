@@ -26,7 +26,9 @@ const AdminUsersIndex = () => {
   }, []);
 
   const loadUsers = async () => {
-    const { data } = await axios.get("/api/admin/users");
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/admin/users"
+    );
     setUsers(data);
   };
 

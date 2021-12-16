@@ -27,12 +27,15 @@ const ContactForm = ({ loadUserIssues = (f) => f }) => {
     event.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/contact-support", {
-        url,
-        name,
-        email,
-        message,
-      });
+      const { data } = await axios.post(
+        "https://stress-apps.herokuapp.com/api/contact-support",
+        {
+          url,
+          name,
+          email,
+          message,
+        }
+      );
       setLoading(false);
       toast(
         "Thank you. We will try our best to resolve your issue as soon as possible"

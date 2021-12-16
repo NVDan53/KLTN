@@ -22,7 +22,9 @@ const UserIndex = () => {
   }, []);
 
   const loadUserIssues = async () => {
-    const { data } = await axios.get("/api/user/issues");
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/user/issues"
+    );
     console.log(data);
     setIssues(data);
   };
@@ -30,9 +32,12 @@ const UserIndex = () => {
   const markResolved = async (issueId) => {
     setLoading(true);
     try {
-      const { data } = await axios.put(`/api/user/issue/mark-resolved`, {
-        issueId,
-      });
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/user/issue/mark-resolved`,
+        {
+          issueId,
+        }
+      );
       loadUserIssues();
       // console.log("ISSUE RESOLVED =>", data);
       toast("You marked it resolved");
@@ -48,7 +53,9 @@ const UserIndex = () => {
     console.log(issueId);
     setLoading(true);
     try {
-      const { data } = await axios.delete(`/api/user/issue/delete/${issueId}`);
+      const { data } = await axios.delete(
+        `https://stress-apps.herokuapp.com/api/user/issue/delete/${issueId}`
+      );
       loadUserIssues();
       // console.log("ISSUE RESOLVED =>", data);
       toast("Issue deleted");

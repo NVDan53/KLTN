@@ -46,15 +46,20 @@ const CourseView = () => {
   }, [course]);
 
   const fetchCourse = async () => {
-    let { data } = await axios.get(`/api/course/${slug}`);
+    let { data } = await axios.get(
+      `https://stress-apps.herokuapp.com/api/course/${slug}`
+    );
     // console.log(data);
     setCourse(data);
   };
 
   const studentCount = async () => {
-    const { data } = await axios.post(`/api/instructor/student-count`, {
-      courseId: course._id,
-    });
+    const { data } = await axios.post(
+      `https://stress-apps.herokuapp.com/api/instructor/student-count`,
+      {
+        courseId: course._id,
+      }
+    );
     // console.log("STUDENT COUNT => ", data.length);
     setStudents(data.length);
   };
@@ -63,7 +68,10 @@ const CourseView = () => {
     e.preventDefault();
     // console.log("**SEND TO BACKEND**", course);
     // console.table({ values });
-    let { data } = await axios.post(`/api/course/lesson/${course._id}`, values);
+    let { data } = await axios.post(
+      `https://stress-apps.herokuapp.com/api/course/lesson/${course._id}`,
+      values
+    );
     console.log("LESSON ADDED AND SAVED ===> ", data);
     setValues({ ...values, title: "", content: "", video: {} });
     setUploadButtonText("Upload video");
@@ -85,7 +93,7 @@ const CourseView = () => {
       videoData.append("courseId", course._id);
       // save progress bar and send video as form data to backend
       const { data } = await axios.post(
-        `/api/course/upload-video/${course._id}`,
+        `https://stress-apps.herokuapp.com/api/course/upload-video/${course._id}`,
         videoData,
         {
           onUploadProgress: (e) =>
@@ -106,7 +114,7 @@ const CourseView = () => {
   const handleVideoRemove = async () => {
     // remove video from s3
     const { data } = await axios.post(
-      `/api/course/remove-video/${course._id}`,
+      `https://stress-apps.herokuapp.com/api/course/remove-video/${course._id}`,
       values.video
     );
     console.log("remove uploaded video", data);
@@ -124,7 +132,9 @@ const CourseView = () => {
         "Once you publish your course, it will be live in the marketplace for students to enroll."
       );
       if (!answer) return;
-      const { data } = await axios.put(`/api/course/publish/${course._id}`);
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/course/publish/${course._id}`
+      );
       // console.log("COURSE PUBLISHED RES", data);
       toast("Congrats. Your course is now live in marketplace!");
       setCourse(data);
@@ -141,7 +151,9 @@ const CourseView = () => {
         "Once you unpublish your course, it will not appear in the marketplace for students to enroll."
       );
       if (!answer) return;
-      const { data } = await axios.put(`/api/course/unpublish/${course._id}`);
+      const { data } = await axios.put(
+        `https://stress-apps.herokuapp.com/api/course/unpublish/${course._id}`
+      );
       toast("Your course is now removed from the marketplace!");
       setCourse(data);
     } catch (err) {

@@ -35,7 +35,9 @@ const CourseCreate = () => {
   }, []);
 
   const loadCategories = async () => {
-    const { data } = await axios.get("/api/categories");
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/categories"
+    );
     // console.log(data);
     setCategoryList(data);
   };
@@ -47,11 +49,14 @@ const CourseCreate = () => {
 
   const handleSubmit = async (e) => {
     try {
-      const { data } = await axios.post("/api/course", {
-        ...values,
-        categories: selectedCategories,
-        image,
-      });
+      const { data } = await axios.post(
+        "https://stress-apps.herokuapp.com/api/course",
+        {
+          ...values,
+          categories: selectedCategories,
+          image,
+        }
+      );
       // console.log(data);
       toast("Great! Now you can start adding lectures");
       router.push("/instructor");
@@ -78,9 +83,12 @@ const CourseCreate = () => {
       async (uri) => {
         // post to s3
         try {
-          let { data } = await axios.post("/api/course/upload-image", {
-            image: uri,
-          });
+          let { data } = await axios.post(
+            "https://stress-apps.herokuapp.com/api/course/upload-image",
+            {
+              image: uri,
+            }
+          );
           // console.log("image uploaded", data);
           setImage(data);
           setValues({ ...values, loading: false });
@@ -98,7 +106,10 @@ const CourseCreate = () => {
     try {
       console.log("remove image from s3 ===> ", image.Key);
       setValues({ ...values, loading: true });
-      let { data } = await axios.post("/api/course/remove-image", { image });
+      let { data } = await axios.post(
+        "https://stress-apps.herokuapp.com/api/course/remove-image",
+        { image }
+      );
       // console.log("Remove image ===> ", data);
       if (data.ok) {
         setImage({});
