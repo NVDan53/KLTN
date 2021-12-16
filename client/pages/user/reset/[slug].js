@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { SyncOutlined } from "@ant-design/icons";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 function resetPassword() {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);

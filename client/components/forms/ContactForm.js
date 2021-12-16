@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { Context } from "../../context";
 import { SyncOutlined } from "@ant-design/icons";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const ContactForm = ({ loadUserIssues = (f) => f }) => {
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");

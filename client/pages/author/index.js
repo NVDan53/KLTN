@@ -9,6 +9,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const AuthorIndex = () => {
   const [posts, setPosts] = useState([]);
@@ -83,7 +84,10 @@ const AuthorIndex = () => {
             <div className="media-body pl-2">
               <div className="row">
                 <div className="col">
-                  <Link href={`/author/post/${post.slug}`} className="pointer">
+                  <Link
+                    href={`${URL_DEPLOY}/author/post/${post.slug}`}
+                    className="pointer"
+                  >
                     <a>
                       <h5 className="mt-2 text-primary">
                         <Avatar>{index + 1}</Avatar> {post.title}

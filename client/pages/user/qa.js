@@ -18,6 +18,8 @@ import AddAnswer from "../../components/qa/AddAnswer";
 import EditAnswer from "../../components/qa/EditAnswer";
 import { Context } from "../../context";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const UserQa = () => {
   // state
   const {

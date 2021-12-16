@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Context } from "../../context";
 import { useRouter } from "next/router";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const RegisterActivate = () => {
   // state
   const [loading, setLoading] = useState(true);

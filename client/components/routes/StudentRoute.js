@@ -3,6 +3,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const StudentRoute = ({ children, showNav = true }) => {
   const [ok, setOk] = useState(false);
   const router = useRouter();

@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 
 import { GoogleLogin } from "react-google-login";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,7 +63,6 @@ const Login = () => {
   };
 
   const responseGoogle = async (response) => {
-    console.log(response);
     try {
       setLoading(true);
       const res = await axios.post(
@@ -87,10 +88,10 @@ const Login = () => {
       } else {
         router.push("/user");
       }
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
       toast(error.response.data.msg);
-      setLoading(false);
+      // setLoading(false);
     }
   };
 

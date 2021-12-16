@@ -14,6 +14,8 @@ import AuthorTerms from "../../components/modal/AuthorTerms";
 import { Context } from "../../context";
 import { useRouter } from "next/router";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const BecomeAuthor = () => {
   const {
     state: { user },

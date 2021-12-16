@@ -7,6 +7,8 @@ import CategoryForm from "../../../components/forms/CategoryForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const AdminCategoryIndex = () => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -57,10 +59,8 @@ const AdminCategoryIndex = () => {
       let { data } = await axios.delete(
         `https://stress-apps.herokuapp.com/api/category/${c.slug}`
       );
-      // console.log(c.slug);
 
-      toast(`${data.name} is deleted`);
-      // update state
+      // console.log(c.slug);
       let filtered = categories.filter((category) => category.slug !== c.slug);
       setCategories(filtered);
     } catch (err) {

@@ -10,6 +10,8 @@ import {
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const AdminPostIndex = () => {
   const [posts, setPosts] = useState([]);
 

@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import AuthorNav from "../nav/AuthorNav";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const AuthorRoute = ({ children }) => {
   const [ok, setOk] = useState(false);
   const router = useRouter();

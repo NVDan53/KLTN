@@ -11,6 +11,8 @@ import Head from "next/head";
 import { markdownToTxt } from "markdown-to-txt";
 import DisqusThread from "../../components/DisqusThread";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
   const [preview, setPreview] = useState("");
@@ -180,7 +182,7 @@ const SingleCourse = ({ course }) => {
 
 export async function getServerSideProps({ query }) {
   const { data } = await axios.get(
-    `${process.env.API}/course/public/${query.slug}`
+    `${process.env.NEXT_PUBLIC_URL_DEPLOY}/api/course/public/${query.slug}`
   );
   return {
     props: {

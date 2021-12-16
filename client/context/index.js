@@ -2,6 +2,8 @@ import { useReducer, createContext, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 // initial state
 const initialState = {
   user: null,

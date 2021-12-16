@@ -3,6 +3,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 function ActivationEmail() {
   const router = useRouter();
   const activation_token = router.query.slug;

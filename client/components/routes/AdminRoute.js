@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import AdminNav from "../nav/AdminNav";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const AdminRoute = ({ children }) => {
   const [ok, setOk] = useState(false);
   const router = useRouter();

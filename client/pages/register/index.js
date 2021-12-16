@@ -5,6 +5,8 @@ import { SyncOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { Context } from "../../context";
 
+const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
