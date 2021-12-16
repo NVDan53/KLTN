@@ -60,9 +60,8 @@ const Login = () => {
   };
 
   const responseGoogle = async (response) => {
-    console.log(response);
     try {
-      setLoading(true);
+      // setLoading(true);
       const res = await axios.post(`${URL_DEPLOY}/api/google_login`, {
         tokenId: response.tokenId,
       });
@@ -83,10 +82,10 @@ const Login = () => {
       } else {
         router.push("/user");
       }
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
       toast(error.response.data.msg);
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
