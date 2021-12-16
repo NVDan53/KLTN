@@ -15,7 +15,7 @@ app
       server.use(
         "/api",
         createProxyMiddleware({
-          target: "http://localhost:8000",
+          target: "https://stress-apps.herokuapp.com",
           changeOrigin: true,
         })
       );
