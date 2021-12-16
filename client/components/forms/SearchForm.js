@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "antd/dist/antd.css";
 import { Input } from "antd";
 import Link from "next/link";
@@ -9,16 +9,18 @@ function SearchForm() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [load, setLoad] = useState(false);
+  const typingTimeoutRef = useRef(null);
 
   const { courses, posts } = data;
 
   const handleSearch = async (value, e) => {
     e.preventDefault();
-    if (!search) return;
 
+    console.log("VALUE", value);
+    if (!value || value.search === "") return;
     try {
       setLoad(true);
-      const res = await axios.get(`/api/search?name=${search}`);
+      const res = await axios.get(`/api/search?name=${value.search}`);
       console.log("SEARCH RESULT:", res);
       setData(res.data);
       setLoad(false);
@@ -28,31 +30,75 @@ function SearchForm() {
     }
   };
 
+  const handleOnChange = async (e) => {
+    const value = e.target.value;
+    setSearch(value);
+
+    // if (!search) return;
+
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    typingTimeoutRef.current = setTimeout(() => {
+      const formValues = {
+        search: value,
+      };
+
+      handleSearch(formValues, e);
+    }, 600);
+  };
+
   return (
-    <div style={{ position: "relative" }}>
+    <form style={{ position: "relative" }} autoComplete="off">
       <Search
         value={search}
         placeholder="input search text"
         enterButton="Search"
         size="large"
         loading={load}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={handleOnChange}
         onSearch={handleSearch}
       />
-      <div
+      <ul
         style={{
           position: "absolute",
           zIndex: "20",
           width: "100%",
           minWidth: "250px",
           maxHeight: "calc(100vh - 150px)",
-          overflow: "auto",
+          overflowY: "hidden",
+          overflowX: "hidden",
           marginTop: "3px",
           background: "#fff",
           padding: "0 11px",
         }}
       >
-        {search && courses?.map((course) => <p>{course.name}</p>)}
+        {search &&
+          courses?.map((course) => {
+            return (
+              <li
+                style={{
+                  overflow: "hidden",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  textOverflow: "ellipsis",
+                  WebkitLineClamp: "1",
+                }}
+              >
+                <Link href={`/course/${course.slug}`}>
+                  <a
+                    style={{
+                      display: "block",
+                    }}
+                    className="reset-before"
+                  >
+                    {course.name}
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
 
         {search &&
           posts?.map((post) => {
@@ -61,8 +107,9 @@ function SearchForm() {
                 style={{
                   overflow: "hidden",
                   display: "-webkit-box",
-                  webkitBoxOrient: "vertical",
-                  webkitLineClamp: "1",
+                  WebkitBoxOrient: "vertical",
+                  textOverflow: "ellipsis",
+                  WebkitLineClamp: "1",
                 }}
               >
                 <Link href={`/article/${post.slug}`}>
@@ -71,8 +118,8 @@ function SearchForm() {
               </li>
             );
           })}
-      </div>
-    </div>
+      </ul>
+    </form>
   );
 }
 
