@@ -182,7 +182,7 @@ export const login = async (req, res) => {
     // so to protect token use true
     res.cookie("token", token, {
       httpOnly: true,
-      // secure: true // only works on https
+      secure: true, // only works on https
     });
 
     res.json(user);
@@ -267,8 +267,8 @@ export const forgotPassword = async (req, res) => {
     user.password = undefined;
     // send token to cookie
     res.cookie("token", token, {
-      // httpOnly: true,
-      // secure: true, // only works on https
+      httpOnly: true,
+      secure: true, // only works on https
     });
     const url = `${process.env.CLIENT_URL}/user/reset/${token}`;
     sendMail(email, url, "Reset your password");
@@ -391,8 +391,8 @@ export const googleLogin = async (req, res) => {
       user.password = undefined;
       // send token to cookie
       res.cookie("token", token, {
-        // httpOnly: true,
-        // secure: true, // only works on https
+        httpOnly: true,
+        secure: true, // only works on https
       });
       res.json(user);
     } else {
@@ -413,8 +413,8 @@ export const googleLogin = async (req, res) => {
       // user.password = undefined;
       // send token to cookie
       res.cookie("token", token, {
-        // httpOnly: true,
-        // secure: true, // only works on https
+        httpOnly: true,
+        secure: true, // only works on https
       });
       res.json(newUser);
     }
