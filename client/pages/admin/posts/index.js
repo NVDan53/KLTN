@@ -10,6 +10,8 @@ import {
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
 
+const { URL_DEPLOY } = process.env.local;
+
 const AdminPostIndex = () => {
   const [posts, setPosts] = useState([]);
 
@@ -18,7 +20,7 @@ const AdminPostIndex = () => {
   }, []);
 
   const loadPosts = async () => {
-    const { data } = await axios.get("/api/admin/posts");
+    const { data } = await axios.get(`${URL_DEPLOY}/api/admin/posts`);
     setPosts(data);
   };
 
@@ -26,7 +28,9 @@ const AdminPostIndex = () => {
     try {
       const answer = window.confirm("Are you sure?");
       if (!answer) return;
-      const { data } = await axios.delete(`/api/admin/post/${post._id}`);
+      const { data } = await axios.delete(
+        `${URL_DEPLOY}/api/admin/post/${post._id}`
+      );
       loadPosts();
       toast("Post deleted!");
     } catch (err) {
@@ -40,7 +44,9 @@ const AdminPostIndex = () => {
     try {
       let answer = window.confirm("Are you sure you want to publish?");
       if (!answer) return;
-      const { data } = await axios.put(`/api/admin/post/publish/${post._id}`);
+      const { data } = await axios.put(
+        `${URL_DEPLOY}/api/admin/post/publish/${post._id}`
+      );
       // console.log("COURSE PUBLISHED RES", data);
       toast("Congrats. Your post live published!");
       loadPosts();
@@ -55,7 +61,9 @@ const AdminPostIndex = () => {
     try {
       let answer = window.confirm("Are you sure you want to unpublish?");
       if (!answer) return;
-      const { data } = await axios.put(`/api/admin/post/unpublish/${post._id}`);
+      const { data } = await axios.put(
+        `${URL_DEPLOY}/api/admin/post/unpublish/${post._id}`
+      );
       toast("Your post is unpublished");
       loadPosts();
     } catch (err) {

@@ -9,6 +9,8 @@ import {
   PlayCircleOutlined,
 } from "@ant-design/icons";
 
+const { URL_DEPLOY } = process.env.local;
+
 const UserIndex = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +20,7 @@ const UserIndex = () => {
   }, []);
 
   const loadCourses = async () => {
-    const { data } = await axios.get(`/api/user-courses`);
+    const { data } = await axios.get(`${URL_DEPLOY}/api/user-courses`);
     console.log(data);
     setCourses(data);
   };

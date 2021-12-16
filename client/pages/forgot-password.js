@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Context } from "../context";
 import { useRouter } from "next/router";
 
+const { URL_DEPLOY } = process.env.local;
+
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   // const [success, setSuccess] = useState(false);
@@ -30,7 +32,7 @@ const ForgotPassword = () => {
     try {
       setLoading(true);
       // send code to user email
-      let { data } = await axios.post(`/api/forgot-password`, {
+      let { data } = await axios.post(`${URL_DEPLOY}/api/forgot-password`, {
         email,
       });
       // shoe code input field

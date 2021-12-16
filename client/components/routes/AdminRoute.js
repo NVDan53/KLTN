@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import AdminNav from "../nav/AdminNav";
 
+const { URL_DEPLOY } = process.env.local;
+
 const AdminRoute = ({ children }) => {
   const [ok, setOk] = useState(false);
   const router = useRouter();
@@ -14,7 +16,7 @@ const AdminRoute = ({ children }) => {
 
   const fetchAdmin = async () => {
     try {
-      let { data } = await axios.get("/api/current-admin");
+      let { data } = await axios.get(`${URL_DEPLOY}/api/current-admin`);
       // console.log("current-user", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

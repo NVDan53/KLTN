@@ -5,6 +5,8 @@ import Link from "next/link";
 import axios from "axios";
 const { Search } = Input;
 
+const { URL_DEPLOY } = process.env.local;
+
 function SearchForm() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
@@ -20,7 +22,9 @@ function SearchForm() {
     if (!value || value.search === "") return;
     try {
       setLoad(true);
-      const res = await axios.get(`/api/search?name=${value.search}`);
+      const res = await axios.get(
+        `${URL_DEPLOY}/api/search?name=${value.search}`
+      );
       console.log("SEARCH RESULT:", res);
       setData(res.data);
       setLoad(false);

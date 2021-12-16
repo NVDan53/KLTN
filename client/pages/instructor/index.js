@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Avatar, Badge } from "antd";
 import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 
+const { URL_DEPLOY } = process.env.local;
+
 const InstructorIndex = () => {
   const [courses, setCourses] = useState([]);
 
@@ -13,7 +15,7 @@ const InstructorIndex = () => {
   }, []);
 
   const loadCourses = async () => {
-    const { data } = await axios.get("/api/instructor-courses");
+    const { data } = await axios.get(`${URL_DEPLOY}/api/instructor-courses`);
     // console.log(data);
     setCourses(data);
   };

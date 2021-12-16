@@ -3,6 +3,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 
+const { URL_DEPLOY } = process.env.local;
+
 const StudentRoute = ({ children, showNav = true }) => {
   const [ok, setOk] = useState(false);
   const router = useRouter();
@@ -13,7 +15,7 @@ const StudentRoute = ({ children, showNav = true }) => {
 
   const fetchUser = async () => {
     try {
-      let { data } = await axios.get("/api/current-user");
+      let { data } = await axios.get(`${URL_DEPLOY}/api/current-user`);
       // console.log("current-user", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

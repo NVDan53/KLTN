@@ -3,6 +3,8 @@ import Link from "next/link";
 import axios from "axios";
 import { Badge } from "antd";
 
+const { URL_DEPLOY } = process.env.local;
+
 const InstructorNav = () => {
   const [current, setCurrent] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
@@ -16,7 +18,9 @@ const InstructorNav = () => {
   }, []);
 
   const loadQuestionCount = async () => {
-    const { data } = await axios.get(`/api/instructor/question-count`);
+    const { data } = await axios.get(
+      `${URL_DEPLOY}/api/instructor/question-count`
+    );
     setQuestionCount(data);
   };
 

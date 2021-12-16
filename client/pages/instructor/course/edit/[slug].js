@@ -9,6 +9,8 @@ import { List, Avatar, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import UpdateLessonForm from "../../../../components/forms/UpdateLessonForm";
 
+const { URL_DEPLOY } = process.env.local;
+
 const { Item } = List;
 
 const CourseEdit = () => {
@@ -37,9 +39,8 @@ const CourseEdit = () => {
    */
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState({});
-  const [uploadVideoButtonText, setUploadVideoButtonText] = useState(
-    "Upload video"
-  );
+  const [uploadVideoButtonText, setUploadVideoButtonText] =
+    useState("Upload video");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   // markdown cheetsheet modal
@@ -59,7 +60,7 @@ const CourseEdit = () => {
   }, []);
 
   const fetchCourse = async () => {
-    let { data } = await axios.get(`/api/course/${slug}`);
+    let { data } = await axios.get(`${URL_DEPLOY}/api/course/${slug}`);
     // console.log(data);
     setValues(data);
     // push array of categories to be used by ant select component
@@ -71,7 +72,7 @@ const CourseEdit = () => {
   };
 
   const loadCategories = async () => {
-    const { data } = await axios.get("/api/categories");
+    const { data } = await axios.get(`${URL_DEPLOY}/api/categories`);
     // console.log(data);
     setCategoryList(data);
   };
@@ -84,10 +85,13 @@ const CourseEdit = () => {
   const handleSubmit = async (e) => {
     // console.log("HANDLE SUBMIT => ", values);
     try {
-      const { data } = await axios.put(`/api/course/${values._id}`, {
-        ...values,
-        categories: selectedCategories,
-      });
+      const { data } = await axios.put(
+        `${URL_DEPLOY}/api/course/${values._id}`,
+        {
+          ...values,
+          categories: selectedCategories,
+        }
+      );
       // console.log(data);
       toast("Updated!");
       // router.push("/instructor");
@@ -102,7 +106,7 @@ const CourseEdit = () => {
     if (values.image && values.image.Location) {
       // console.log("YES VALUES IMAGE", values.image);
       let { data } = await axios.post(
-        `/api/course/remove-image/${values._id}`,
+        `${URL_DEPLOY}/api/course/remove-image/${values._id}`,
         {
           image: values.image,
         }
@@ -126,9 +130,12 @@ const CourseEdit = () => {
       async (uri) => {
         // post to s3
         try {
-          let { data } = await axios.post("/api/course/upload-image", {
-            image: uri,
-          });
+          let { data } = await axios.post(
+            `${URL_DEPLOY}/api/course/upload-image`,
+            {
+              image: uri,
+            }
+          );
           // console.log("image uploaded", data);
           setValues({ ...values, image: data, loading: false });
           setUploadButtonText("Upload image");
@@ -164,7 +171,7 @@ const CourseEdit = () => {
     setValues({ ...values, lessons: allLessons });
     // make request to backend to save the re-ordered lessons
     // console.log("SEND TO BACKEND", values.lessons);
-    const { data } = await axios.put(`/api/course/${values._id}`, {
+    const { data } = await axios.put(`${URL_DEPLOY}/api/course/${values._id}`, {
       ...values,
       categories: selectedCategories,
     });
@@ -180,7 +187,7 @@ const CourseEdit = () => {
     // remove previous video
     if (removed && removed.length && removed[0].video) {
       let res = await axios.post(
-        `/api/course/remove-video/${values._id}`,
+        `${URL_DEPLOY}/api/course/remove-video/${values._id}`,
         removed[0].video
       );
       console.log(res);
@@ -189,7 +196,7 @@ const CourseEdit = () => {
     setValues({ ...values, lessons: allLessons });
     // console.log("removed", removed, "slug", slug);`
     const { data } = await axios.post(
-      `/api/course/${values._id}/${removed[0]._id}`
+      `${URL_DEPLOY}/api/course/${values._id}/${removed[0]._id}`
     );
     if (data.ok) toast("Deleted");
     console.log("delete lesson => ", data);
@@ -199,7 +206,7 @@ const CourseEdit = () => {
     // remove previous
     if (current.video && current.video.Location) {
       const res = await axios.post(
-        `/api/course/remove-video/${values._id}`,
+        `${URL_DEPLOY}/api/course/remove-video/${values._id}`,
         current.video
       );
       console.log("REMOVED ===> ", res);
@@ -215,7 +222,7 @@ const CourseEdit = () => {
     videoData.append("courseId", values._id);
     // save progress bar and send video as form data to backend
     const { data } = await axios.post(
-      `/api/course/upload-video/${values._id}`,
+      `${URL_DEPLOY}/api/course/upload-video/${values._id}`,
       videoData,
       {
         onUploadProgress: (e) =>
@@ -234,7 +241,7 @@ const CourseEdit = () => {
     // console.log("**SEND TO BACKEND**");
     // console.table({ values });
     let { data } = await axios.post(
-      `/api/course/lesson/${values._id}/${current._id}`,
+      `${URL_DEPLOY}/api/course/lesson/${values._id}/${current._id}`,
       current
     );
     // console.log("LESSON UPDATED AND SAVED ===> ", data);

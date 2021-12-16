@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { SyncOutlined } from "@ant-design/icons";
 
+const { URL_DEPLOY } = process.env.local;
+
 function resetPassword() {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,9 @@ function resetPassword() {
     try {
       setLoading(true);
       const resetPassword = async () => {
-        const res = await axios.post("/api/reset-password", { password: data });
+        const res = await axios.post(`${URL_DEPLOY}/api/reset-password`, {
+          password: data,
+        });
         setLoading(false);
         toast(res.data.msg);
         router.push("/login");

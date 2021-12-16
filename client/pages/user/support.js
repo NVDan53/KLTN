@@ -13,6 +13,8 @@ import {
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
 
+const { URL_DEPLOY } = process.env.local;
+
 const UserIndex = () => {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,7 +24,7 @@ const UserIndex = () => {
   }, []);
 
   const loadUserIssues = async () => {
-    const { data } = await axios.get("/api/user/issues");
+    const { data } = await axios.get(`${URL_DEPLOY}/api/user/issues`);
     console.log(data);
     setIssues(data);
   };
@@ -30,9 +32,12 @@ const UserIndex = () => {
   const markResolved = async (issueId) => {
     setLoading(true);
     try {
-      const { data } = await axios.put(`/api/user/issue/mark-resolved`, {
-        issueId,
-      });
+      const { data } = await axios.put(
+        `${URL_DEPLOY}/api/user/issue/mark-resolved`,
+        {
+          issueId,
+        }
+      );
       loadUserIssues();
       // console.log("ISSUE RESOLVED =>", data);
       toast("You marked it resolved");
@@ -48,7 +53,9 @@ const UserIndex = () => {
     console.log(issueId);
     setLoading(true);
     try {
-      const { data } = await axios.delete(`/api/user/issue/delete/${issueId}`);
+      const { data } = await axios.delete(
+        `${URL_DEPLOY}/api/user/issue/delete/${issueId}`
+      );
       loadUserIssues();
       // console.log("ISSUE RESOLVED =>", data);
       toast("Issue deleted");

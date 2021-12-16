@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 
 import { GoogleLogin } from "react-google-login";
 
+const { URL_DEPLOY } = process.env.local;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +31,7 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      let res = await axios.post(`/api/login`, {
+      let res = await axios.post(`${URL_DEPLOY}/api/login`, {
         email,
         password,
       });
@@ -61,7 +63,7 @@ const Login = () => {
     console.log(response);
     try {
       setLoading(true);
-      const res = await axios.post("/api/google_login", {
+      const res = await axios.post(`${URL_DEPLOY}/api/google_login`, {
         tokenId: response.tokenId,
       });
 

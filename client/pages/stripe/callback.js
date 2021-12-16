@@ -4,6 +4,8 @@ import { SyncOutlined } from "@ant-design/icons";
 import UserRoute from "../../components/routes/UserRoute";
 import axios from "axios";
 
+const { URL_DEPLOY } = process.env.local;
+
 const StripeCallback = () => {
   const {
     state: { user },
@@ -13,7 +15,7 @@ const StripeCallback = () => {
   useEffect(() => {
     // console.log(user);
     if (user)
-      axios.post("/api/get-account-status").then((res) => {
+      axios.post(`${URL_DEPLOY}/api/get-account-status`).then((res) => {
         console.log("GET_ACCOUNT_STATUS_RES -> ", res);
         dispatch({
           type: "LOGIN",

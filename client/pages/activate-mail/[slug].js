@@ -3,6 +3,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
+const { URL_DEPLOY } = process.env.local;
+
 function ActivationEmail() {
   const router = useRouter();
   const activation_token = router.query.slug;
@@ -15,7 +17,9 @@ function ActivationEmail() {
     if (activation_token) {
       const activationEmail = async () => {
         try {
-          const res = await axios.post("/api/activate", { activation_token });
+          const res = await axios.post(`${URL_DEPLOY}/api/activate`, {
+            activation_token,
+          });
           setSuccess(res.data.msg);
           toast(res.data.msg);
         } catch (error) {

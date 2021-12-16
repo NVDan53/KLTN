@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 import UserRoute from "../../components/routes/UserRoute";
 import InstructorTerms from "../../components/modal/InstructorTerms";
 
+const { URL_DEPLOY } = process.env.local;
+
 const BecomeInstructor = () => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -20,7 +22,7 @@ const BecomeInstructor = () => {
   const becomeInstructor = () => {
     setLoading(true);
     axios
-      .post("/api/make-instructor")
+      .post(`${URL_DEPLOY}/api/make-instructor`)
       .then((res) => {
         window.location.href = res.data;
       })
