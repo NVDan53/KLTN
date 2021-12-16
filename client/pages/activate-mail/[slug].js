@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 function ActivationEmail() {
   const router = useRouter();

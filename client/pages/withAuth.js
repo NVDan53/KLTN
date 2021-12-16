@@ -1,5 +1,5 @@
 import axios from "axios";
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 export default function withAuth(Component) {
   const withAuth = (props) => {

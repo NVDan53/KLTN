@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import InstructorNav from "../nav/InstructorNav";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 const InstructorRoute = ({ children }) => {
   const [ok, setOk] = useState(false);

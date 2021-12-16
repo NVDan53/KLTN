@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import UserRoute from "../../components/routes/UserRoute";
 import InstructorTerms from "../../components/modal/InstructorTerms";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 const BecomeInstructor = () => {
   const [loading, setLoading] = useState(false);

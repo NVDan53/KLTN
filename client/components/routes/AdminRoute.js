@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import AdminNav from "../nav/AdminNav";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 const AdminRoute = ({ children }) => {
   const [ok, setOk] = useState(false);

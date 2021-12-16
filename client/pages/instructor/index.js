@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Avatar, Badge } from "antd";
 import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 const InstructorIndex = () => {
   const [courses, setCourses] = useState([]);

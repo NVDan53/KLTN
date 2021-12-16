@@ -13,7 +13,7 @@ import {
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 const UserIndex = () => {
   const [issues, setIssues] = useState([]);

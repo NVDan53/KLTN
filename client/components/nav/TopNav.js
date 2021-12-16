@@ -21,7 +21,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import SearchForm from "../forms/SearchForm";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 // https://prawira.medium.com/react-conditional-import-conditional-css-import-110cc58e0da6
 

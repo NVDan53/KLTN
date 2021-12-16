@@ -5,7 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 const { Search } = Input;
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 function SearchForm() {
   const [search, setSearch] = useState("");

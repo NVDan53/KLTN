@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 import { GoogleLogin } from "react-google-login";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 const Login = () => {
   const [email, setEmail] = useState("");

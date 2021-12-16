@@ -7,7 +7,7 @@ import CategoryForm from "../../../components/forms/CategoryForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 const AdminCategoryIndex = () => {
   const [name, setName] = useState("");

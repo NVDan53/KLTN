@@ -18,7 +18,7 @@ import AddAnswer from "../../components/qa/AddAnswer";
 import EditAnswer from "../../components/qa/EditAnswer";
 import { Context } from "../../context";
 
-const { URL_DEPLOY } = process.env.local;
+const { URL_DEPLOY } = process.env;
 
 const InstructorQa = () => {
   // state
