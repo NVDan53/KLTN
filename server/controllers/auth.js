@@ -181,7 +181,7 @@ export const login = async (req, res) => {
     // without httpOnly, javascript will get access to cookie in browser
     // so to protect token use true
     res.cookie("token", token, {
-      httpOnly: true,
+      // httpOnly: true,
       // secure: true // only works on https
     });
 
