@@ -62,38 +62,38 @@ const Login = () => {
     }
   };
 
-  const responseGoogle = async (response) => {
-    try {
-      // setLoading(true);
-      const res = await axios.post(
-        "https://stress-apps.herokuapp.com/api/google_login",
-        {
-          tokenId: response.tokenId,
-        }
-      );
+  // const responseGoogle = async (response) => {
+  //   try {
+  //     // setLoading(true);
+  //     const res = await axios.post(
+  //       "https://stress-apps.herokuapp.com/api/google_login",
+  //       {
+  //         tokenId: response.tokenId,
+  //       }
+  //     );
 
-      dispatch({
-        type: "LOGIN",
-        payload: res.data,
-      });
+  //     dispatch({
+  //       type: "LOGIN",
+  //       payload: res.data,
+  //     });
 
-      toast.success("Login successfully");
+  //     toast.success("Login successfully");
 
-      window.localStorage.setItem("user", JSON.stringify(res.data));
+  //     window.localStorage.setItem("user", JSON.stringify(res.data));
 
-      if (res.data.role.includes("Admin")) {
-        router.push("/admin");
-      } else if (res.data.role.includes("Instructor")) {
-        router.push("/instructor");
-      } else {
-        router.push("/user");
-      }
-      // setLoading(false);
-    } catch (error) {
-      toast(error.response.data.msg);
-      // setLoading(false);
-    }
-  };
+  //     if (res.data.role.includes("Admin")) {
+  //       router.push("/admin");
+  //     } else if (res.data.role.includes("Instructor")) {
+  //       router.push("/instructor");
+  //     } else {
+  //       router.push("/user");
+  //     }
+  //     // setLoading(false);
+  //   } catch (error) {
+  //     toast(error.response.data.msg);
+  //     // setLoading(false);
+  //   }
+  // };
 
   return (
     <>
@@ -127,7 +127,7 @@ const Login = () => {
           </button>
         </form>
 
-        <div className="social mt-4">
+        {/* <div className="social mt-4">
           <GoogleLogin
             clientId="1074929433721-7hqftlfff4ap48da2l4oo3vk1v2l9rtq.apps.googleusercontent.com"
             buttonText="Login"
@@ -138,8 +138,8 @@ const Login = () => {
           >
             <span> Login with Google</span>
           </GoogleLogin>
-          ,
-        </div>
+          
+        </div> */}
 
         <p className="text-center pt-3">
           Not yet registered?{" "}
