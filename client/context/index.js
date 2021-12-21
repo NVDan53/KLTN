@@ -42,37 +42,37 @@ const Provider = ({ children }) => {
     });
   }, []);
 
-  // axios.interceptors.response.use(
-  //   function (response) {
-  //     // Any status code that lie within the range of 2xx cause this function to trigger
-  //     // Do something with response data
-  //     return response;
-  //   },
-  //   function (error) {
-  //     // Any status codes that falls outside the range of 2xx cause this function to trigger
-  //     // Do something with response error
+  axios.interceptors.response.use(
+    function (response) {
+      // Any status code that lie within the range of 2xx cause this function to trigger
+      // Do something with response data
+      return response;
+    },
+    function (error) {
+      // Any status codes that falls outside the range of 2xx cause this function to trigger
+      // Do something with response error
 
-  //     let res = error.response;
-  //     if (res.status === 401 && res.config && !res.config.__isRetryRequest) {
-  //       return new Promise((resolve, reject) => {
-  //         axios
-  //           .get("https://stress-apps.herokuapp.com/api/logout")
-  //           .then((data) => {
-  //             console.log("/401 error > logout");
-  //             dispatch({ type: "LOGOUT" });
-  //             window.localStorage.removeItem("user");
-  //             router.push("/login");
-  //           })
-  //           .catch((err) => {
-  //             console.log("axios interceptor res error ==> ", err);
-  //             reject(error);
-  //           });
-  //       });
-  //     }
+      let res = error.response;
+      if (res.status === 401 && res.config && !res.config.__isRetryRequest) {
+        return new Promise((resolve, reject) => {
+          axios
+            .get("https://stress-apps.herokuapp.com/api/logout")
+            .then((data) => {
+              console.log("/401 error > logout");
+              dispatch({ type: "LOGOUT" });
+              window.localStorage.removeItem("user");
+              router.push("/login");
+            })
+            .catch((err) => {
+              console.log("axios interceptor res error ==> ", err);
+              reject(error);
+            });
+        });
+      }
 
-  //     return Promise.reject(error);
-  //   }
-  // );
+      return Promise.reject(error);
+    }
+  );
 
   // to protect from csrf
   // https://www.synopsys.com/glossary/what-is-csrf.html

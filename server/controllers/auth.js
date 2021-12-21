@@ -174,6 +174,7 @@ export const login = async (req, res) => {
     // create signed token
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
+      path: "/user/refresh_token",
     });
     // return user and token to client, exclude hashed password
     user.password = undefined;
