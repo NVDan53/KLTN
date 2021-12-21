@@ -181,7 +181,7 @@ export const login = async (req, res) => {
     // without httpOnly, javascript will get access to cookie in browser
     // so to protect token use true
     res.cookie("token", token, {
-      httpOnly: true,
+      // httpOnly: true,
       secure: true, // only works on https
     });
 
@@ -267,7 +267,7 @@ export const forgotPassword = async (req, res) => {
     user.password = undefined;
     // send token to cookie
     res.cookie("token", token, {
-      httpOnly: true,
+      // httpOnly: true,
       secure: true, // only works on https
     });
     const url = `${process.env.CLIENT_URL}/user/reset/${token}`;
@@ -391,7 +391,7 @@ export const googleLogin = async (req, res) => {
       user.password = undefined;
       // send token to cookie
       res.cookie("token", token, {
-        httpOnly: true,
+        // httpOnly: true,
         secure: true, // only works on https
       });
       res.json(user);
@@ -413,7 +413,7 @@ export const googleLogin = async (req, res) => {
       // user.password = undefined;
       // send token to cookie
       res.cookie("token", token, {
-        httpOnly: true,
+        // httpOnly: true,
         secure: true, // only works on https
       });
       res.json(newUser);
