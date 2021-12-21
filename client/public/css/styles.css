@@ -1,7 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .square {
   border-radius: 0px;
 }
-
+.container{
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
 .jumbotron {
   background-image: linear-gradient(to right, #007bff, #000);
   /* color: #fff; */
@@ -87,4 +93,22 @@ blockquote p {
 
 a {
   text-decoration: none !important;
+}
+.ant-menu-item-selected{
+  border: none !important;
+}
+.ant-menu-item:hover{
+  border: none !important;
+}
+.ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu{
+  border: none !important;
+}
+.slider_header{
+position: absolute;
+top:35%;
+width: 355px;
+margin-left: 80px;
+background-color: #fff;
+padding: 24px;
+box-shadow:0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%)
 }

@@ -2,62 +2,79 @@ import Link from "next/link";
 import { TwitterOutlined } from "@ant-design/icons";
 
 const Footer = () => (
-  <div
-    className="container-fluid footer mt-5"
-    style={{ borderTop: "1px solid #333" }}
-  >
-    <footer className="pt-5 pb-4">
-      <div className="row">
-        <div className="col-md-4">
-          <Link href="/">
-            <a>
-              <img
-                style={{ marginTop: "-10px" }}
-                className="img-fluid mb-2"
-                src="/images/logo/codecontinue.png"
-                alt="codecontinue Logo"
-              />
-            </a>
-          </Link>
-
-          <small className="ml-2 d-block mb-3 text-muted">
-            &copy; {new Date().getFullYear()}
-          </small>
+  <div>
+  {/* component */}
+  <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
+  <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
+  <footer className="relative bg-blueGray-200 pt-8 pb-6">
+    <div className="container mx-auto px-4">
+      <div className="flex flex-wrap text-left lg:text-left">
+        <div className="w-full lg:w-6/12 px-4">
+          <h4 className="text-3xl fonat-semibold text-blueGray-700">Let's keep in touch!</h4>
+          <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
+            Find us on any of these platforms, we respond 1-2 business days.
+          </h5>
+          <div className="mt-6 lg:mb-0 mb-6">
+            <button className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <i className="fab fa-twitter" /></button><button className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <i className="fab fa-facebook-square" /></button><button className="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <i className="fab fa-dribbble" /></button><button className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <i className="fab fa-github" />
+            </button>
+          </div>
         </div>
-
-        <div className="col-md-4">
-          <h5>Code Continue</h5>
-          <p className="lead">
-            Join thousands of students at codecontinue and become part of a
-            vibrant community. Learn the best of web development or become an
-            instructor and teach others by creating courses.
-          </p>
-          <hr />
-          <p className="lead">Find us on twitter</p>
-          <a
-            style={{ paddingTop: "2px" }}
-            className="lead"
-            href="https://twitter.com/CodeContinue?ref_src=twsrc%5Etfw"
-            target="_blank"
-          >
-            <TwitterOutlined /> @CodeContinue
-          </a>
-        </div>
-
-        <div className="col-md-4">
-          <h5 className="pb-1">Become an instructor</h5>
-          <p className="lead">
-            The only eLearning marketplace that offers 70% revenue to it's
-            instructors. Get paid directly to your bank account, every 48 hours.
-            Are you ready to create your first course?
-          </p>
-          <Link href="/user/become-instructor">
-            <a className="lead">Become Instructor</a>
-          </Link>
+        <div className="w-full lg:w-6/12 px-4">
+          <div className="flex flex-wrap items-top mb-6">
+            <div className="w-full lg:w-4/12 px-4 ml-auto">
+              <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Useful Links</span>
+              <ul className="list-unstyled">
+                <li>
+                  <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.creative-tim.com/presentation?ref=njs-profile">About Us</a>
+                </li>
+                <li>
+                  <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://blog.creative-tim.com?ref=njs-profile">Blog</a>
+                </li>
+                <li>
+                  <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.github.com/creativetimofficial?ref=njs-profile">Github</a>
+                </li>
+                <li>
+                  <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile">Free Products</a>
+                </li>
+              </ul>
+            </div>
+            <div className="w-full lg:w-4/12 px-4">
+              <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Other Resources</span>
+              <ul className="list-unstyled">
+                <li>
+                  <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile">MIT License</a>
+                </li>
+                <li>
+                  <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/terms?ref=njs-profile">Terms &amp; Conditions</a>
+                </li>
+                <li>
+                  <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/privacy?ref=njs-profile">Privacy Policy</a>
+                </li>
+                <li>
+                  <a className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm" href="https://creative-tim.com/contact-us?ref=njs-profile">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-    </footer>
-  </div>
+      <hr className="my-6 border-blueGray-300" />
+      <div className="flex flex-wrap items-center md:justify-between justify-center">
+        <div className="w-full md:w-4/12 px-4 mx-auto text-center">
+          <div className="text-sm text-blueGray-500 font-semibold py-1">
+            Copyright © <span id="get-current-year">2021</span><a href="https://www.creative-tim.com/product/notus-js" className="text-blueGray-500 hover:text-gray-800" target="_blank"> Online Education by
+            </a><a href="https://www.creative-tim.com?ref=njs-profile" className="text-blueGray-500 hover:text-blueGray-800"> Oliver Doan</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
 );
 
 export default Footer;

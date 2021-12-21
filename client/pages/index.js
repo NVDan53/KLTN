@@ -2,27 +2,23 @@ import { withRouter } from "next/router";
 import axios from "axios";
 import CourseCard from "../components/cards/CourseCard";
 import Head from "next/head";
+import SimpleSlider from "../components/nav/SimpleSlider";
 
 const Index = ({ courses, router }) => {
   const head = () => (
     <Head>
       <title>
-        Courses on JavaScript React Next.js Node MongoDB GraphQL SEO MERN |{" "}
+        Online Learning |{" "}
         {process.env.APP_NAME}
       </title>
-      <meta
-        name="description"
-        content="Courses on Modern JavaScript React Next.js Node MongoDB GraphQL SEO MERN Full Stack Web Development Courses Free and Paid"
-      />
       <link rel="canonical" href={`${process.env.DOMAIN}${router.pathname}`} />
       <meta
         property="og:title"
-        content={`Courses on JavaScript React Next.js Node MongoDB GraphQL SEO MERN | ${process.env.APP_NAME}`}
+        content={`Online Learning | ${process.env.APP_NAME}`}
       />
       <meta
         property="og:description"
-        content={`Courses on JavaScript React Next.js Node MongoDB GraphQL SEO MERN Full Stack Web
-        Development Courses | Free and Paid | ${process.env.APP_NAME}`}
+        content={`Online Learning | ${process.env.APP_NAME}`}
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${process.env.DOMAIN}/default.jpg`} />
@@ -39,25 +35,50 @@ const Index = ({ courses, router }) => {
 
   return (
     <>
-      {head()}
-      <div className="jumbotron text-center bg-primary square">
-        <h1>Become A FullStack Web Developer</h1>
-        <hr style={{ borderBottom: "2px solid silver", width: "100px" }} />
-        <p className="lead">
-          Master JavaScript React Node MongoDB MERN Stack & Start Building Real
-          Projects
-        </p>
+     {head()}
+     <div className="container">
+
+     <SimpleSlider />
+     <div>
+  <section className="text-black">
+    <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 md:mb-0 mb-10">
+        <img className="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/600x400/edf2f7/0f1631" />
       </div>
-      <div className="container-fluid">
-        <div className="row pt-2">
-          {courses.map((course) => (
-            <div key={course._id} className="col-md-4">
-              <CourseCard key={course._id} course={course} />
-              {/* <pre>{JSON.stringify(course, null, 4)}</pre> */}
-            </div>
-          ))}
+      <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+        <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-black">The title for your feature.
+          <br className="hidden lg:inline-block" />goes here.
+        </h1>
+        <p className="mb-8 leading-relaxed">Central Saint Martins graduate Jessan Macatangay incorporated
+          deconstructed chairs into his striking fashion collection, to symbolise how people carry the
+          weight of personal struggles. More.</p>
+        <div className="flex justify-center">
+          <button className="border-2 border-black  text-black block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-white hover:text-indigo-500 transition ease-in-out duration-700">Button</button>
         </div>
       </div>
+    </div>
+  </section>
+  <section className="text-black">
+    <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+        <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-black">The title for your feature.
+          <br className="hidden lg:inline-block" />goes here.
+        </h1>
+        <p className="mb-8 leading-relaxed">Central Saint Martins graduate Jessan Macatangay incorporated
+          deconstructed chairs into his striking fashion collection, to symbolise how people carry the
+          weight of personal struggles. More.</p>
+        <div className="flex justify-center">
+          <button className="border-2 border-black  text-black block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:bg-white hover:text-indigo-500 transition ease-in-out duration-700">Button</button>
+        </div>
+      </div>
+      <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+        <img className="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/600x400/edf2f7/0f1631" />
+      </div>
+    </div>
+  </section>
+</div>
+
+    </div>
     </>
   );
 };
