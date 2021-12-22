@@ -112,3 +112,27 @@ background-color: #fff;
 padding: 24px;
 box-shadow:0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%)
 }
+.infor-parent > .infor-child:nth-child(2){
+  border-right: 2px solid #E7F0F6 !important;
+  border-left: 2px solid #E7F0F6 !important;
+
+  padding:0 150px !important;
+  
+}
+.bg-blue{
+  background-color: #CCE4FD !important;
+}
+.ant-input{
+  border-radius: 5px !important;
+  margin: 5px 0;
+}
+
+
+
+.ant-menu-horizontal > .ant-menu-item-selected a {
+  color: rgb(199, 197, 197) !important;
+}
+.ant-menu-horizontal > .ant-menu-item-selected a:hover{
+  color: #1890ff !important;
+  cursor: pointer;
+}

@@ -41,7 +41,7 @@ const ListCourses = ({ courses, router }) => {
     <>
       {head()}
  
-     <div className="container-fluid">
+     <div className="container">
         <div className="row pt-2">
           {courses.map((course) => (
             <div key={course._id} className="col-md-4">

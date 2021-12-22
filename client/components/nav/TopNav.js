@@ -32,7 +32,7 @@ const TopNav = () => {
       window.localStorage.removeItem("user");
       if (data) {
         toast(data.message);
-        router.push("/login");
+        router.push("/");
       }
     } catch (err) {
       toast("Logout failed. Try again.");
@@ -54,7 +54,7 @@ const TopNav = () => {
               <img
                   src="/images/logo/codecontinue.png"
                   alt="code continue logo"
-                  style={{ height: "34px", width: "100%", objectFit: "cover" }}     
+                  style={{ height: "34px", width: "100%", objectFit: "cover",marginBottom:"8px" }}     
                 />
              
             </a>
@@ -63,14 +63,15 @@ const TopNav = () => {
         <Item>
           <SearchForm />
         </Item>
-        <Item key="/articles">
-          <Link href="/articles">
-            <a className="typewriter">Blog</a>
-          </Link>
-        </Item>
+       
         <Item key="/listcourses">
           <Link href="/listcourses">
             <a className="typewriter">Courses</a>
+          </Link>
+        </Item>
+        <Item key="/articles">
+          <Link href="/articles">
+            <a className="typewriter">Blog</a>
           </Link>
         </Item>
         {user && user.role && user.role.includes("Author") ? (
