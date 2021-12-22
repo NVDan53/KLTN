@@ -51,19 +51,24 @@ function SearchForm() {
 
   return (
     <form style={{ position: "relative" }} autoComplete="off">
-      <Search
+      <Input placeholder="Search courses and blogs" loading={load}
+        onChange={handleOnChange}
+        onSearch={handleSearch} 
+        className="drop-shadow-2xl"/>
+      {/* <Search
         value={search}
         placeholder="Find courses and blogs"
-        enterButton="Search"
+       
         size="large"
         loading={load}
         onChange={handleOnChange}
         onSearch={handleSearch}
-      />
+      /> */}
       <ul
         style={{
           position: "absolute",
-          zIndex: "20",
+          zIndex: "99",
+          color:"#333 !important",
           width: "100%",
           minWidth: "250px",
           maxHeight: "calc(100vh - 150px)",
@@ -72,6 +77,7 @@ function SearchForm() {
           marginTop: "3px",
           background: "#fff",
           padding: "0 11px",
+          // boxShadow:"0 0 7px 4px #33333326",
         }}
       >
         {search &&

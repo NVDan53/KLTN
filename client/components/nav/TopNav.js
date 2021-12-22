@@ -1,31 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../../context";
 import { Menu } from "antd";
-import {
-  LoginOutlined,
-  UserAddOutlined,
-  AppstoreOutlined,
-  CarryOutOutlined,
-  TeamOutlined,
-  CoffeeOutlined,
-  AudioOutlined,
-  DesktopOutlined,
-  FormOutlined,
-  EditOutlined,
-  ReadOutlined,
-} from "@ant-design/icons";
 // unlike react-router-dom dont destructure {Link}
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import SearchForm from "../forms/SearchForm";
-
-// https://prawira.medium.com/react-conditional-import-conditional-css-import-110cc58e0da6
-
-// import themes
-// const LightTheme = React.lazy(() => import("../themes/LightTheme"));
-// const DarkTheme = React.lazy(() => import("../themes/DarkTheme"));
 
 const TopNav = () => {
   const [current, setCurrent] = useState("");
@@ -43,20 +24,6 @@ const TopNav = () => {
     process.browser && setCurrent(window.location.pathname);
   }, [process.browser && window.location.pathname]);
 
-  // create a parent component that will load the components conditionally using React.Suspense
-  // const ThemeSelector = ({ children }) => {
-  //   const CHOSEN_THEME = "LIGHT_MODE";
-  //   return (
-  //     <>
-  //       <React.Suspense fallback={<></>}>
-  //         <DarkTheme />
-  //         {CHOSEN_THEME === TYPE_OF_THEME.LIGHT_MODE && <LightTheme />}
-  //         {CHOSEN_THEME === TYPE_OF_THEME.DARK_MODE && <DarkTheme />}
-  //       </React.Suspense>
-  //       {children}
-  //     </>
-  //   );
-  // };
 
   const logout = async () => {
     try {
@@ -65,16 +32,16 @@ const TopNav = () => {
       window.localStorage.removeItem("user");
       if (data) {
         toast(data.message);
-        router.push("/login");
+        router.push("/");
       }
     } catch (err) {
       toast("Logout failed. Try again.");
     }
   };
-
+ 
   return (
     <>
-      {/* <DarkTheme /> */}
+     
       <Menu
         onClick={(e) => setCurrent(e.key)}
         selectedKeys={[current]}
@@ -82,31 +49,37 @@ const TopNav = () => {
       >
         <Item key="/">
           <Link href="/">
-            <a className="typewriter">
-              <div className="pt-1">
-                <img
+            <a className="">
+            
+              <img
                   src="/images/logo/codecontinue.png"
                   alt="code continue logo"
-                  height="40"
-                  className="mb-1"
+                  style={{ height: "34px", width: "100%", objectFit: "cover",marginBottom:"8px" }}     
                 />
-              </div>
+             
             </a>
           </Link>
         </Item>
-
-        <Item icon={<ReadOutlined />} key="/articles">
-          <Link href="/articles">
-            <a className="typewriter">Articles</a>
+        <Item>
+          <SearchForm />
+        </Item>
+       
+        <Item key="/listcourses">
+          <Link href="/listcourses">
+            <a className="typewriter">Courses</a>
           </Link>
         </Item>
-
+        <Item key="/articles">
+          <Link href="/articles">
+            <a className="typewriter">Blog</a>
+          </Link>
+        </Item>
         {user && user.role && user.role.includes("Author") ? (
           <></>
         ) : (
-          <Item icon={<FormOutlined />} key="/user/become-author">
+          <Item key="/user/become-author">
             <Link href="/user/become-author">
-              <a className="typewriter">Become Author</a>
+              <a className="typewriter">Write Blog</a>
             </Link>
           </Item>
         )}
@@ -118,21 +91,18 @@ const TopNav = () => {
         user.stripe_seller.charges_enabled ? (
           <></>
         ) : (
-          <Item icon={<TeamOutlined />} key="/user/become-instructor">
+          <Item key="/user/become-instructor">
             <Link href="/user/become-instructor">
-              <a className="typewriter">Become Instructor</a>
+              <a className="typewriter">Tech on website</a>
             </Link>
           </Item>
         )}
 
-        <Item>
-          <SearchForm />
-        </Item>
+        
 
         {user === null && (
           <>
             <Item
-              icon={<UserAddOutlined />}
               key="/register"
               className="float-right"
             >
@@ -141,7 +111,7 @@ const TopNav = () => {
               </Link>
             </Item>
 
-            <Item icon={<LoginOutlined />} key="/login" className="float-right">
+            <Item key="/login" className="float-right">
               <Link href="/login">
                 <a>Login</a>
               </Link>
@@ -151,7 +121,6 @@ const TopNav = () => {
 
         {user !== null && (
           <SubMenu
-            icon={<CoffeeOutlined />}
             title={user.name}
             className="float-right"
           >
@@ -173,7 +142,6 @@ const TopNav = () => {
           user.role.includes("Instructor") &&
           user.stripe_seller.charges_enabled && (
             <Item
-              icon={<AudioOutlined />}
               key="/instructor"
               className="float-right"
             >
@@ -184,7 +152,7 @@ const TopNav = () => {
           )}
 
         {user && user.courses && user.courses.length >= 1 && (
-          <Item icon={<DesktopOutlined />} key="/user" className="float-right">
+          <Item key="/user" className="float-right">
             <Link href="/user">
               <a className="typewriter">Student</a>
             </Link>
@@ -192,7 +160,7 @@ const TopNav = () => {
         )}
 
         {user && user.role && user.role.includes("Author") && (
-          <Item icon={<EditOutlined />} key="/author" className="float-right">
+          <Item key="/author" className="float-right">
             <Link href="/author">
               <a className="typewriter">Author</a>
             </Link>
@@ -200,7 +168,7 @@ const TopNav = () => {
         )}
 
         {user && user.role && user.role.includes("Admin") && (
-          <Item icon={<AudioOutlined />} key="/admin" className="float-right">
+          <Item key="/admin" className="float-right">
             <Link href="/admin">
               <a className="typewriter">Admin</a>
             </Link>

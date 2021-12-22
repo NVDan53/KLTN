@@ -1,9 +1,9 @@
 import { withRouter } from "next/router";
 import axios from "axios";
-import PostCard from "../components/cards/PostCard";
+import CourseCard from "../components/cards/CourseCard";
 import Head from "next/head";
 
-const Articles = ({ posts, router }) => {
+const ListCourses = ({ courses, router }) => {
   const head = () => (
     <Head>
       <title>
@@ -40,15 +40,12 @@ const Articles = ({ posts, router }) => {
   return (
     <>
       {head()}
-      {/* <h1 className="jumbotron text-center bg-primary square">
-        Online Education Marketplace
-      </h1> */}
-      <div className="container">
+ 
+     <div className="container">
         <div className="row pt-2">
-          {posts.map((post) => (
-            <div key={post._id} className="col-md-3">
-              <PostCard post={post} />
-              {/* <pre>{JSON.stringify(post, null, 4)}</pre> */}
+          {courses.map((course) => (
+            <div key={course._id} className="col-md-4">
+              <CourseCard key={course._id} course={course} />
             </div>
           ))}
         </div>
@@ -58,13 +55,13 @@ const Articles = ({ posts, router }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.API}/posts`);
-  // console.log("DATA LENGTH =====> ", data.length);
-  return {
-    props: {
-      posts: data,
-    },
-  };
-}
+    const { data } = await axios.get(`${process.env.API}/courses`);
+    // console.log("DATA LENGTH =====> ", data.length);
+    return {
+      props: {
+        courses: data,
+      },
+    };
+  }
 
-export default withRouter(Articles);
+export default withRouter(ListCourses);
