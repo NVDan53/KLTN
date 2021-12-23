@@ -7,13 +7,11 @@ import Saying from "../components/layout/Saying";
 import Pricing from "../components/layout/Pricing";
 import Feature from "../components/layout/Feature";
 import Become from "../components/layout/Become";
-const Index = ({ courses, router }) => {
+import CourseCategories from "../components/layout/CourseCategories";
+const Index = ({ courses, categories, router }) => {
   const head = () => (
     <Head>
-      <title>
-        Online Learning |{" "}
-        {process.env.APP_NAME}
-      </title>
+      <title>Online Learning | {process.env.APP_NAME}</title>
       <link rel="canonical" href={`${process.env.DOMAIN}${router.pathname}`} />
       <meta
         property="og:title"
@@ -38,25 +36,26 @@ const Index = ({ courses, router }) => {
 
   return (
     <>
-     {head()}
-     <div className="container">
-      <SimpleSlider />
-      <Become/>
-      <Feature/>
-    </div>
-    <Saying />
-   
-    
+      {head()}
+      <div className="container">
+        <SimpleSlider />
+        <CourseCategories courses={courses} categories={categories} />
+        <Become />
+        <Feature />
+      </div>
+      <Saying />
     </>
   );
 };
 
 export async function getServerSideProps() {
   const { data } = await axios.get(`${process.env.API}/courses`);
-  // console.log("DATA LENGTH =====> ", data.length);
+  const courseCategories = await axios.get(`${process.env.API}/categories`);
+
   return {
     props: {
       courses: data,
+      categories: courseCategories.data,
     },
   };
 }
