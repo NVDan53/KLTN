@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
       {
             router.pathname =='/login' || router.pathname =='/register'  
-            || router.pathname =='/forgot-password' || router.pathname =='/user/reset/[slug]' ? '': <Footer />          
+            || router.pathname =='/forgot-password' || router.pathname =='/user/reset/[slug]'? '': <Footer />          
         }
       <ScrollToTop showUnder={160}>
         <UpCircleOutlined className="h2" />

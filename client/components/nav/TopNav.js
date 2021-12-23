@@ -69,6 +69,11 @@ const TopNav = () => {
             <a className="typewriter">Courses</a>
           </Link>
         </Item>
+        <Item key="/test">
+          <Link href="/test">
+            <a className="typewriter">test</a>
+          </Link>
+        </Item>
         <Item key="/articles">
           <Link href="/articles">
             <a className="typewriter">Blog</a>
@@ -151,13 +156,13 @@ const TopNav = () => {
             </Item>
           )}
 
-        {user && user.courses && user.courses.length >= 1 && (
+        {/* {user && user.courses && user.courses.length >= 1 && (
           <Item key="/user" className="float-right">
             <Link href="/user">
               <a className="typewriter">Student</a>
             </Link>
           </Item>
-        )}
+        )} */}
 
         {user && user.role && user.role.includes("Author") && (
           <Item key="/author" className="float-right">
