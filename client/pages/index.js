@@ -15,6 +15,8 @@ const Index = ({ courses, router }) => {
         {process.env.APP_NAME}
       </title>
       <link rel="canonical" href={`${process.env.DOMAIN}${router.pathname}`} />
+      <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
       <meta
         property="og:title"
         content={`Online Learning | ${process.env.APP_NAME}`}
