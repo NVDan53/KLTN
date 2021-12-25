@@ -11,7 +11,7 @@ const CourseCard = ({ course }) => {
     <Link href="/course/[slug]" as={`/course/${slug}`}>
       <a>
         <Card
-          className="mb-4"
+          className="mb-4 "
           cover={
             <img
               src={image.Location}
