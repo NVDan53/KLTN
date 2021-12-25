@@ -34,14 +34,23 @@ const ListCourses = ({ courses, router }) => {
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={process.env.NEXT_PUBLIC_FB_APP_ID} />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+      />
+      <script
+        type="text/javascript"
+        src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+      ></script>
     </Head>
   );
 
   return (
     <>
       {head()}
- 
-     <div className="container">
+
+      <div className="container">
         <div className="row pt-2">
           {courses.map((course) => (
             <div key={course._id} className="col-md-4">
@@ -55,13 +64,13 @@ const ListCourses = ({ courses, router }) => {
 };
 
 export async function getServerSideProps() {
-    const { data } = await axios.get(`${process.env.API}/courses`);
-    // console.log("DATA LENGTH =====> ", data.length);
-    return {
-      props: {
-        courses: data,
-      },
-    };
-  }
+  const { data } = await axios.get(`${process.env.API}/courses`);
+  // console.log("DATA LENGTH =====> ", data.length);
+  return {
+    props: {
+      courses: data,
+    },
+  };
+}
 
 export default withRouter(ListCourses);
