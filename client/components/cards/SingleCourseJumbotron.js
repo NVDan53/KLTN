@@ -39,7 +39,7 @@ const SingleCourseJumbotron = ({
   } = useContext(Context);
 
   return (
-    <div className="jumbotron bg-primary square">
+    <div className="bg-gray-900 square container">
       <div className="row">
         <div className="col-md-8">
           {/* title */}

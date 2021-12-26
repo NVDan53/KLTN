@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Tooltip } from "antd";
 import axios from "axios";
 import { toast } from "react-toastify";
 import AdminRoute from "../../../components/routes/AdminRoute";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
+import { Avatar, Tooltip } from "antd";
 
 const AdminCategoryIndex = () => {
   const [name, setName] = useState("");
@@ -37,7 +37,7 @@ const AdminCategoryIndex = () => {
       // console.log(data);
       setName("");
       setLoading(false);
-      toast("Category created");
+      toast("Category created ");
       // update state
       setCategories([data, ...categories]);
     } catch (err) {
@@ -52,7 +52,7 @@ const AdminCategoryIndex = () => {
       let { data } = await axios.delete(`/api/category/${c.slug}`);
       // console.log(c.slug);
 
-      toast(`${data.name} is deleted`);
+      toast(`${data.name} deleted`);
       // update state
       let filtered = categories.filter((category) => category.slug !== c.slug);
       setCategories(filtered);
@@ -74,7 +74,7 @@ const AdminCategoryIndex = () => {
     try {
       let { data } = await axios.put(`/api/category/${slug}`, { name });
       // console.log("updated", data);
-      toast(`${data.name} is updated`);
+      toast(`${data.name} updated`);
       // update state, first remove updated category
       let filtered = categories.filter((category) => category.slug !== slug);
       // insert updated category
@@ -91,35 +91,74 @@ const AdminCategoryIndex = () => {
 
   return (
     <AdminRoute>
-      <CategoryForm
+      
+       <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+        <ul className="flex">
+          <li><a href="/instructor" className="underline font-semibold">Dashboard</a></li>
+          <li><span className="mx-2">/</span></li>  
+          <li>List categories</li>
+        </ul>
+      </div>
+     <div>
+     <CategoryForm
         handleSubmit={update ? handleUpdate : handleSubmit}
         name={name}
         setName={setName}
         loading={loading}
       />
-      <hr />
-      {categories.map((c) => (
-        <div className="d-inline-flex p-1" key={c._id}>
-          <span className="badge badge-pill badge-secondary p-2">
-            <Tooltip
-              title={
-                <>
-                  <EditOutlined
-                    className="pointer"
-                    onClick={() => handleUpdateClick(c)}
-                  />{" "}
-                  <DeleteOutlined
-                    className="pointer"
-                    onClick={() => handleDeleteClick(c)}
-                  />
-                </>
-              }
-            >
-              {c.name}
-            </Tooltip>
-          </span>
-        </div>
-      ))}
+   <div className="inline-block w-full shadow rounded-lg overflow-hidden mb-4 mt-4">
+     <table className="w-full bg-white leading-normal">
+       <thead>
+         <tr>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+             ID
+           </th>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+             Name
+           </th>
+           <th className="text-right px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+             Action
+           </th>
+           
+         </tr>
+       </thead>
+       <tbody>
+       {categories.map((c,index) => (
+            
+         <tr key={c._id} className="xyz hover:bg-sky-100">
+            <td className="px-4 py-4 border-b border-gray-200  text-sm">
+             <p className="text-gray-900 whitespace-no-wrap font-semibold">{index + 1}</p>
+           </td>
+           <td className="px-4 py-4 border-b border-gray-200  text-sm">
+             <p className="text-gray-900 whitespace-no-wrap font-semibold">{c.title} {c.name}</p>
+           </td>
+          
+           <td className="px-4 py-4 border-b border-gray-200  text-sm text-right">
+           <Tooltip title="Update">
+                        <EditOutlined
+                        onClick={() => handleUpdateClick(c)}
+                          className="h5 text-success pr-2 pl-2"
+                        />
+                      </Tooltip>
+                      <Tooltip title="Delete">
+                        <DeleteOutlined
+                          onClick={() => handleDeleteClick(c)}
+                          className="h5 text-danger pointer pr-2 pl-2"
+                        />
+                      </Tooltip>
+           </td>
+          
+         
+         </tr>
+        
+         ))}
+       </tbody>
+     </table>
+     
+  
+ 
+</div>
+</div>
     </AdminRoute>
   );
 };

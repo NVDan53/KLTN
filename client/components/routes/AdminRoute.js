@@ -32,10 +32,10 @@ const AdminRoute = ({ children }) => {
   ) : (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2">
+        <div className="col-md-2 bg-gray-200">
           <AdminNav />
         </div>
-        <div className="col-md-10">{children}</div>
+        <div className="col-md-10 bg-gray-200">{children}</div>
       </div>
     </div>
   );

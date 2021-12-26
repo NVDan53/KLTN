@@ -7,7 +7,7 @@ const ListCourses = ({ courses, router }) => {
   const head = () => (
     <Head>
       <title>
-        Articles on JavaScript React Next.js Node MongoDB GraphQL SEO MERN |{" "}
+       List Course |{" "}
         {process.env.APP_NAME}
       </title>
       <meta
@@ -40,11 +40,11 @@ const ListCourses = ({ courses, router }) => {
   return (
     <>
       {head()}
- 
-     <div className="container">
+
+      <div className="container-fluid">
         <div className="row pt-2">
           {courses.map((course) => (
-            <div key={course._id} className="col-md-4">
+            <div key={course._id} className="col-md-3">
               <CourseCard key={course._id} course={course} />
             </div>
           ))}

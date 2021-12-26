@@ -7,7 +7,7 @@ import Saying from "../components/layout/Saying";
 import Pricing from "../components/layout/Pricing";
 import Feature from "../components/layout/Feature";
 import Become from "../components/layout/Become";
-const Index = ({ courses, router }) => {
+const Index = ({router }) => {
   const head = () => (
     <Head>
       <title>
@@ -16,6 +16,8 @@ const Index = ({ courses, router }) => {
       </title>
       <link rel="canonical" href={`${process.env.DOMAIN}${router.pathname}`} />
       <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+      <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
+      <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
 
       <meta
         property="og:title"
@@ -41,26 +43,17 @@ const Index = ({ courses, router }) => {
   return (
     <>
      {head()}
-     <div className="container">
+      <div className="container">
       <SimpleSlider />
       <Become/>
       <Feature/>
-    </div>
-    <Saying />
+      </div>
+      <Saying />
    
     
     </>
   );
 };
 
-export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.API}/courses`);
-  // console.log("DATA LENGTH =====> ", data.length);
-  return {
-    props: {
-      courses: data,
-    },
-  };
-}
 
 export default withRouter(Index);
