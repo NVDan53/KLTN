@@ -9,17 +9,37 @@ const CourseCard = ({ course }) => {
   const { name, instructor, price, image, slug, paid, categories } = course;
   return (
     <Link href="/course/[slug]" as={`/course/${slug}`}>
-    <a>
-      <div className="my-4 max-w-sm bg-white p-2 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
-        <div className="relative">
-          <img className="w-full rounded-xl" src={image.Location} alt="Colors"  style={{ objectFit: "cover" }} />
-          <p className="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">{paid
+      <a>
+        <Card
+          className="mb-4 "
+          cover={
+            <img
+              src={image.Location}
+              alt={name}
+              style={{ height: "200px", objectFit: "cover" }}
+              className="p-1"
+            />
+          }
+        >
+          <h2 className="h4 font-weight-bold">{name}</h2>
+          <p>by {instructor.name}</p>
+
+          {categories.map((c) => (
+            <Badge
+              count={c.name}
+              style={{ backgroundColor: "#03a9f4" }}
+              className="pb-2 mr-2"
+            />
+          ))}
+
+          <h4 className="pt-2">
+            {paid
               ? currencyFormatter({
                   amount: price,
                   currency: "usd",
                 })
-              : "Free"}</p>
-        </div>
+              : "Free"}</h4>
+        
         <h1 className="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">{name}</h1>
         <div className="my-2">
         <div className="flex space-x-1 items-center">
@@ -36,7 +56,7 @@ const CourseCard = ({ course }) => {
           <button className="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg">Buy Course</button>
         </div>
   
-  </div>
+  </Card>
       </a>
       </Link>
   );

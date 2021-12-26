@@ -4,7 +4,7 @@
 .square {
   border-radius: 0px;
 }
-.container{
+.container {
   max-width: 1200px !important;
   margin: 0 auto !important;
 }
@@ -94,45 +94,43 @@ blockquote p {
 a {
   text-decoration: none !important;
 }
-.ant-menu-item-selected{
+.ant-menu-item-selected {
   border: none !important;
 }
-.ant-menu-item:hover{
+.ant-menu-item:hover {
   border: none !important;
 }
-.ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu{
+.ant-menu-horizontal > .ant-menu-item,
+.ant-menu-horizontal > .ant-menu-submenu {
   border: none !important;
 }
-.slider_header{
-position: absolute;
-top:35%;
-width: 355px;
-margin-left: 80px;
-background-color: #fff;
-padding: 24px;
-box-shadow:0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%)
+.slider_header {
+  position: absolute;
+  top: 35%;
+  width: 355px;
+  margin-left: 80px;
+  background-color: #fff;
+  padding: 24px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
-.infor-parent > .infor-child:nth-child(2){
-  border-right: 2px solid #E7F0F6 !important;
-  border-left: 2px solid #E7F0F6 !important;
+.infor-parent > .infor-child:nth-child(2) {
+  border-right: 2px solid #e7f0f6 !important;
+  border-left: 2px solid #e7f0f6 !important;
 
-  padding:0 150px !important;
-  
+  padding: 0 150px !important;
 }
-.bg-blue{
-  background-color: #CCE4FD !important;
+.bg-blue {
+  background-color: #cce4fd !important;
 }
-.ant-input{
+.ant-input {
   border-radius: 5px !important;
   margin: 5px 0;
 }
 
-
-
 .ant-menu-horizontal > .ant-menu-item-selected a {
   color: rgb(199, 197, 197) !important;
 }
-.ant-menu-horizontal > .ant-menu-item-selected a:hover{
+.ant-menu-horizontal > .ant-menu-item-selected a:hover {
   color: #1890ff !important;
   cursor: pointer;
 }
@@ -148,3 +146,34 @@ color: #fff !important;
 .ant-btn{
   background-color: #1890ff !important;
 }
+/* Categories Courses*/
+
+.course-render-style + .course-render-style {
+  margin-left: 15px;
+}
+
+/* Custom slick for course row */
+.row-style {
+  position: relative;
+}
+
+.row-style .slick-prev {
+  position: absolute !important;
+  top: 20% !important;
+  left: -15px !important;
+}
+
+.row-style .slick-next {
+  position: absolute !important;
+  top: 20% !important;
+  right: 0 !important;
+}
+
+.row-style .slick-prev:before,
+.row-style .slick-next:before {
+  font-size: 39px !important;
+}
+
+/* .row-style .slick-slide {
+  margin-right: 15px !important;
+} */

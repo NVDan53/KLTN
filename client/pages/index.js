@@ -7,13 +7,15 @@ import Saying from "../components/layout/Saying";
 import Pricing from "../components/layout/Pricing";
 import Feature from "../components/layout/Feature";
 import Become from "../components/layout/Become";
+<<<<<<< HEAD
 const Index = ({router }) => {
+=======
+import CourseCategories from "../components/layout/CourseCategories";
+const Index = ({ courses, categories, router }) => {
+>>>>>>> origin/pre-merge
   const head = () => (
     <Head>
-      <title>
-        Online Learning |{" "}
-        {process.env.APP_NAME}
-      </title>
+      <title>Online Learning | {process.env.APP_NAME}</title>
       <link rel="canonical" href={`${process.env.DOMAIN}${router.pathname}`} />
       <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
@@ -42,6 +44,7 @@ const Index = ({router }) => {
 
   return (
     <>
+<<<<<<< HEAD
      {head()}
       <div className="container">
       <SimpleSlider />
@@ -51,9 +54,33 @@ const Index = ({router }) => {
       <Saying />
    
     
+=======
+      {head()}
+      <div className="container">
+        <SimpleSlider />
+        <CourseCategories courses={courses} categories={categories} />
+        <Become />
+        <Feature />
+      </div>
+      <Saying />
+>>>>>>> origin/pre-merge
     </>
   );
 };
 
+<<<<<<< HEAD
+=======
+export async function getServerSideProps() {
+  const { data } = await axios.get(`${process.env.API}/courses`);
+  const courseCategories = await axios.get(`${process.env.API}/categories`);
+
+  return {
+    props: {
+      courses: data,
+      categories: courseCategories.data,
+    },
+  };
+}
+>>>>>>> origin/pre-merge
 
 export default withRouter(Index);
