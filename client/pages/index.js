@@ -7,12 +7,9 @@ import Saying from "../components/layout/Saying";
 import Pricing from "../components/layout/Pricing";
 import Feature from "../components/layout/Feature";
 import Become from "../components/layout/Become";
-<<<<<<< HEAD
-const Index = ({router }) => {
-=======
+
 import CourseCategories from "../components/layout/CourseCategories";
 const Index = ({ courses, categories, router }) => {
->>>>>>> origin/pre-merge
   const head = () => (
     <Head>
       <title>Online Learning | {process.env.APP_NAME}</title>
@@ -44,32 +41,18 @@ const Index = ({ courses, categories, router }) => {
 
   return (
     <>
-<<<<<<< HEAD
-     {head()}
-      <div className="container">
-      <SimpleSlider />
-      <Become/>
-      <Feature/>
-      </div>
-      <Saying />
-   
-    
-=======
       {head()}
       <div className="container">
         <SimpleSlider />
-        <CourseCategories courses={courses} categories={categories} />
         <Become />
+        <CourseCategories courses={courses} categories={categories} />
         <Feature />
       </div>
       <Saying />
->>>>>>> origin/pre-merge
     </>
   );
 };
 
-<<<<<<< HEAD
-=======
 export async function getServerSideProps() {
   const { data } = await axios.get(`${process.env.API}/courses`);
   const courseCategories = await axios.get(`${process.env.API}/categories`);
@@ -81,6 +64,5 @@ export async function getServerSideProps() {
     },
   };
 }
->>>>>>> origin/pre-merge
 
 export default withRouter(Index);
