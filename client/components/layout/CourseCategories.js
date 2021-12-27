@@ -33,8 +33,8 @@ const CourseCategories = ({ courses, categories }) => {
       <div>
         {getCategories(categories).categories.map((category) => {
           return (
-            <div className="container">
-              <div className="row">
+            <div className="container"style={{ marginTop: "100px" }}>
+              <div className="row"style={{ marginTop: "20px" }}>
                 {getCategories(categories).courses.filter((course) => {
                   return course.categories.some((ctg) => {
                     return category._id === ctg._id;

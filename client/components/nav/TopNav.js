@@ -69,11 +69,7 @@ const TopNav = () => {
             <a className="typewriter">Courses</a>
           </Link>
         </Item>
-        <Item key="/test">
-          <Link href="/test">
-            <a className="typewriter">test</a>
-          </Link>
-        </Item>
+       
         <Item key="/articles">
           <Link href="/articles">
             <a className="typewriter">Blog</a>
@@ -109,14 +105,14 @@ const TopNav = () => {
           <>
             <Item
               key="/register"
-              className="float-right"
+              className="float-right border-2"
             >
               <Link href="/register">
-                <a>Register</a>
+                <a className="border-2">Register</a>
               </Link>
             </Item>
 
-            <Item key="/login" className="float-right">
+            <Item key="/login" className="float-right border-2">
               <Link href="/login">
                 <a>Login</a>
               </Link>

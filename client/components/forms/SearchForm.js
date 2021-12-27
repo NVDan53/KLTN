@@ -54,7 +54,7 @@ function SearchForm() {
       <Input placeholder="Search courses and blogs" loading={load}
         onChange={handleOnChange}
         onSearch={handleSearch} 
-        className="drop-shadow-2xl"/>
+        />
       {/* <Search
         value={search}
         placeholder="Find courses and blogs"

@@ -156,24 +156,29 @@ color: #fff !important;
 .row-style {
   position: relative;
 }
-
+.row-style {
+  margin-left: -22px !important;
+}
 .row-style .slick-prev {
   position: absolute !important;
-  top: 20% !important;
-  left: -15px !important;
+  top: 40% !important;
+  left: -40px !important;
 }
 
 .row-style .slick-next {
   position: absolute !important;
-  top: 20% !important;
-  right: 0 !important;
+  top: 40% !important;
+  right: -20px !important;
 }
 
 .row-style .slick-prev:before,
 .row-style .slick-next:before {
-  font-size: 39px !important;
+  font-size: 30px !important;
 }
 
 /* .row-style .slick-slide {
   margin-right: 15px !important;
 } */
+.ant-list-item-meta-title{
+  margin-top: 5px !important;
+}

@@ -39,14 +39,16 @@ const SingleCourseJumbotron = ({
   } = useContext(Context);
 
   return (
-    <div className="bg-gray-900 square container">
-      <div className="row">
+    <div className="bg-gray-900 ">
+
+    <div className="square container ">
+      <div className="row py-5 text-white">
         <div className="col-md-8">
           {/* title */}
-          <h1 className="text-dark font-weight-bold">{name}</h1>
+          <h1 className="text-4xl text-white font-weight-bold mb-4"style={{width:"600px"}}>{name}</h1>
           {/* description */}
-          <p className="lead">
-            {description && description.substring(0, 160)}..
+          <p className="lead mb-4 text-xl font-sans"style={{width:"700px"}}>
+            {description && description.substring(0, 150)}...
           </p>
           {/* categories */}
           {categories.map((c) => (
@@ -60,20 +62,13 @@ const SingleCourseJumbotron = ({
           {/* author */}
           <p>Created by {instructor.name}</p>
           {/* updated date */}
-          <p>Last updated {new Date(updatedAt).toLocaleDateString()}</p>
+          <p className="my-2"><i class="fas fa-clock"></i> Last updated {new Date(updatedAt).toLocaleDateString()}</p>
           {/* price */}
-          <h4 className="text-dark">
-            {paid
-              ? currencyFormatter({
-                  amount: price,
-                  currency: "usd",
-                })
-              : "Free"}
-          </h4>
+         
         </div>
-        {/* video preview */}
+         {/* video preview */}
         {/* {JSON.stringify(image.Location)} */}
-        <div className="col-md-4">
+        <div className="col-md-4 bg-white p-0">
           {lessons[0].video && lessons[0].video.Location ? (
             <div
               style={{
@@ -123,12 +118,18 @@ const SingleCourseJumbotron = ({
             </div>
           )}
           {/* enroll button */}
-
+          <h4 className="text-dark text-4xl ml-15 font-mono mb-2"style={{marginLeft:"20px"}}>
+            {paid
+              ? currencyFormatter({
+                  amount: price,
+                  currency: "usd",
+                })
+              : "Free"}
+          </h4>
+          
           <Button
-            className="mb-3"
-            type="danger"
+            className="text-white"
             block
-            shape="round"
             icon={<SafetyOutlined />}
             size="large"
             disabled={loading}
@@ -146,6 +147,7 @@ const SingleCourseJumbotron = ({
           </Button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
