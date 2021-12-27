@@ -120,18 +120,7 @@ const Register = () => {
         px-4 py-3 mt-6">{loading ? <SyncOutlined spin /> : "Sign Up"}</button>
       </form>
       <hr className="my-6 border-gray-300 w-full" />
-        <div className="flex items-center justify-center">
-        <GoogleLogin
-            clientId="1074929433721-7hqftlfff4ap48da2l4oo3vk1v2l9rtq.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-            className="w-100 text-center"
-          >
-            <span> Login with Google</span>
-          </GoogleLogin>
-        </div>
+       
 
       <p className="mt-8">
       Have an account?{" "}

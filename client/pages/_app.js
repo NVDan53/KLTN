@@ -25,10 +25,9 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   return (
     <Provider>
-        {
-            router.pathname =='/login' || router.pathname =='/register'  
-            || router.pathname =='/forgot-password'|| router.pathname =='/user/reset/[slug]' ? '': <TopNav />         
-        }
+        
+           <TopNav />         
+        
       <ToastContainer position="top-center" />
       <Component {...pageProps} />
       {

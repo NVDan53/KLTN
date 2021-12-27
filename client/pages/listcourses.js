@@ -49,9 +49,12 @@ const ListCourses = ({ courses, router }) => {
   return (
     <>
       {head()}
-
+     
       <div className="container">
-        <div className="row pt-2">
+      <h2 style={{ fontSize: "25px", fontWeight: "bold",marginTop:"20px" }}>
+                     List Courses
+                    </h2>
+        <div className="row my-4" style={{marginLeft:"-23px"}}>
           {courses.map((course) => (
             <div key={course._id} className="col-md-3">
               <CourseCard key={course._id} course={course} />
