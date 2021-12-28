@@ -64,7 +64,6 @@ const Tech = ({ courses, router }) => {
 
 
 
-
 <section className="bg-white">
   <div className="max-w-5xl px-6 py-8 mx-auto">
     <div className="">
@@ -88,21 +87,37 @@ const Tech = ({ courses, router }) => {
 </section>
 
 
-<div className="flex bg-gray-100 py-24 justify-center mt-10">
-  <div className="p-12 text-center max-w-2xl">
-    <div className="md:text-3xl text-3xl font-bold">Become an instructor today</div>
-    <div className="text-xl font-normal mt-4">Join one of the world’s largest online learning marketplaces.
+
+
+<div className="container mx-auto">
+  <div className="rounded-lg bg-blue-300 text-white p-8 my-12 flex flex-col md:flex-row space-between items-center justify-between relative overflow-hidden">
+    {/* LEFT PART */}
+    <div className="flex flex-col lg:ml-14 xl:ml-28 max-w-sm lg:max-w-xl z-10">
+      <h4 className="text-4xl text-center md:text-left font-bold text-white md:pb-2">
+      Become an instructor today
+      </h4>
+      <p className="text-center md:text-left text-white opacity-70 md:pb-6">
+      Join one of the world’s largest online learning marketplaces.
+      </p>
+    
     </div>
-    <div className="mt-6 flex justify-center h-12 relative">
-    <Link href="/user/become-instructor">
-      <div className="flex shadow-md font-medium absolute py-2 px-4 text-white
-  cursor-pointer bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">Join us now
-  </div>
-  </Link>
+    {/* RIGHT PART */}
+    <div className="pt-8 md:pt-0 justify-center lg:ml-auto z-10"style={{marginRight:"80px"}}>
+      {/* Contribuer */}
+      <Link href="/user/become-instructor">
+      <a className="flex items-center px-8 py-4 text-center text-sm text-blue-300 uppercase bg-white font-display rounded-full transition duration-200"> 
+        <span>Join us now</span>
+      </a>
+      </Link>
     </div>
+    {/* ATTENTION */}
+    <p className="pt-8 text-xs block md:hidden z-10 text-white">
+      consectetur adipiscing elit
+    </p>
+    {/* DÉCORATION */}
+    <div className="absolute bg-blue-400 opacity-60 w-96 h-96 -top-10 -right-16 md:w-[800px] md:h-[800px] md:left-[45%] md:top-[-150%] rounded-full shadow-2xl z-0"style={{marginLeft:"240px"}} />
   </div>
 </div>
-
 
 
 {/* component */}

@@ -123,12 +123,12 @@ a {
   background-color: #cce4fd !important;
 }
 .ant-input {
-  border-radius: 5px !important;
+  border-radius: 50px !important;
   margin: 5px 0;
 }
 
 .ant-menu-horizontal > .ant-menu-item-selected a {
-  color: rgb(199, 197, 197) !important;
+  /* color: rgb(199, 197, 197) !important; */
 }
 .ant-menu-horizontal > .ant-menu-item-selected a:hover {
   color: #1890ff !important;
@@ -181,4 +181,11 @@ color: #fff !important;
 } */
 .ant-list-item-meta-title{
   margin-top: 5px !important;
+}
+.delete-hover{
+  background-color: #fff !important;
+}
+.delete-hover:hover{
+  background-color: #fff !important;
+
 }

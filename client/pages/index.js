@@ -17,7 +17,6 @@ const Index = ({ courses, categories, router }) => {
       <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css" />
       <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
-
       <meta
         property="og:title"
         content={`Online Learning | ${process.env.APP_NAME}`}
@@ -36,6 +35,7 @@ const Index = ({ courses, categories, router }) => {
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={process.env.NEXT_PUBLIC_FB_APP_ID} />
+      
     </Head>
   );
 

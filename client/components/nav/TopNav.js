@@ -7,7 +7,19 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import SearchForm from "../forms/SearchForm";
-
+import {
+  LoginOutlined,
+  UserAddOutlined,
+  AppstoreOutlined,
+  CarryOutOutlined,
+  TeamOutlined,
+  CoffeeOutlined,
+  AudioOutlined,
+  DesktopOutlined,
+  FormOutlined,
+  EditOutlined,
+  ReadOutlined,
+} from "@ant-design/icons";
 const TopNav = () => {
   const [current, setCurrent] = useState("");
   // context
@@ -46,6 +58,8 @@ const TopNav = () => {
         onClick={(e) => setCurrent(e.key)}
         selectedKeys={[current]}
         mode="horizontal"
+        style={{lineHeight:"64px",boxShadow:"0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}
+        className="drop-shadow-md"
       >
         <Item key="/">
           <Link href="/">
@@ -54,20 +68,16 @@ const TopNav = () => {
               <img
                   src="/images/logo/codecontinue.png"
                   alt="code continue logo"
-                  style={{ height: "34px", width: "100%", objectFit: "cover",marginBottom:"8px" }}     
+                  style={{ height: "34px", width: "100%", marginBottom:"16px",marginLeft:"20px" }}     
                 />
              
             </a>
           </Link>
         </Item>
-        <Item>
+        <Item style={{marginLeft:"70px"}}>
           <SearchForm />
         </Item>
-        <Item key="/techweb">
-          <Link href="/techweb">
-            <a className="typewriter">Tech on website</a>
-          </Link>
-        </Item>
+       
         <Item key="/listcourses">
           <Link href="/listcourses">
             <a className="typewriter">Courses</a>
@@ -89,21 +99,21 @@ const TopNav = () => {
           </Item>
         )}
 
-        {/* {user &&
+        {user &&
         user.role &&
         user.stripe_seller &&
         user.role.includes("Instructor") &&
         user.stripe_seller.charges_enabled ? (
           <></>
         ) : (
-          <Item key="/user/become-instructor">
-            <Link href="/user/become-instructor">
-              <a className="typewriter">Tech on website</a>
-            </Link>
-          </Item>
+          <Item key="/techweb">
+          <Link href="/techweb">
+            <a className="typewriter">Tech on website</a>
+          </Link>
+        </Item>
         )}
 
-         */}
+        
 
         {user === null && (
           <>
