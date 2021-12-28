@@ -17,7 +17,7 @@ export default class SimpleSlider extends Component {
       <div>
         <Slider {...settings}>
           <div>
-                <div style={{ height: "500px", width: "100%",
+                <div style={{ height: "500px", width: "100%",marginTop:"15px",zIndex:"2",
                     background:`url(/images/banner1.jpg) no-repeat center/ cover`}}>
                 <div className="slider_header">
                     <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-black">Don’t just browse the web — design it</h1> 
@@ -27,7 +27,7 @@ export default class SimpleSlider extends Component {
           </div>
 
           <div>
-                <div style={{ height: "500px", width: "100%",
+                <div style={{ height: "500px", width: "100%",marginTop:"15px",zIndex:"2",
                     background:`url(/images/banner1.jpg) no-repeat center/ cover`}}>
                 <div className="slider_header">
                     <h1 className="b">Don’t just browse the web — design it</h1> 

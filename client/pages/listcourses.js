@@ -7,7 +7,7 @@ const ListCourses = ({ courses, router }) => {
   const head = () => (
     <Head>
       <title>
-        Articles on JavaScript React Next.js Node MongoDB GraphQL SEO MERN |{" "}
+       List Course |{" "}
         {process.env.APP_NAME}
       </title>
       <meta
@@ -34,17 +34,29 @@ const ListCourses = ({ courses, router }) => {
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={process.env.NEXT_PUBLIC_FB_APP_ID} />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+      />
+      <script
+        type="text/javascript"
+        src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+      ></script>
     </Head>
   );
 
   return (
     <>
       {head()}
- 
-     <div className="container">
-        <div className="row pt-2">
+     
+      <div className="container">
+      <h2 style={{ fontSize: "25px", fontWeight: "bold",marginTop:"20px" }}>
+                     List Courses
+                    </h2>
+        <div className="row my-4" style={{marginLeft:"-23px"}}>
           {courses.map((course) => (
-            <div key={course._id} className="col-md-4">
+            <div key={course._id} className="col-md-3">
               <CourseCard key={course._id} course={course} />
             </div>
           ))}
@@ -55,13 +67,13 @@ const ListCourses = ({ courses, router }) => {
 };
 
 export async function getServerSideProps() {
-    const { data } = await axios.get(`${process.env.API}/courses`);
-    // console.log("DATA LENGTH =====> ", data.length);
-    return {
-      props: {
-        courses: data,
-      },
-    };
-  }
+  const { data } = await axios.get(`${process.env.API}/courses`);
+  // console.log("DATA LENGTH =====> ", data.length);
+  return {
+    props: {
+      courses: data,
+    },
+  };
+}
 
 export default withRouter(ListCourses);

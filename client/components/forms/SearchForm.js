@@ -3,6 +3,19 @@ import "antd/dist/antd.css";
 import { Input } from "antd";
 import Link from "next/link";
 import axios from "axios";
+import {
+  LoginOutlined,
+  UserAddOutlined,
+  AppstoreOutlined,
+  CarryOutOutlined,
+  TeamOutlined,
+  CoffeeOutlined,
+  AudioOutlined,
+  DesktopOutlined,
+  FormOutlined,
+  EditOutlined,
+  ReadOutlined,
+} from "@ant-design/icons";
 const { Search } = Input;
 
 function SearchForm() {
@@ -54,17 +67,10 @@ function SearchForm() {
       <Input placeholder="Search courses and blogs" loading={load}
         onChange={handleOnChange}
         onSearch={handleSearch} 
-        className="drop-shadow-2xl"/>
-      {/* <Search
-        value={search}
-        placeholder="Find courses and blogs"
-       
-        size="large"
-        loading={load}
-        onChange={handleOnChange}
-        onSearch={handleSearch}
-      /> */}
+        style={{marginLeft:"0px",width:"380px"}}
+        />
       <ul
+     
         style={{
           position: "absolute",
           zIndex: "99",
@@ -77,7 +83,7 @@ function SearchForm() {
           marginTop: "3px",
           background: "#fff",
           padding: "0 11px",
-          // boxShadow:"0 0 7px 4px #33333326",
+          boxShadow:"0 0 7px 4px #33333326",
         }}
       >
         {search &&

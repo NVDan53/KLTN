@@ -8,41 +8,42 @@ const CourseCard = ({ course }) => {
   // destructure
   const { name, instructor, price, image, slug, paid, categories } = course;
   return (
-    <Link href="/course/[slug]" as={`/course/${slug}`}>
-      <a>
-        <Card
-          className="mb-4"
-          cover={
-            <img
-              src={image.Location}
-              alt={name}
-              style={{ height: "200px", objectFit: "cover" }}
-              className="p-1"
-            />
-          }
-        >
-          <h2 className="h4 font-weight-bold">{name}</h2>
-          <p>by {instructor.name}</p>
+    <div className="drop-shadow-lg m-2 bg-white border-2 transform hover:scale-105 transition duration-500 ">
+      <div className="relative">
+        <img
+          src={image.Location}
+          alt="Colors"
+          style={{ objectFit: "cover", height: "200px" }}
+        />
+        <p className="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 ">
+          {paid
+            ? currencyFormatter({
+                amount: price,
+                currency: "usd",
+              })
+            : "Free"}
+        </p>
+      </div>
+      <h1 className="mt-2 p-2 text-gray-800 font-bold">{name}</h1>
+      <h1 className=" px-2 text-gray-800 ">{instructor.name}</h1>
+      {categories.map((c) => (
+        <Badge
+          count={c.name}
+          style={{ backgroundColor: "#03a9f4" }}
+          className="pb-2 mr-2"
+        />
+      ))}
 
-          {categories.map((c) => (
-            <Badge
-              count={c.name}
-              style={{ backgroundColor: "#03a9f4" }}
-              className="pb-2 mr-2"
-            />
-          ))}
-
-          <h4 className="pt-2">
-            {paid
-              ? currencyFormatter({
-                  amount: price,
-                  currency: "usd",
-                })
-              : "Free"}
-          </h4>
-        </Card>
-      </a>
-    </Link>
+      <div className="text-right">
+        <Link href="/course/[slug]" as={`/course/${slug}`}>
+          <a>
+            <button className="m-2 p-2 text-right text-white bg-indigo-600 hover:bg-indigo-400 py-2 rounded-lg">
+              {paid ? "Buy Course" : "Enroll Now"}
+            </button>
+          </a>
+        </Link>
+      </div>
+    </div>
   );
 };
 

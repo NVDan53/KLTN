@@ -39,21 +39,25 @@ const InstructorRevenue = () => {
 
   return (
     <InstructorRoute>
-      <h1 className="jumbotron text-center square p-3 mt-2 left-bottom-radius">
-        Revenue
-      </h1>
+     <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+        <ul className="flex">
+          <li><a href="/instructor" className="underline font-semibold">Dashboard</a></li>
+          <li><span className="mx-2">/</span></li>  
+          <li>Revenue</li>
+        </ul>
+      </div>
 
       <div className="container">
         <div className="row">
-          <div className="col-md-8 offset-md-2 p-5">
-            <h2>
+          <div className="col-md-8 offset-md-2 p-5 bg-white">
+          <h2 class="text-2xl ">
               Revenue Report <DollarOutlined className="float-right" />
             </h2>
             <small>
               You get paid directly from stripe to your bank account, every 2
               days.
             </small>
-            <hr />
+            <hr className="py-3"/>
             <h4>
               Pending Balance
               {balance.pending &&
@@ -65,7 +69,7 @@ const InstructorRevenue = () => {
               <br />
             </h4>
             <small>For the last 2 days.</small>
-            <hr />
+            <hr className="py-3"/>
             <h4>
               Payouts{" "}
               {!loading ? (

@@ -7,7 +7,19 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import SearchForm from "../forms/SearchForm";
-
+import {
+  LoginOutlined,
+  UserAddOutlined,
+  AppstoreOutlined,
+  CarryOutOutlined,
+  TeamOutlined,
+  CoffeeOutlined,
+  AudioOutlined,
+  DesktopOutlined,
+  FormOutlined,
+  EditOutlined,
+  ReadOutlined,
+} from "@ant-design/icons";
 const TopNav = () => {
   const [current, setCurrent] = useState("");
   // context
@@ -24,7 +36,6 @@ const TopNav = () => {
     process.browser && setCurrent(window.location.pathname);
   }, [process.browser && window.location.pathname]);
 
-
   const logout = async () => {
     try {
       const { data } = await axios.get("/api/logout");
@@ -38,42 +49,46 @@ const TopNav = () => {
       toast("Logout failed. Try again.");
     }
   };
- 
+
   return (
     <>
-     
       <Menu
         onClick={(e) => setCurrent(e.key)}
         selectedKeys={[current]}
         mode="horizontal"
+        style={{
+          lineHeight: "64px",
+          boxShadow:
+            "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+        }}
+        className="drop-shadow-md"
       >
         <Item key="/">
           <Link href="/">
             <a className="">
-            
               <img
-                  src="/images/logo/codecontinue.png"
-                  alt="code continue logo"
-                  style={{ height: "34px", width: "100%", objectFit: "cover",marginBottom:"8px" }}     
-                />
-             
+                src="/images/logo/codecontinue.png"
+                alt="code continue logo"
+                style={{
+                  height: "34px",
+                  width: "100%",
+                  marginBottom: "16px",
+                  marginLeft: "20px",
+                }}
+              />
             </a>
           </Link>
         </Item>
-        <Item>
+        <Item style={{ marginLeft: "70px" }}>
           <SearchForm />
         </Item>
-       
+
         <Item key="/listcourses">
           <Link href="/listcourses">
             <a className="typewriter">Courses</a>
           </Link>
         </Item>
-        <Item key="/test">
-          <Link href="/test">
-            <a className="typewriter">test</a>
-          </Link>
-        </Item>
+
         <Item key="/articles">
           <Link href="/articles">
             <a className="typewriter">Blog</a>
@@ -96,27 +111,22 @@ const TopNav = () => {
         user.stripe_seller.charges_enabled ? (
           <></>
         ) : (
-          <Item key="/user/become-instructor">
-            <Link href="/user/become-instructor">
+          <Item key="/techweb">
+            <Link href="/techweb">
               <a className="typewriter">Tech on website</a>
             </Link>
           </Item>
         )}
 
-        
-
         {user === null && (
           <>
-            <Item
-              key="/register"
-              className="float-right"
-            >
+            <Item key="/register" className="float-right border-2">
               <Link href="/register">
-                <a>Register</a>
+                <a className="border-2">Register</a>
               </Link>
             </Item>
 
-            <Item key="/login" className="float-right">
+            <Item key="/login" className="float-right border-2">
               <Link href="/login">
                 <a>Login</a>
               </Link>
@@ -125,10 +135,7 @@ const TopNav = () => {
         )}
 
         {user !== null && (
-          <SubMenu
-            title={user.name}
-            className="float-right"
-          >
+          <SubMenu title={user.name} className="float-right">
             <ItemGroup>
               <Item key="/user">
                 <Link href="/user">
@@ -146,10 +153,7 @@ const TopNav = () => {
           user.stripe_seller &&
           user.role.includes("Instructor") &&
           user.stripe_seller.charges_enabled && (
-            <Item
-              key="/instructor"
-              className="float-right"
-            >
+            <Item key="/instructor" className="float-right">
               <Link href="/instructor">
                 <a className="typewriter">Instructor</a>
               </Link>

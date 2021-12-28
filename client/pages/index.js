@@ -7,16 +7,27 @@ import Saying from "../components/layout/Saying";
 import Pricing from "../components/layout/Pricing";
 import Feature from "../components/layout/Feature";
 import Become from "../components/layout/Become";
-const Index = ({ courses, router }) => {
+
+import CourseCategories from "../components/layout/CourseCategories";
+const Index = ({ courses, categories, router }) => {
   const head = () => (
     <Head>
-      <title>
-        Online Learning |{" "}
-        {process.env.APP_NAME}
-      </title>
+      <title>Online Learning | {process.env.APP_NAME}</title>
       <link rel="canonical" href={`${process.env.DOMAIN}${router.pathname}`} />
-      <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-
+      <link
+        rel="stylesheet"
+        href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+        crossorigin="anonymous"
+      />
+      <link
+        rel="stylesheet"
+        href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
+      />
       <meta
         property="og:title"
         content={`Online Learning | ${process.env.APP_NAME}`}
@@ -40,25 +51,26 @@ const Index = ({ courses, router }) => {
 
   return (
     <>
-     {head()}
-     <div className="container">
-      <SimpleSlider />
-      <Become/>
-      <Feature/>
-    </div>
-    <Saying />
-   
-    
+      {head()}
+      <div className="container">
+        <SimpleSlider />
+        <CourseCategories courses={courses} categories={categories} />
+        <Become />
+        {/* <Feature /> */}
+      </div>
+      <Saying />
     </>
   );
 };
 
 export async function getServerSideProps() {
   const { data } = await axios.get(`${process.env.API}/courses`);
-  // console.log("DATA LENGTH =====> ", data.length);
+  const courseCategories = await axios.get(`${process.env.API}/categories`);
+
   return {
     props: {
       courses: data,
+      categories: courseCategories.data,
     },
   };
 }
