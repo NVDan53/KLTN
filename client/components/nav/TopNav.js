@@ -63,7 +63,11 @@ const TopNav = () => {
         <Item>
           <SearchForm />
         </Item>
-       
+        <Item key="/techweb">
+          <Link href="/techweb">
+            <a className="typewriter">Tech on website</a>
+          </Link>
+        </Item>
         <Item key="/listcourses">
           <Link href="/listcourses">
             <a className="typewriter">Courses</a>
@@ -85,7 +89,7 @@ const TopNav = () => {
           </Item>
         )}
 
-        {user &&
+        {/* {user &&
         user.role &&
         user.stripe_seller &&
         user.role.includes("Instructor") &&
@@ -99,7 +103,7 @@ const TopNav = () => {
           </Item>
         )}
 
-        
+         */}
 
         {user === null && (
           <>
