@@ -94,16 +94,7 @@ blockquote p {
 a {
   text-decoration: none !important;
 }
-.ant-menu-item-selected {
-  border: none !important;
-}
-.ant-menu-item:hover {
-  border: none !important;
-}
-.ant-menu-horizontal > .ant-menu-item,
-.ant-menu-horizontal > .ant-menu-submenu {
-  border: none !important;
-}
+
 .slider_header {
   position: absolute;
   top: 35%;
@@ -187,5 +178,17 @@ color: #fff !important;
 }
 .delete-hover:hover{
   background-color: #fff !important;
+}
+/* bỏ hover */
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after{
+  border-bottom: 1px solid #fff !important;
+}
 
+.btn-login:hover{
+  background-color: rgba(0,0,0,.04)!important;
+  color: #1c1d1f !important;
+}
+.btn-register:hover{
+  background-color: #333 !important;
 }

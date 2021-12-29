@@ -67,7 +67,7 @@ function SearchForm() {
       <Input placeholder="Search courses and blogs" loading={load}
         onChange={handleOnChange}
         onSearch={handleSearch} 
-        style={{marginLeft:"0px",width:"380px"}}
+        style={{marginLeft:"70px",width:"400px"}}
         />
       <ul
      
@@ -83,7 +83,7 @@ function SearchForm() {
           marginTop: "3px",
           background: "#fff",
           padding: "0 11px",
-          boxShadow:"0 0 7px 4px #33333326",
+          // boxShadow:"0 0 7px 4px #33333326",
         }}
       >
         {search &&

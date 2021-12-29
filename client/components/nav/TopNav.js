@@ -58,6 +58,7 @@ const TopNav = () => {
         mode="horizontal"
         style={{
           lineHeight: "64px",
+          display:"block",
           boxShadow:
             "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
         }}
@@ -73,13 +74,13 @@ const TopNav = () => {
                   height: "34px",
                   width: "100%",
                   marginBottom: "16px",
-                  marginLeft: "20px",
+                
                 }}
               />
             </a>
           </Link>
         </Item>
-        <Item style={{ marginLeft: "70px" }}>
+        <Item>
           <SearchForm />
         </Item>
 
@@ -120,30 +121,31 @@ const TopNav = () => {
 
         {user === null && (
           <>
-            <Item key="/register" className="float-right border-2">
+            <Item key="/register" className="float-right ">
               <Link href="/register">
-                <a className="border-2">Register</a>
+              <a className="btn-register font-bold" style={{border:"1px solid #1c1d1f",padding:"6px 20px",color:"#fff",backgroundColor:"#1c1d1f"}}>Register</a>
               </Link>
             </Item>
 
-            <Item key="/login" className="float-right border-2">
+            <Item key="/login" className="float-right ">
               <Link href="/login">
-                <a>Login</a>
+                <a className="btn-login font-bold" style={{border:"1px solid #1c1d1f",padding:"6px 20px",color:"#1c1d1f",marginRight:"-30px"}}>Login</a>
               </Link>
             </Item>
           </>
         )}
 
         {user !== null && (
-          <SubMenu title={user.name} className="float-right">
+          <SubMenu title={user.name} className="float-right font-bold">
             <ItemGroup>
               <Item key="/user">
                 <Link href="/user">
-                  <a>Dashboard</a>
+
+                  <a><i class="fas fa-tachometer-alt pr-2 h-4 w-8"style={{fontSize:"18px"}}></i>Dashboard</a>
                 </Link>
               </Item>
 
-              <Item onClick={logout}>Logout</Item>
+              <Item onClick={logout}><i class="fas fa-sign-out-alt pr-2 h-4 w-8"style={{fontSize:"18px"}}></i>Logout</Item>
             </ItemGroup>
           </SubMenu>
         )}
