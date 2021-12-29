@@ -7,7 +7,7 @@ import Saying from "../components/layout/Saying";
 import Pricing from "../components/layout/Pricing";
 import Feature from "../components/layout/Feature";
 import Become from "../components/layout/Become";
-
+import Statistical from "../components/layout/Statistical";
 import CourseCategories from "../components/layout/CourseCategories";
 const Index = ({ courses, categories, router }) => {
   const head = () => (
@@ -54,6 +54,7 @@ const Index = ({ courses, categories, router }) => {
       {head()}
       <div className="container">
         <SimpleSlider />
+        <Statistical/>
         <CourseCategories courses={courses} categories={categories} />
         <Become />
         {/* <Feature /> */}

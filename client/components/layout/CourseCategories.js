@@ -53,7 +53,7 @@ const CourseCategories = ({ courses, categories }) => {
                       });
                     }).length >= 4 && (
                       <Link href={`/category/${category._id}`}>
-                        <a>{`See all >`}</a>
+                        <a>{`See all `}<i class="fas fa-arrow-right"></i></a>
                       </Link>
                     )}
                   </div>
