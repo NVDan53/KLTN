@@ -5,7 +5,7 @@ const Saying = () => (
 
  <div className="container">
   {/* component */}
-  <div className="min-w-screen min-h-screen flex items-center justify-center bg-gray-100" >
+  <div className="flex items-center justify-center bg-gray-100" >
     <div className="w-full  text-gray-800">
       <div className="w-full max-w-6xl mx-auto">
         <div className="text-center max-w-xl mx-auto">

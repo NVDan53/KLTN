@@ -42,19 +42,19 @@ const InstructorIndex = () => {
         <table className="w-full bg-white leading-normal">
           <thead>
             <tr>
-              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-xs font-semibold text-dark font-bold uppercase tracking-wider">
                 Name
               </th>
-              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-xs font-semibold text-dark font-bold uppercase tracking-wider">
                 Lesson
               </th>
-              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-xs font-semibold text-dark font-bold uppercase tracking-wider">
                 Created at
               </th>
-              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-xs font-semibold text-dark font-bold uppercase tracking-wider">
                 Price
               </th>
-              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-xs font-semibold text-dark font-bold uppercase tracking-wider">
                 Status
               </th>
             </tr>
@@ -67,7 +67,7 @@ const InstructorIndex = () => {
               <td className="px-4 py-4 border-b border-gray-200    text-sm " >      
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <img className="w-full h-full" src={course.image ? course.image.Location : "/course.png"} style={{height:"80px",width:"100px"}} />
+                    <img className="w-full h-full" src={course.image ? course.image.Location : "/course.png"} style={{height:"80px",width:"100px",objectFit: "cover"}} />
                   </div>
                   <div className="ml-3">
                     <p className="text-gray-900 whitespace-no-wrap">
