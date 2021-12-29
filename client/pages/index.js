@@ -52,13 +52,15 @@ const Index = ({ courses, categories, router }) => {
   return (
     <>
       {head()}
-      <div className="container">
+    
+     
         <SimpleSlider />
-        <Statistical/>
         <CourseCategories courses={courses} categories={categories} />
+        <Statistical/>
         <Become />
         {/* <Feature /> */}
-      </div>
+    
+     
       <Saying />
     </>
   );

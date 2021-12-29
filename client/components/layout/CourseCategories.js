@@ -29,7 +29,7 @@ const CourseCategories = ({ courses, categories }) => {
   };
 
   return (
-    <div style={{ marginTop: "100px" }}>
+    <div>
       <div>
         {getCategories(categories).categories.map((category) => {
           return (

@@ -1,48 +1,38 @@
-const Statistical = ({
-    listUser = [
-      {
-        name: "Learners",
-        number: "1900",
-        icon: "//img.icons8.com/material-rounded/24/000000/user.png",
-      },
-      {
-        name: "Courses",
-        number: "200",
-        icon: "https://img.icons8.com/windows/32/000000/courses.png",
-      },
-      {
-        name: "Instructors",
-        number: "50",
-        icon: "https://img.icons8.com/ios-filled/50/000000/teacher.png",
-      },
-    ],
-  }) => {
+const Statistical = (
+   ) => {
     return (
       <>
-           <div className="relative w-full flex" style={{marginTop:"50px"}}>
-        <div className="infor-parent flex rounded-lg w-full grid-flow-row sm:grid-flow-row grid-cols-1 sm:grid-cols-3 py-9 z-10">
-          {listUser.map((listUsers, index) => (
-            <div
-              className="infor-child flex items-center justify-start sm:justify-center py-4 sm:py-6 w-8/12 px-4 sm:w-auto mx-auto sm:mx-0"
-              key={index}
-            >
-              <div className="flex mx-auto w-40 sm:w-auto">
-                <div className="bg-blue flex items-center justify-center w-12 h-12 mr-6 rounded-full">
-                  <img src={listUsers.icon} className="h-6 w-6" />
-                </div>
-                <div className="flex flex-col">
-                  <p className="text-xl text-black-600 font-bold">
-                    {listUsers.number}+
-                  </p>
-                  <p className="text-lg text-black-500">{listUsers.name}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+      <>
+      <div className="bg-gray-100 py-8 mt-16">
+
+
+    
+        <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-3 text-center">
+  <div className=" overflow-hidden text-center">
+        <div className="text-pink-600 p-3 text-white inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-blue-300 ">
+        <i class="fas fa-user-tie text-4xl"></i>
         </div>
-       
+        <h2 className="text-xl font-medium text-gray-800">Reputable Lecturer</h2>
+        <p className="max-w-md text-gray-400"style={{marginLeft:"20px"}}>Quality lectures</p>
+  </div>
+  <div className=" overflow-hidden text-center">
+        <div className="text-pink-600 p-3 text-white inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-blue-300 ">
+        <i class="fas fa-infinity text-4xl"></i>
+        </div>
+        <h2 className="text-xl font-medium text-gray-800">Learning forever</h2>
+        <p className="max-w-md text-gray-400"style={{marginLeft:"20px"}}>1 time payment</p>
+  </div>
+  <div className=" overflow-hidden text-center">
+        <div className="text-pink-600 p-3 text-white inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-blue-300 ">
+        <i class="fas fa-headset text-4xl"></i>
+        </div>
+        <h2 className="text-xl font-medium text-gray-800">Online Learning</h2>
+        <p className="max-w-md text-gray-400"style={{marginLeft:"20px"}}>Live support</p>
+  </div>
+</div>
       </div>
-      
+      </>
+
       </>
     );
   };

@@ -14,7 +14,7 @@ export default class SimpleSlider extends Component {
     };
     
     return (
-      <div>
+      <div  className="container">
         <Slider {...settings}>
           <div>
                 <div style={{ height: "500px", width: "100%",marginTop:"15px",zIndex:"2",

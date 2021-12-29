@@ -154,6 +154,7 @@ color: #fff !important;
   position: absolute !important;
   top: 40% !important;
   left: -40px !important;
+  margin-left: 15px;
 }
 
 .row-style .slick-next {

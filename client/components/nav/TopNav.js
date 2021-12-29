@@ -95,7 +95,7 @@ const TopNav = () => {
             <a className="typewriter">Blog</a>
           </Link>
         </Item>
-        {user && user.role && user.role.includes("Author") ? (
+        {/* {user && user.role && user.role.includes("Author") ? (
           <></>
         ) : (
           <Item key="/user/become-author">
@@ -103,7 +103,7 @@ const TopNav = () => {
               <a className="typewriter">Write Blog</a>
             </Link>
           </Item>
-        )}
+        )} */}
 
         {user &&
         user.role &&

@@ -1,11 +1,12 @@
 import React from "react";
 const Saying = () => (
  <>
+ <div className=" bg-gray-100">
+
  <div className="container">
   {/* component */}
-  <style dangerouslySetInnerHTML={{__html: "@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css')" }} />
-  <div className="min-w-screen min-h-screen flex items-center justify-center py-5">
-    <div className="w-full bg-white  px-5 py-16 md:py-24 text-gray-800">
+  <div className="min-w-screen min-h-screen flex items-center justify-center bg-gray-100" >
+    <div className="w-full  text-gray-800">
       <div className="w-full max-w-6xl mx-auto">
         <div className="text-center max-w-xl mx-auto">
           <h1 className="mt-8 text-center text-5xl font-bold">What people are saying.</h1>
@@ -107,6 +108,7 @@ const Saying = () => (
     </div>
   </div>
 </div>
+ </div>
 
  </>
 );

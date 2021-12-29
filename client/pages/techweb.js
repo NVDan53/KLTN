@@ -131,7 +131,7 @@ const Tech = ({ courses, router }) => {
         <div className="text-2xl font-bold text-purple-500 mb-4">Plan your curriculum</div>
         <span className="text-sm ">
         You start with your passion and knowledge. Then choose a promising topic with the help of our Marketplace Insights tool.<br/>
-The way that you teach — what you bring to it — is up to you.
+
         </span>
       </div>
     </div>
@@ -140,7 +140,7 @@ The way that you teach — what you bring to it — is up to you.
       <div className="px-10 py-6 mb-10 text-left">
         <div className="text-2xl font-bold text-green-500 mb-4">Record your video</div>
         <span className="text-sm">Use basic tools like a smartphone or a DSLR camera. Add a good microphone and you’re ready to start.
-        <br/>If you don’t like being on camera, just capture your screen. Either way, we recommend two hours or more of video for a paid course.</span>
+       </span>
       </div>
     </div>
     <div className="bg-white">
@@ -148,7 +148,7 @@ The way that you teach — what you bring to it — is up to you.
       <div className="px-10 py-6 mb-10 text-left">
         <div className="text-2xl font-bold text-blue-500 mb-4">Launch your course</div>
         <span className="text-sm">Gather your first ratings and reviews by promoting your course through social media and your professional networks.
-        <br/>Your course will be discoverable in our marketplace where you earn revenue from each paid enrollment.</span>
+       </span>
       </div>
     </div>
   </div>
