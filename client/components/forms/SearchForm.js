@@ -67,10 +67,11 @@ function SearchForm() {
       <Input placeholder="Search courses and blogs" loading={load}
         onChange={handleOnChange}
         onSearch={handleSearch} 
-        style={{marginLeft:"70px",width:"400px"}}
+        style={{marginLeft:"70px",width:"400px",borderRadius:"50px",marginTop:"5px",marginBottom:"5px"}}
+        prefix={<i class="fas fa-search mr-2 text-gray-400"></i>}
         />
       <ul
-     
+        className="border border-gray-900"
         style={{
           position: "absolute",
           zIndex: "99",
@@ -80,9 +81,11 @@ function SearchForm() {
           maxHeight: "calc(100vh - 150px)",
           overflowY: "hidden",
           overflowX: "hidden",
-          marginTop: "3px",
+          marginTop: "6px",
           background: "#fff",
-          padding: "0 11px",
+          marginLeft:"70px",
+          // padding: "0 11px",
+          // border:"1px solid #333"
           // boxShadow:"0 0 7px 4px #33333326",
         }}
       >
@@ -96,6 +99,7 @@ function SearchForm() {
                   WebkitBoxOrient: "vertical",
                   textOverflow: "ellipsis",
                   WebkitLineClamp: "1",
+                  padding: "0 11px",
                 }}
               >
                 <Link href={`/course/${course.slug}`}>
@@ -103,8 +107,8 @@ function SearchForm() {
                     style={{
                       display: "block",
                     }}
-                    className="reset-before"
-                  >
+                    className="reset-before text-dark"
+                  ><i class="fas fa-chalkboard-teacher mr-2 text-gray-400"></i>
                     {course.name}
                   </a>
                 </Link>
@@ -122,10 +126,13 @@ function SearchForm() {
                   WebkitBoxOrient: "vertical",
                   textOverflow: "ellipsis",
                   WebkitLineClamp: "1",
+                  padding: "0 11px",
                 }}
               >
                 <Link href={`/article/${post.slug}`}>
-                  <a className="reset-before">{post.title}</a>
+                  <a className="reset-before  text-dark">
+                    <i class="far fa-file-alt mr-2 text-gray-400"></i>{post.title}
+                  </a>
                 </Link>
               </li>
             );

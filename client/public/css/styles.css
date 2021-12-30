@@ -114,8 +114,8 @@ a {
   background-color: #cce4fd !important;
 }
 .ant-input {
-  border-radius: 50px !important;
-  margin: 5px 0;
+  /* border-radius: 50px !important;
+  margin: 5px 0; */
 }
 
 .ant-menu-horizontal > .ant-menu-item-selected a {
