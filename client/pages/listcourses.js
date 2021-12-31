@@ -1,6 +1,6 @@
 import { withRouter } from "next/router";
 import axios from "axios";
-import CourseCard from "../components/cards/CourseCard";
+import ListCourseCard from "../components/cards/ListCourseCard";
 import Head from "next/head";
 
 const ListCourses = ({ courses, router }) => {
@@ -57,7 +57,7 @@ const ListCourses = ({ courses, router }) => {
         <div className="row my-4" style={{marginLeft:"-23px"}}>
           {courses.map((course) => (
             <div key={course._id} className="col-md-3">
-              <CourseCard key={course._id} course={course} />
+              <ListCourseCard key={course._id} course={course} />
             </div>
           ))}
         </div>

@@ -8,7 +8,7 @@ const Tech = ({ courses, router }) => {
   const head = () => (
     <Head>
       <title>
-         VIETEDU.COM
+         Online Learning
       </title>
       <meta
         name="description"
@@ -17,11 +17,11 @@ const Tech = ({ courses, router }) => {
       <link rel="canonical" href={`${process.env.DOMAIN}${router.pathname}`} />
       <meta
         property="og:title"
-        content={`VIETEDU.COM | ${process.env.APP_NAME}`}
+        content={`Online Learning | ${process.env.APP_NAME}`}
       />
       <meta
         property="og:description"
-        content={`VIETEDU.COM | Free and Paid | ${process.env.APP_NAME}`}
+        content={`Online Learning | Free and Paid | ${process.env.APP_NAME}`}
       />
       <meta property="og:type" content="website" />
       {/* <meta property="og:url" content={`${process.env.DOMAIN}/default.jpg`} /> */}

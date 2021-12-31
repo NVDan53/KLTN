@@ -20,6 +20,7 @@ const Index = ({ courses, categories, router }) => {
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
         crossorigin="anonymous"
       />
+      <link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon" />
       <link
         rel="stylesheet"
         href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"

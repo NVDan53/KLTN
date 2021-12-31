@@ -217,7 +217,7 @@ const UserQa = () => {
         <ul className="flex">
           <li><a href="/user" className="underline font-semibold">Dashboard</a></li>
           <li><span className="mx-2">/</span></li>  
-          <li>Support</li>
+          <li>Question</li>
         </ul>
       </div>
 

@@ -51,14 +51,18 @@ const UserQaReadRemove = ({
 
   return (
     <>
+      {/* <hr style={{ borderTop: "3px dashed #f6f6f6" }} /> */}
 
+      {/* modal with form to create post */}
 
-      <div className="row"style={{marginLeft:"16px",marginRight:"16px"}}>
+      {/* <pre>{JSON.stringify(qas, null, 4)}</pre> */}
+
+      <div className="row pt-8 bg-white">
         {qas.map((q) => (
-          <div key={q._id} className="col-md-12 pb-2 border-2 bg-white">
-            <div className="d-flex my-2">
+          <div key={q._id} className="col-md-12 mb-8 border-b-2">
+            <div className="d-flex mb-2">
               <Avatar
-                size={80}
+                size={40}
                 shape="square"
                 src={
                   q.courseId && q.courseId.image
@@ -73,29 +77,39 @@ const UserQaReadRemove = ({
                     <i>{q.courseId && q.courseId.name}</i>
                   </a>
                 </Link>
-                <p className="pl-2 pt-1">
-                  {new Date(q.createdAt).toLocaleDateString()}
-                </p>
               </span>
             </div>
 
-            <div className="">
-              <div className="d-flex pb-3 ">
-               
+            {/* <div className="p-3" style={{ backgroundColor: "#f2f2f2" }}> */}
+            <div className="p-3">
+              <div className="d-flex pb-3">
+                <Avatar>
+                  <span>
+                  {q.postedBy && q.postedBy.name && q.postedBy.name[0]}
+                  </span>
+                </Avatar>{" "}
                 <span className="pl-2 pt-1">{q.postedBy.name}</span>
+                <span className="pl-2 pt-1">
+                  {new Date(q.createdAt).toLocaleDateString()}
+                </span>
+                <span className="pt-1 ml-auto">
+                  {q.answers && q.answers.length + " answers"}
+                </span>
+              </div>
+                <div className="float-right">
                 {q.postedBy && user && user._id === q.postedBy ? (
-                <div className="d-flex justify-content-around items-center">
-                  <Tooltip title="Add answer">
+               <>
+                <Tooltip title="Add answer">
                     <PlusCircleFilled
                       onClick={() => handleAddAnswer(q)}
-                      className="text-success mx-2"
+                      className="text-success mr-4"
                     />
                   </Tooltip>
                   <Tooltip onClick={() => handleQaEdit(q)} title="Edit">
-                    <EditFilled className="text-warning mx-2" />
+                    <EditFilled className="text-warning mr-4" />
                   </Tooltip>
                   <Tooltip onClick={() => handleQaDelete(q)} title="Delete">
-                    <DeleteFilled className="text-danger mx-2" />
+                    <DeleteFilled className="text-danger mr-4" />
                   </Tooltip>
                   <Tooltip
                     onClick={() =>
@@ -104,18 +118,22 @@ const UserQaReadRemove = ({
                     title={q.resolved ? "Mark unresolved" : "Mark resolved"}
                   >
                     {q.resolved ? (
-                      <CloseCircleFilled className="text-info mx-2" />
+                      <CloseCircleFilled className="text-info" />
                     ) : (
-                      <CheckCircleFilled className="text-info mx-2" />
+                      <CheckCircleFilled className="text-info" />
                     )}
                   </Tooltip>
-                </div>
+               </>
+                 
+                
               ) : instructor ? (
-                <div className="d-flex justify-content-around items-center">
+                <>
+                
+              
                   <Tooltip title="Add answer">
                     <PlusCircleFilled
                       onClick={() => handleAddAnswer(q)}
-                      className="text-success mx-2"
+                      className="text-success mr-4"
                     />
                   </Tooltip>
 
@@ -123,7 +141,7 @@ const UserQaReadRemove = ({
                     onClick={() => handleQaDeleteByInstructor(q)}
                     title="Delete"
                   >
-                    <DeleteFilled className="text-danger mx-2" />
+                    <DeleteFilled className="text-danger" />
                   </Tooltip>
 
                   <Tooltip
@@ -135,19 +153,18 @@ const UserQaReadRemove = ({
                     title={q.resolved ? "Mark unresolved" : "Mark resolved"}
                   >
                     {q.resolved ? (
-                      <CloseCircleFilled className="text-info mx-2" />
+                      <CloseCircleFilled className="text-info" />
                     ) : (
-                      <CheckCircleFilled className="text-info mx-2" />
+                      <CheckCircleFilled className="text-info" />
                     )}
                   </Tooltip>
-                </div>
+                
+                </>
               ) : (
                 ""
               )}
-                <span className="pt-1 ml-auto">
-                  {q.answers && q.answers.length + " answers"}
-                </span>
-              </div>         
+                </div>
+              <h5 className="font-bold text-md">{q.title}</h5>
 
               <ReactMarkdown
                 source={q.description}
@@ -169,7 +186,7 @@ const UserQaReadRemove = ({
                           <Tooltip title="Edit answer">
                             <EditOutlined onClick={() => handleEditAnswer(a)} />
                           </Tooltip>,
-                          <Tooltip title="Delete answer">
+                          <Tooltip title="Deleteeee answer">
                             <DeleteOutlined
                               onClick={() => handleDeleteAnswer(a)}
                             />

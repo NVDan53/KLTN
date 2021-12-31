@@ -15,7 +15,7 @@ const UserNav = () => {
 
   return (
     <>
-    <div className="bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0" style={{height:"100vh",marginLeft:"-15px"}}>
+    <div className="bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0" style={{height:"100%",marginLeft:"-15px"}}>
     <div className="flex items-center justify-center mt-8">
      <div className="flex items-center">
        <span className="text-white text-2xl mx-2 font-semibold">Menu</span>

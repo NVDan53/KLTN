@@ -73,32 +73,9 @@ const ContactForm = ({ loadUserIssues = (f) => f }) => {
         type="text"
         className="form-control"
         value={message}
-        rows="8"
+        rows="5"
         required
       />
-
-      <div className="form-group">
-        <label className="text-rr h5 pt-3">Name</label>
-        <input
-          onChange={(e) => setName(e.target.value)}
-          type="text"
-          className="form-control"
-          value={name}
-          disabled
-        />
-      </div>
-
-      <div className="form-group">
-        <label className="text-rr h5">Email</label>
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          className="form-control"
-          value={email}
-          disabled
-        />
-      </div>
-
       <button
         type="submit"
         className="btn btn-lg btn-block btn-primary mt-4 bg-rr"

@@ -72,7 +72,7 @@ const UserIndex = () => {
 
       <div className="container-fluid">
         <div className="row pt-2">
-          <div className="col-md-8 pb-5">
+          <div className="col-md-12 pb-5">
             <div className="lead alert alert-primary">
               Contact our help and support team using the form below for any
               issues.
@@ -80,19 +80,7 @@ const UserIndex = () => {
 
             <ContactForm loadUserIssues={loadUserIssues} />
           </div>
-          <div className="col-md-4 pb-4 text-rr">
-            <h4>CodeContinue</h4>
-            <hr />
-            <p className="lead">Find us on twitter</p>
-            <a
-              style={{ paddingTop: "2px" }}
-              className="lead"
-              href="https://twitter.com/CodeContinue?ref_src=twsrc%5Etfw"
-              target="_blank"
-            >
-              <TwitterOutlined /> @CodeContinue
-            </a>
-          </div>
+          
         </div>
 
         {/* show provious support posts */}
@@ -112,12 +100,7 @@ const UserIndex = () => {
                   )}
                 </li>
 
-                <li className="list-group-item">{issue.message}</li>
-                <li className="list-group-item">{issue.postedBy.name}</li>
-                <li className="list-group-item">{issue.postedBy.email}</li>
-                <li className="list-group-item">
-                  {new Date(issue.createdAt).toLocaleDateString()}
-                </li>
+                <li className="list-group-item">{new Date(issue.createdAt).toLocaleDateString()} <br/>{issue.message}</li>
                 {/* bottom icons */}
                 <li className="list-group-item">
                   <div className="d-flex justify-content-between">

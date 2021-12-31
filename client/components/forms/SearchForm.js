@@ -71,7 +71,7 @@ function SearchForm() {
         prefix={<i class="fas fa-search mr-2 text-gray-400"></i>}
         />
       <ul
-        className="border border-gray-900"
+        // className="border border-gray-900"
         style={{
           position: "absolute",
           zIndex: "99",
