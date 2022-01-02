@@ -63,24 +63,35 @@ const AdminIndex = () => {
     //   },
     //   setCourses(data);
     // };
-    
+    try {
+      const { data } = await axios.get("/api/courses");
+      setCourses(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <AdminRoute>
       {/* <h1 className="jumbotron text-center square">...</h1> */}
-     
-            
-         
-                <p className="text-gray-900 whitespace-no-wrap font-semibold">{users.length} users</p>
-                <p className="text-gray-900 whitespace-no-wrap font-semibold">{categories.length} categories</p>
-                <p className="text-gray-900 whitespace-no-wrap font-semibold">{posts.length} posts</p>
-                <p className="text-gray-900 whitespace-no-wrap font-semibold">{issues.length} issues</p>
-                <p className="text-gray-900 whitespace-no-wrap font-semibold">0 course</p>
 
-            
-           
-           
+      <p className="text-gray-900 whitespace-no-wrap font-semibold">
+        {users.length} users
+      </p>
+      <p className="text-gray-900 whitespace-no-wrap font-semibold">
+        {categories.length} categories
+      </p>
+      <p className="text-gray-900 whitespace-no-wrap font-semibold">
+        {posts.length} posts
+      </p>
+      <p className="text-gray-900 whitespace-no-wrap font-semibold">
+        {issues.length} issues
+      </p>
+      <p className="text-gray-900 whitespace-no-wrap font-semibold">
+        {courses.length > 1
+          ? `${courses.length} courses`
+          : `${courses.length} course`}
+      </p>
     </AdminRoute>
   );
 };
