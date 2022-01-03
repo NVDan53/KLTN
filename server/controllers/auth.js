@@ -181,10 +181,10 @@ export const login = async (req, res) => {
     // without httpOnly, javascript will get access to cookie in browser
     // so to protect token use true
     res.cookie("token", token, {
-      // httpOnly: true,
-      path: "/user/refresh_token",
-      secure: true, // only works on https
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      // path: "/user/refresh_token",
+      // secure: true, // only works on https
+      // maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.json(user);
@@ -269,8 +269,8 @@ export const forgotPassword = async (req, res) => {
     user.password = undefined;
     // send token to cookie
     res.cookie("token", token, {
-      // httpOnly: true,
-      secure: true, // only works on https
+      httpOnly: true,
+      // secure: true, // only works on https
     });
     const url = `${process.env.CLIENT_URL}/user/reset/${token}`;
     sendMail(email, url, "Reset your password");
