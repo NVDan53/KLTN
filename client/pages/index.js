@@ -1,14 +1,10 @@
-import { withRouter } from "next/router";
 import axios from "axios";
-import CourseCard from "../components/cards/CourseCard";
 import Head from "next/head";
-import SimpleSlider from "../components/nav/SimpleSlider";
-import Saying from "../components/layout/Saying";
-import Pricing from "../components/layout/Pricing";
-import Feature from "../components/layout/Feature";
+import { withRouter } from "next/router";
 import Become from "../components/layout/Become";
-import Statistical from "../components/layout/Statistical";
 import CourseCategories from "../components/layout/CourseCategories";
+import Statistical from "../components/layout/Statistical";
+import SimpleSlider from "../components/nav/SimpleSlider";
 const Index = ({ courses, categories, router }) => {
   const head = () => (
     <Head>
