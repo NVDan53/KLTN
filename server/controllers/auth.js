@@ -393,8 +393,8 @@ export const googleLogin = async (req, res) => {
       user.password = undefined;
       // send token to cookie
       res.cookie("token", token, {
-        // httpOnly: true,
-        secure: true, // only works on https
+        httpOnly: true,
+        // secure: true, // only works on https
       });
       res.json(user);
     } else {
@@ -415,8 +415,8 @@ export const googleLogin = async (req, res) => {
       // user.password = undefined;
       // send token to cookie
       res.cookie("token", token, {
-        // httpOnly: true,
-        secure: true, // only works on https
+        httpOnly: true,
+        // secure: true, // only works on https
       });
       res.json(newUser);
     }
