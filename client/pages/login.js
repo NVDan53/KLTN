@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Context } from "../context";
 import { useRouter } from "next/router";
 
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
@@ -160,7 +160,7 @@ const Login = () => {
             </form>
             <hr className="my-6 border-gray-300 w-full" />
             <div className="flex items-center justify-center">
-              <GoogleLogin
+              {/* <GoogleLogin
                 clientId="1074929433721-7hqftlfff4ap48da2l4oo3vk1v2l9rtq.apps.googleusercontent.com"
                 buttonText="Login"
                 onSuccess={responseGoogle}
@@ -169,7 +169,7 @@ const Login = () => {
                 className="w-100 text-center"
               >
                 <span> Login with Google</span>
-              </GoogleLogin>
+              </GoogleLogin> */}
             </div>
 
             <p className="mt-8">

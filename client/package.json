@@ -27,7 +27,7 @@
     "nanoid": "^3.1.20",
     "next": "^10.0.6",
     "nprogress": "^0.2.0",
-    "postcss": "^7.0.39",
+    "postcss": "^8.4.5",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
