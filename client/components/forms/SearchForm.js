@@ -80,9 +80,9 @@ function SearchForm() {
     <form style={{ position: "relative" }} autoComplete="off">
       <Input
         placeholder="Search courses and blogs"
-        loading={load}
+        // loading={load}
         onChange={handleOnChange}
-        onSearch={handleSearch}
+        // onSearch={handleSearch}
         onFocus={() => setShowResults(true)}
         style={{
           marginLeft: "70px",
@@ -91,7 +91,7 @@ function SearchForm() {
           marginTop: "5px",
           marginBottom: "5px",
         }}
-        prefix={<i class="fas fa-search mr-2 text-gray-400"></i>}
+        prefix={<i className="fas fa-search mr-2 text-gray-400"></i>}
       />
 
       {showResults && (

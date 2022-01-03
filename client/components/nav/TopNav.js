@@ -81,7 +81,7 @@ const TopNav = () => {
             </a>
           </Link>
         </Item>
-        <Item>
+        <Item key={`search`}>
           <SearchForm />
         </Item>
 
@@ -157,7 +157,11 @@ const TopNav = () => {
         )}
 
         {user !== null && (
-          <SubMenu title={user.name} className="float-right font-bold">
+          <SubMenu
+            key="/submenu"
+            title={user.name}
+            className="float-right font-bold"
+          >
             <ItemGroup>
               <Item key="/user">
                 <Link href="/user">
@@ -171,7 +175,7 @@ const TopNav = () => {
                 </Link>
               </Item>
 
-              <Item onClick={logout}>
+              <Item key="/logout" onClick={logout}>
                 <i
                   class="fas fa-sign-out-alt pr-2 h-4 w-8"
                   style={{ fontSize: "18px" }}
