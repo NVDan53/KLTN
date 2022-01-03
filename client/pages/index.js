@@ -64,7 +64,7 @@ const Index = ({ courses, categories, router }) => {
       <Become />
       {/* <Feature /> */}
 
-      <Saying />
+      {/* <Saying /> */}
     </>
   );
 };
