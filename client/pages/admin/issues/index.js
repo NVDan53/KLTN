@@ -75,34 +75,65 @@ const AdminIssuesIndex = () => {
 
   return (
     <AdminRoute>
-      {/* <h1 className="jumbotron text-center square">...</h1> */}
+         <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+        <ul className="flex">
+          <li><a href="/admin" className="underline font-semibold">Dashboard</a></li>
+          <li><span className="mx-2">/</span></li>  
+          <li>List issues</li>
+        </ul>
+      </div>
 
-      <div className="row pt-2">
-        {/* <pre>{JSON.stringify(issues, null, 4)}</pre> */}
 
-        {issues.map((issue) => (
-          <div key={issue._id} className="col-md-12 pb-4">
-            <ul className="list-group">
-              <li className="list-group-item">
-                {issue.course_url ? (
+      <div className="inline-block w-full shadow rounded-lg overflow-hidden mb-4">
+     <table className="w-full bg-white leading-normal">
+       <thead>
+         <tr>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+             Link course
+           </th>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+             Message
+           </th>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Email
+           </th>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+           Created at
+           </th>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+           Action
+           </th>
+         </tr>
+       </thead>
+       <tbody>
+       {issues.map((issue) => (
+            
+         <tr key={issue._id}  className="xyz hover:bg-sky-100">
+          
+           <td className="px-4 py-4 border-b border-gray-200  text-sm">
+             <p className="text-gray-900 whitespace-no-wrap font-semibold"> {issue.course_url ? (
                   <Link href={issue.course_url}>
                     <a target="_blank">{issue.course_url}</a>
                   </Link>
                 ) : (
                   "No URL"
-                )}
-              </li>
-
-              <li className="list-group-item">{issue.message}</li>
-              <li className="list-group-item">{issue.postedBy.name}</li>
-              <li className="list-group-item">{issue.postedBy.email}</li>
-              <li className="list-group-item">
-                {new Date(issue.createdAt).toLocaleDateString()}
-              </li>
-              {/* bottom icons */}
-              <li className="list-group-item">
-                <div className="d-flex justify-content-between">
-                  {issue.resolved ? (
+                )}</p>
+           </td>
+           <td className="px-4 py-4 border-b border-gray-200  text-sm">
+             <p className="text-gray-900 whitespace-no-wrap font-semibold"style={{width:"430px"}}>{issue.message}</p>
+           </td>
+           <td className="px-4 py-4 border-b border-gray-200   text-sm">
+             <p className="text-gray-900 whitespace-no-wrap">
+             {issue.postedBy.email}
+             </p>
+           </td>
+           <td className="px-4 py-4 border-b border-gray-200   text-sm">
+             <p className="text-gray-900 whitespace-no-wrap">
+             {new Date(issue.createdAt).toLocaleDateString()}
+             </p>
+           </td>
+           <td className="px-4 py-4 border-b border-gray-200  text-sm">
+             <p className="text-gray-900 whitespace-no-wrap font-semibold">  {issue.resolved ? (
                     <Tooltip title="Resolved">
                       {loading ? (
                         <LoadingOutlined className="text-success h4" />
@@ -128,13 +159,17 @@ const AdminIssuesIndex = () => {
                       onClick={() => deleteIssue(issue._id)}
                       className="text-danger h4"
                     />
-                  </Tooltip>
-                </div>
-              </li>
-            </ul>
-          </div>
-        ))}
-      </div>
+                  </Tooltip></p>
+           </td>
+         </tr>
+        
+         ))}
+       </tbody>
+     </table>
+     
+  
+ 
+</div>
     </AdminRoute>
   );
 };

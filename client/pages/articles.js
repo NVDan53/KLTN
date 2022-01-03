@@ -40,13 +40,14 @@ const Articles = ({ posts, router }) => {
   return (
     <>
       {head()}
-      {/* <h1 className="jumbotron text-center bg-primary square">
-        Online Education Marketplace
-      </h1> */}
-      <div className="container-fluid">
+     
+      <div className="container">
+      <h2 style={{ fontSize: "25px", fontWeight: "bold",marginTop:"20px" }}>
+                     List Blogs
+                    </h2>
         <div className="row pt-2">
           {posts.map((post) => (
-            <div key={post._id} className="col-md-4">
+            <div key={post._id} className="col-md-3">
               <PostCard post={post} />
               {/* <pre>{JSON.stringify(post, null, 4)}</pre> */}
             </div>

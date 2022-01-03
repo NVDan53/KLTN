@@ -14,9 +14,7 @@ import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import ReactMarkdown from "react-markdown";
 import AddLessonForm from "../../../../components/forms/AddLessonForm";
 import { toast } from "react-toastify";
-
-const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
-
+import { Badge } from "antd";
 const { Item } = List;
 
 const CourseView = () => {
@@ -165,13 +163,29 @@ const CourseView = () => {
 
   return (
     <InstructorRoute>
-      <h1 className="jumbotron text-center square p-3 mt-2 left-bottom-radius">
-        Add Lessons
-      </h1>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
+        <ul className="flex">
+          <li>
+            <a href="/instructor" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
+          <li>Add Lesson</li>
+        </ul>
+      </div>
 
       {course && (
-        <div className="container-fluid pt-1">
-          <div className="media">
+        <div
+          className="container-fluid"
+          style={{ padding: "40px", backgroundColor: "#fff" }}
+        >
+          <div className="media items-center">
             <Avatar
               size={80}
               src={course.image ? course.image.Location : "/course.png"}
@@ -181,23 +195,17 @@ const CourseView = () => {
                 <div className="col">
                   <h5 className="mt-2 text-primary">{course.name}</h5>
 
-                  <p style={{ marginTop: "-10px" }}>
-                    {course.lessons && course.lessons.length} Lessons
-                  </p>
-
-                  <p style={{ marginTop: "-15px", fontSize: "10px" }}>
+                  <p>
                     {course.categories &&
                       course.categories.map((category) => (
-                        <span className="badge mr-1" key={category._id}>
+                        <p key={category._id} style={{ color: "red" }}>
                           {category.name}
-                        </span>
+                        </p>
                       ))}
                   </p>
                 </div>
 
-                {/* {JSON.stringify(course.published)} */}
-
-                <div className="d-flex pt-4">
+                <div className="d-flex">
                   {/* total students enrolled */}
                   <Tooltip title={`${students} Enrolled`}>
                     <UserSwitchOutlined className="h5 pointer text-success mr-4" />
@@ -214,7 +222,7 @@ const CourseView = () => {
                   {/* course published ? unpublished */}
                   {course.lessons && course.lessons.length < 5 ? (
                     <Tooltip title="Min 5 lessons required to publish">
-                      <QuestionOutlined className="h5 pointer text-danger" />
+                      <QuestionOutlined className="h5 pointer text-danger mr-4" />
                     </Tooltip>
                   ) : course.published ? (
                     <Tooltip title="Unpublish">
@@ -235,13 +243,13 @@ const CourseView = () => {
               </div>
             </div>
           </div>
-          <hr />
+
           <div className="row">
-            <div className="col">
+            <div className="col my-4">
               <ReactMarkdown source={course.description} />
             </div>
           </div>
-          <hr />
+
           <div className="row">
             <Button
               onClick={() => setVisible(true)}
@@ -275,20 +283,21 @@ const CourseView = () => {
               setMarkdownCheetsheetModal={setMarkdownCheetsheetModal}
             />
           </Modal>
-          <hr />
+
           {/* {JSON.stringify(course)} */}
           <div className="row pb-5">
             <div className="col lesson-list">
-              <h4>
-                {course && course.lessons && course.lessons.length} Lessons
-              </h4>
               <List
                 itemLayout="horizontal"
                 dataSource={course && course.lessons}
                 renderItem={(item, index) => (
                   <Item>
                     <Item.Meta
-                      avatar={<Avatar>{index + 1}</Avatar>}
+                      avatar={
+                        <Avatar style={{ backgroundColor: "#1890ff" }}>
+                          {index + 1}
+                        </Avatar>
+                      }
                       title={item.title}
                     />
                   </Item>

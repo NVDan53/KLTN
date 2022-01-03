@@ -84,7 +84,7 @@ const BecomeAuthor = () => {
                     onClick={() => setShowModal(true)}
                     className="pointer text-danger"
                   >
-                    Why write on codecontinue?
+                    Why write on website?
                   </span>
                 </small>
               </p>

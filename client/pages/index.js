@@ -2,27 +2,44 @@ import { withRouter } from "next/router";
 import axios from "axios";
 import CourseCard from "../components/cards/CourseCard";
 import Head from "next/head";
-
-const Index = ({ courses, router }) => {
+import SimpleSlider from "../components/nav/SimpleSlider";
+import Saying from "../components/layout/Saying";
+import Pricing from "../components/layout/Pricing";
+import Feature from "../components/layout/Feature";
+import Become from "../components/layout/Become";
+import Statistical from "../components/layout/Statistical";
+import CourseCategories from "../components/layout/CourseCategories";
+const Index = ({ courses, categories, router }) => {
   const head = () => (
     <Head>
-      <title>
-        Courses on JavaScript React Next.js Node MongoDB GraphQL SEO MERN |{" "}
-        {process.env.APP_NAME}
-      </title>
-      <meta
-        name="description"
-        content="Courses on Modern JavaScript React Next.js Node MongoDB GraphQL SEO MERN Full Stack Web Development Courses Free and Paid"
-      />
+      <title>Online Learning | {process.env.APP_NAME}</title>
       <link rel="canonical" href={`${process.env.DOMAIN}${router.pathname}`} />
+      <link
+        rel="stylesheet"
+        href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+        crossorigin="anonymous"
+      />
+      <link
+        rel="shortcut icon"
+        href="/images/favicon/favicon.ico"
+        type="image/x-icon"
+      />
+      <link
+        rel="stylesheet"
+        href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
+      />
       <meta
         property="og:title"
-        content={`Courses on JavaScript React Next.js Node MongoDB GraphQL SEO MERN | ${process.env.APP_NAME}`}
+        content={`Online Learning | ${process.env.APP_NAME}`}
       />
       <meta
         property="og:description"
-        content={`Courses on JavaScript React Next.js Node MongoDB GraphQL SEO MERN Full Stack Web
-        Development Courses | Free and Paid | ${process.env.APP_NAME}`}
+        content={`Online Learning | ${process.env.APP_NAME}`}
       />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${process.env.DOMAIN}/default.jpg`} />
@@ -40,36 +57,26 @@ const Index = ({ courses, router }) => {
   return (
     <>
       {head()}
-      <div className="jumbotron text-center bg-primary square">
-        <h1>Become A FullStack Web Developer</h1>
-        <hr style={{ borderBottom: "2px solid silver", width: "100px" }} />
-        <p className="lead">
-          Master JavaScript React Node MongoDB MERN Stack & Start Building Real
-          Projects
-        </p>
-      </div>
-      <div className="container-fluid">
-        <div className="row pt-2">
-          {courses.map((course) => (
-            <div key={course._id} className="col-md-4">
-              <CourseCard key={course._id} course={course} />
-              {/* <pre>{JSON.stringify(course, null, 4)}</pre> */}
-            </div>
-          ))}
-        </div>
-      </div>
+
+      <SimpleSlider />
+      <CourseCategories courses={courses} categories={categories} />
+      <Statistical />
+      <Become />
+      {/* <Feature /> */}
+
+      <Saying />
     </>
   );
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL_DEPLOY}/api/courses`
-  );
-  // console.log("DATA LENGTH =====> ", data.length);
+  const { data } = await axios.get(`${process.env.API}/courses`);
+  const courseCategories = await axios.get(`${process.env.API}/categories`);
+
   return {
     props: {
       courses: data,
+      categories: courseCategories.data,
     },
   };
 }

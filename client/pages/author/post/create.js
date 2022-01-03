@@ -136,12 +136,16 @@ const PostCreate = () => {
 
   return (
     <AuthorRoute>
-      <h1 className="jumbotron text-center square p-3 mt-2 left-bottom-radius">
-        Write a Post
-      </h1>
+      <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+        <ul className="flex">
+          <li><a href="#" className="underline font-semibold">Dashboard</a></li>
+          <li><span className="mx-2">/</span></li>  
+          <li>Create a post</li>
+        </ul>
+      </div>
 
-      <div className="row pb-4">
-        <div className="col-md-8">
+      <div className="row pb-4 ml-0">
+        <div className="col-md-8 ">
           <input
             type="text"
             className="form-control pb-2"

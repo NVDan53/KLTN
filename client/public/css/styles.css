@@ -1,7 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .square {
   border-radius: 0px;
 }
-
+.container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
 .jumbotron {
   background-image: linear-gradient(to right, #007bff, #000);
   /* color: #fff; */
@@ -87,4 +93,103 @@ blockquote p {
 
 a {
   text-decoration: none !important;
+}
+
+.slider_header {
+  position: absolute;
+  top: 35%;
+  width: 355px;
+  margin-left: 80px;
+  background-color: #fff;
+  padding: 24px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+.infor-parent > .infor-child:nth-child(2) {
+  border-right: 2px solid #e7f0f6 !important;
+  border-left: 2px solid #e7f0f6 !important;
+
+  padding: 0 150px !important;
+}
+.bg-blue {
+  background-color: #cce4fd !important;
+}
+.ant-input {
+  /* border-radius: 50px !important;
+  margin: 5px 0; */
+}
+
+.ant-menu-horizontal > .ant-menu-item-selected a {
+  /* color: rgb(199, 197, 197) !important; */
+}
+.ant-menu-horizontal > .ant-menu-item-selected a:hover {
+  color: #1890ff !important;
+  cursor: pointer;
+}
+
+
+
+.text-w :hover{
+color: #fff !important;
+}
+.side-ml-16{
+  margin-left: -16px;
+}
+.ant-btn{
+  /* background-color: #1890ff !important; */
+}
+/* Categories Courses*/
+
+.course-render-style + .course-render-style {
+  margin-left: 15px;
+}
+
+/* Custom slick for course row */
+.row-style {
+  position: relative;
+}
+.row-style {
+  margin-left: -22px !important;
+}
+.row-style .slick-prev {
+  position: absolute !important;
+  top: 40% !important;
+  left: -40px !important;
+  margin-left: 15px;
+}
+
+.row-style .slick-next {
+  position: absolute !important;
+  top: 40% !important;
+  right: -20px !important;
+}
+
+.row-style .slick-prev:before,
+.row-style .slick-next:before {
+  font-size: 30px !important;
+}
+
+/* .row-style .slick-slide {
+  margin-right: 15px !important;
+} */
+.ant-list-item-meta-title{
+  margin-top: 5px !important;
+}
+.delete-hover{
+  background-color: #fff !important;
+}
+.delete-hover:hover{
+  background-color: #fff !important;
+}
+/* bỏ hover */
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after{
+  border-bottom: 1px solid #fff !important;
+}
+
+.btn-login:hover{
+  background-color: rgba(0,0,0,.04)!important;
+  color: #1c1d1f !important;
+}
+.btn-register:hover{
+  background-color: #333 !important;
 }

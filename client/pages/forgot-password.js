@@ -49,75 +49,69 @@ const ForgotPassword = () => {
     }
   };
 
-  // const handleResetPassword = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     setLoading(true);
-  //     // send code to user email
-  //     let { data } = await axios.post(`https://stress-apps.herokuapp.com/api/reset-password`, {
-  //       email,
-  //       code,
-  //       newPassword,
-  //     });
-  //     setEmail("");
-  //     setCode("");
-  //     setNewPassword("");
-  //     setLoading(false);
-  //     // ask user to check email and enter code
-  //     toast("Great! Now you can login with your new password");
-  //     router.push("/login");
-  //   } catch (err) {
-  //     setLoading(false);
-  //     toast(err.response.data);
-  //   }
-  // };
-
   return (
     <>
-      <h1 className="jumbotron text-center bg-primary square">
-        Password Reset
-      </h1>
-      <div className="container col-md-4 offset-md-4 pb-5">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            className="form-control mb-4 p-4"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter email"
-            required
+      <section className="flex flex-col md:flex-row h-screen items-center">
+        <div
+          className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+  flex items-center justify-center"
+        >
+          <div className="w-full h-100">
+            <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">
+              Forgot Password?
+            </h1>
+
+            <form
+              className="mt-6"
+              action="#"
+              method="POST"
+              onSubmit={handleSubmit}
+            >
+              <div>
+                <input
+                  type="email"
+                  name
+                  id
+                  placeholder="Enter Email Address"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                  autofocus
+                  autoComplete
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={!email || loading}
+                className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
+        px-4 py-3 mt-6"
+              >
+                {loading ? <SyncOutlined spin /> : "Reset Password"}
+              </button>
+              <p className="mt-8">
+                Have an account?{" "}
+                <Link href="/login">
+                  <a
+                    href="#"
+                    className="text-blue-500 hover:text-blue-700 font-semibold"
+                  >
+                    Log in now
+                  </a>
+                </Link>
+              </p>
+            </form>
+          </div>
+        </div>
+        <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
+          <img
+            src="/images/forgotpassswordbg.png"
+            alt=""
+            className="w-full h-full"
           />
-          {
-            <>
-              {/* <input
-                type="text"
-                className="form-control mb-4 p-4"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                placeholder="Enter secret code"
-                required
-              /> */}
-
-              {/* <input
-                type="password"
-                className="form-control mb-4 p-4"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Enter new password"
-                required
-              /> */}
-            </>
-          }
-
-          <button
-            type="submit"
-            className="btn btn-block btn-primary p-2"
-            disabled={!email || loading}
-          >
-            {loading ? <SyncOutlined spin /> : "Submit"}
-          </button>
-        </form>
-      </div>
+        </div>
+      </section>
     </>
   );
 };

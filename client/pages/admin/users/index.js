@@ -36,83 +36,66 @@ const AdminUsersIndex = () => {
 
   return (
     <AdminRoute>
-      {/* <h1 className="jumbotron text-center square">...</h1> */}
-
-      <div className="row">
-        {users.map((user) => (
-          <div key={user._id} className="col-md-12 pt-2 pb-4">
-            <ul className="list-group text-dark">
-              <li
-                className={`list-group-item ${
-                  user.stripe_seller
-                    ? "bg-danger"
-                    : user.courses && user.courses.length
-                    ? "bg-warning"
-                    : "bg-primary"
-                } font-weight-bold text-white`}
-              >
-                {user.name}{" "}
-                {user.stripeSession && (
-                  <Tooltip title="Incomplete checkout">
-                    <span className="float-right">
-                      <WarningOutlined />
-                    </span>
-                  </Tooltip>
-                )}
-              </li>
-              <li className="list-group-item">{user.email}</li>
-              {/* <li className="list-group-item">
-                Email verified {JSON.stringify(user.email_verified)}
-              </li> */}
-              <li className="list-group-item">
-                Role {JSON.stringify(user.role)}
-              </li>
-              {user.stripe_account_id && (
-                <li className="list-group-item">{user.stripe_account_id}</li>
-              )}
-              <li className="list-group-item">
-                Joined {new Date(user.createdAt).toLocaleDateString()}
-              </li>
-              <li className="list-group-item">
-                Late updated {new Date(user.updatedAt).toLocaleDateString()}
-              </li>
-              {/* courses */}
-              {user.courses && user.courses.length >= 1 && (
-                <li
-                  className="list-group-item bg-light"
-                  style={{ height: "200px", overflow: "scroll" }}
-                >
-                  <p>courses</p>
-                  <hr />
-                  <pre>{JSON.stringify(user.courses, null, 4)}</pre>
-                </li>
-              )}
-              {/* stripe_seller */}
-              {user.stripe_seller && (
-                <li
-                  className="list-group-item bg-light"
-                  style={{ height: "200px", overflow: "scroll" }}
-                >
-                  <p>stripe_seller</p>
-                  <hr />
-                  <pre>{JSON.stringify(user.stripe_seller, null, 4)}</pre>
-                </li>
-              )}
-              {/* stripeSession */}
-              {user.stripeSession && (
-                <li
-                  className="list-group-item"
-                  style={{ height: "200px", overflow: "scroll" }}
-                >
-                  <p>stripeSession</p>
-                  <hr />
-                  <pre>{JSON.stringify(user.stripeSession, null, 4)}</pre>
-                </li>
-              )}
-            </ul>
-          </div>
-        ))}
+       <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+        <ul className="flex">
+          <li><a href="/admin" className="underline font-semibold">Dashboard</a></li>
+          <li><span className="mx-2">/</span></li>  
+          <li>List users</li>
+        </ul>
       </div>
+     <div>
+   
+   <div className="inline-block w-full shadow rounded-lg overflow-hidden mb-4">
+     <table className="w-full bg-white leading-normal">
+       <thead>
+         <tr>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+             Name
+           </th>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+             Email
+           </th>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Role
+           </th>
+           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+           Created at
+           </th>
+          
+         </tr>
+       </thead>
+       <tbody>
+       {users.map((user) => (
+            
+         <tr key={user._id} className="xyz hover:bg-sky-100">
+          
+           <td className="px-4 py-4 border-b border-gray-200  text-sm">
+             <p className="text-gray-900 whitespace-no-wrap font-semibold"> {user.name}{" "}</p>
+           </td>
+           <td className="px-4 py-4 border-b border-gray-200  text-sm">
+             <p className="text-gray-900 whitespace-no-wrap font-semibold"> {user.email}</p>
+           </td>
+           <td className="px-4 py-4 border-b border-gray-200   text-sm">
+             <p className="text-gray-900 whitespace-no-wrap">
+             {JSON.stringify(user.role)}
+             </p>
+           </td>
+           <td className="px-4 py-4 border-b border-gray-200   text-sm">
+             <p className="text-gray-900 whitespace-no-wrap">
+             Joined {new Date(user.createdAt).toLocaleDateString()}
+             </p>
+           </td>
+         
+         </tr>
+        
+         ))}
+       </tbody>
+     </table>
+     
+  
+ 
+</div>
+</div>
     </AdminRoute>
   );
 };

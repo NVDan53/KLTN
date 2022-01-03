@@ -19,6 +19,7 @@ import { Context } from "../../context";
 import CodeBlock from "../../components/marked/CodeBlock";
 import MarkdownCheetsheet from "../../components/modal/MarkdownCheatsheet";
 import Link from "next/link";
+import { Select } from 'antd';
 
 const { Meta } = Card;
 
@@ -43,7 +44,9 @@ const QaCreateRead = ({
   const {
     state: { user },
   } = useContext(Context);
-
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
   return (
     <>
       {/* <hr style={{ borderTop: "3px dashed #f6f6f6" }} /> */}
@@ -138,8 +141,63 @@ const QaCreateRead = ({
                   {q.answers && q.answers.length + " answers"}
                 </span>
               </div>
+                <div className="float-right">
+                                
+                                  {q.postedBy && user && user._id === q.postedBy._id ? (
+                                    <>
+                                     <Tooltip title="Add answer">
+                                      <PlusCircleFilled
+                                        onClick={() => handleAddAnswer(q)}
+                                        className="text-success mr-4"
+                                      />
+                                    </Tooltip>
+                                    <Tooltip onClick={() => handleQaEdit(q)} title="Edit">
+                                      <EditFilled className="text-warning mr-4" />
+                                    </Tooltip>
+                                    <Tooltip onClick={() => handleQaDelete(q)} title="Delete">
+                                      <DeleteFilled className="text-danger mr-4" />
+                                    </Tooltip>
+                                    <Tooltip
+                                      onClick={() =>
+                                        q.resolved ? markQaAsNotResolved(q) : markQaAsResolved(q)
+                                      }
+                                      title={q.resolved ? "Mark unresolved" : "Mark resolved"}
+                                    >
+                                      {q.resolved ? (
+                                        <CloseCircleFilled className="text-info" />
+                                      ) : (
+                                        <CheckCircleFilled className="text-info" />
+                                      )}
+                                    </Tooltip>
+                                     
+                                    </>
+                                ) : (
+                                  <>
+                                  <Tooltip title="Add answer ">
+                                      <PlusCircleOutlined
+                                        onClick={() => handleAddAnswer(q)}
+                                        className="text-success mr-4"
+                                      />
+                                    </Tooltip>
+                                    <Tooltip title={q.resolved ? "Resolved" : "Unresolved"}>
+                                      {q.resolved ? (
+                                        <CheckCircleFilled
+                                          style={{ cursor: "help" }}
+                                          className="text-info"
+                                        />
+                                      ) : (
+                                        <CloseCircleFilled
+                                          style={{ cursor: "help" }}
+                                          className="text-info"
+                                        />
+                                      )}
+                                    </Tooltip>
+                                
+                                  </>
+                                )}
+                </div>
 
-              <h5>{q.title}</h5>
+              <h5 className="font-bold text-md">{q.title}</h5>
 
               <ReactMarkdown
                 source={q.description}
@@ -147,56 +205,7 @@ const QaCreateRead = ({
                 className="single-post"
               />
 
-              {q.postedBy && user && user._id === q.postedBy._id ? (
-                <div className="d-flex justify-content-around pt-3">
-                  <Tooltip title="Add answer">
-                    <PlusCircleFilled
-                      onClick={() => handleAddAnswer(q)}
-                      className="text-success"
-                    />
-                  </Tooltip>
-                  <Tooltip onClick={() => handleQaEdit(q)} title="Edit">
-                    <EditFilled className="text-warning" />
-                  </Tooltip>
-                  <Tooltip onClick={() => handleQaDelete(q)} title="Delete">
-                    <DeleteFilled className="text-danger" />
-                  </Tooltip>
-                  <Tooltip
-                    onClick={() =>
-                      q.resolved ? markQaAsNotResolved(q) : markQaAsResolved(q)
-                    }
-                    title={q.resolved ? "Mark unresolved" : "Mark resolved"}
-                  >
-                    {q.resolved ? (
-                      <CloseCircleFilled className="text-info" />
-                    ) : (
-                      <CheckCircleFilled className="text-info" />
-                    )}
-                  </Tooltip>
-                </div>
-              ) : (
-                <div className="d-flex justify-content-around pt-3">
-                  <Tooltip title="Add answer">
-                    <PlusCircleOutlined
-                      onClick={() => handleAddAnswer(q)}
-                      className="text-success"
-                    />
-                  </Tooltip>
-                  <Tooltip title={q.resolved ? "Resolved" : "Unresolved"}>
-                    {q.resolved ? (
-                      <CheckCircleFilled
-                        style={{ cursor: "help" }}
-                        className="text-info"
-                      />
-                    ) : (
-                      <CloseCircleFilled
-                        style={{ cursor: "help" }}
-                        className="text-info"
-                      />
-                    )}
-                  </Tooltip>
-                </div>
-              )}
+             
             </div>
 
             {/* answers / comments */}

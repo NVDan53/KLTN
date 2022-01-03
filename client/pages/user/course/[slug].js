@@ -368,8 +368,9 @@ const SingleCourse = () => {
           {/* how many completed */}
           {!collapsed && course && (
             <div className="pt-2" style={{ borderBottom: "3px solid #222" }}>
-              <PieChartOutlined className="pl-4 pr-1 h4" />{" "}
-              <span className="text-success">{completedLessons.length}</span>
+            
+             
+              <span className="text-success ml-16">{completedLessons.length}</span>
               {" / "}
               <span className="text-danger">{course.lessons.length}</span>{" "}
               lessons completed
@@ -380,17 +381,17 @@ const SingleCourse = () => {
             mode="inline"
             defaultSelectedKeys={[clicked]}
             inlineCollapsed={collapsed}
-            // style={{
-            //   height: "100vh",
-            //   overflow: "scroll",
-            // }}
+            style={{
+              height: "100%",
+              // overflow: "scroll",
+            }}
           >
             {course.lessons.map((lesson, index) => (
               <Item
                 onClick={() => setClicked(index)}
                 key={index}
                 icon={
-                  <Avatar>
+                  <Avatar className="bg-blue-900">
                     <span>{index + 1}</span>
                   </Avatar>
                 }

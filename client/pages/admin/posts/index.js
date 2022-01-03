@@ -75,26 +75,36 @@ const AdminPostIndex = () => {
 
   return (
     <AdminRoute>
-      {/* <h1 className="jumbotron text-center square">Instructor</h1> */}
+         <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+        <ul className="flex">
+          <li><a href="/admin" className="underline font-semibold">Dashboard</a></li>
+          <li><span className="mx-2">/</span></li>  
+          <li>List post</li>
+        </ul>
+      </div>
 
-      {posts &&
+   
+      <div className="text-gray-900 bg-gray-200">
+        
+        <div className="px-3 py-1.5 flex justify-center">
+          <table className="w-full text-md bg-white shadow-md rounded mb-4">
+            <tbody>
+              <tr className="border-b">
+                <th className="text-left p-3">Name</th>
+                <th className="text-left p-3 text-right">Action</th>
+              </tr>
+              {posts &&
         posts.map((post, index) => (
-          <div className="media pt-2 pb-1" key={post._id}>
-            <div className="media-body pl-2">
-              <div className="row">
-                <div className="col">
-                  <Link href={`/article/${post.slug}`} className="pointer">
-                    <a>
-                      <h5 className="mt-2 text-primary">
-                        <Avatar>{index + 1}</Avatar> {post.title}
-                      </h5>
-                    </a>
-                  </Link>
-                </div>
-
-                {/* published? */}
-                <div className="mt-3 float-right pr-2">
-                  {post.published ? (
+              <tr className="border-b hover:bg-orange-100"key={post._id}>
+                <td className="p-3">
+                
+                    <a>{post.title}</a>
+                 
+                </td>      
+                <td className="p-3 flex justify-end">
+                <div>
+                                 
+                {post.published ? (
                     <>
                       <Tooltip title="Unpublish">
                         <CloseCircleOutlined
@@ -125,12 +135,18 @@ const AdminPostIndex = () => {
                       </Tooltip>
                     </>
                   )}
+                
+                   
                 </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      <br />
+
+                  </td>
+              </tr>
+             ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </AdminRoute>
   );
 };

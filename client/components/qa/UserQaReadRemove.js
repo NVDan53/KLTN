@@ -57,9 +57,9 @@ const UserQaReadRemove = ({
 
       {/* <pre>{JSON.stringify(qas, null, 4)}</pre> */}
 
-      <div className="row">
+      <div className="row pt-8 bg-white">
         {qas.map((q) => (
-          <div key={q._id} className="col-md-12 pb-4">
+          <div key={q._id} className="col-md-12 mb-8 border-b-2">
             <div className="d-flex mb-2">
               <Avatar
                 size={40}
@@ -85,7 +85,7 @@ const UserQaReadRemove = ({
               <div className="d-flex pb-3">
                 <Avatar>
                   <span>
-                    {q.postedBy && q.postedBy.name && q.postedBy.name[0]}
+                  {q.postedBy && q.postedBy.name && q.postedBy.name[0]}
                   </span>
                 </Avatar>{" "}
                 <span className="pl-2 pt-1">{q.postedBy.name}</span>
@@ -96,31 +96,20 @@ const UserQaReadRemove = ({
                   {q.answers && q.answers.length + " answers"}
                 </span>
               </div>
-
-              <h5>{q.title}</h5>
-
-              <ReactMarkdown
-                source={q.description}
-                renderers={{ code: CodeBlock }}
-                className="single-post"
-              />
-
-              {q.postedBy && user && user._id === q.postedBy ? (
-                <div
-                  className="d-flex justify-content-around pt-3"
-                  style={{ borderTop: "1px solid #e6e6e6" }}
-                >
-                  <Tooltip title="Add answer">
+                <div className="float-right">
+                {q.postedBy && user && user._id === q.postedBy ? (
+               <>
+                <Tooltip title="Add answer">
                     <PlusCircleFilled
                       onClick={() => handleAddAnswer(q)}
-                      className="text-success"
+                      className="text-success mr-4"
                     />
                   </Tooltip>
                   <Tooltip onClick={() => handleQaEdit(q)} title="Edit">
-                    <EditFilled className="text-warning" />
+                    <EditFilled className="text-warning mr-4" />
                   </Tooltip>
                   <Tooltip onClick={() => handleQaDelete(q)} title="Delete">
-                    <DeleteFilled className="text-danger" />
+                    <DeleteFilled className="text-danger mr-4" />
                   </Tooltip>
                   <Tooltip
                     onClick={() =>
@@ -134,13 +123,17 @@ const UserQaReadRemove = ({
                       <CheckCircleFilled className="text-info" />
                     )}
                   </Tooltip>
-                </div>
+               </>
+                 
+                
               ) : instructor ? (
-                <div className="d-flex justify-content-around pt-3">
+                <>
+                
+              
                   <Tooltip title="Add answer">
                     <PlusCircleFilled
                       onClick={() => handleAddAnswer(q)}
-                      className="text-success"
+                      className="text-success mr-4"
                     />
                   </Tooltip>
 
@@ -165,10 +158,21 @@ const UserQaReadRemove = ({
                       <CheckCircleFilled className="text-info" />
                     )}
                   </Tooltip>
-                </div>
+                
+                </>
               ) : (
                 ""
               )}
+                </div>
+              <h5 className="font-bold text-md">{q.title}</h5>
+
+              <ReactMarkdown
+                source={q.description}
+                renderers={{ code: CodeBlock }}
+                className="single-post"
+              />
+
+             
             </div>
             {/* answers / comments */}
             {q.answers &&
@@ -182,7 +186,7 @@ const UserQaReadRemove = ({
                           <Tooltip title="Edit answer">
                             <EditOutlined onClick={() => handleEditAnswer(a)} />
                           </Tooltip>,
-                          <Tooltip title="Delete answer">
+                          <Tooltip title="Deleteeee answer">
                             <DeleteOutlined
                               onClick={() => handleDeleteAnswer(a)}
                             />

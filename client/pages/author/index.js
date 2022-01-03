@@ -74,67 +74,87 @@ const AuthorIndex = () => {
 
   return (
     <AuthorRoute>
-      <h1 className="jumbotron text-center square p-3 mt-2 left-bottom-radius">
-        Posts
-      </h1>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
+        <ul className="flex">
+          <li>
+            <a href="#" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
+          <li>List post</li>
+        </ul>
+      </div>
 
-      {posts &&
-        posts.map((post, index) => (
-          <div className="media pb-1" key={post._id}>
-            <div className="media-body pl-2">
-              <div className="row">
-                <div className="col">
-                  <Link
-                    href={`${URL_DEPLOY}/author/post/${post.slug}`}
-                    className="pointer"
-                  >
-                    <a>
-                      <h5 className="mt-2 text-primary">
-                        <Avatar>{index + 1}</Avatar> {post.title}
-                      </h5>
-                    </a>
-                  </Link>
-                </div>
-
-                {/* published? */}
-                <div className="mt-3 float-right pr-2">
-                  {post.published ? (
-                    <>
-                      <Tooltip title="Unpublish">
-                        <CloseCircleOutlined
-                          onClick={() => handleUnpublish(post)}
-                          className="h5 text-warning pr-2 pl-2"
-                        />
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <DeleteOutlined
-                          onClick={() => handleDelete(post)}
-                          className="h5 text-danger pointer pr-2 pl-2"
-                        />
-                      </Tooltip>
-                    </>
-                  ) : (
-                    <>
-                      <Tooltip title="Publish">
-                        <CheckCircleOutlined
-                          onClick={() => handlePublish(post)}
-                          className="h5 text-success pr-2 pl-2"
-                        />
-                      </Tooltip>
-                      <Tooltip title="Delete">
-                        <DeleteOutlined
-                          onClick={() => handleDelete(post)}
-                          className="h5 text-danger pointer pr-2 pl-2"
-                        />
-                      </Tooltip>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      <br />
+      <div className="text-gray-900 bg-gray-200">
+        <div className="px-3 py-1.5 flex justify-center">
+          <table className="w-full text-md bg-white shadow-md rounded mb-4">
+            <tbody>
+              <tr className="border-b">
+                <th className="text-left p-3">Name</th>
+                <th />
+              </tr>
+              {posts &&
+                posts.map((post, index) => (
+                  <tr className="border-b hover:bg-orange-100">
+                    <td className="p-3">
+                      <Link
+                        href={`/author/post/${post.slug}`}
+                        className="pointer"
+                      >
+                        <a>{post.title}</a>
+                      </Link>
+                    </td>
+                    <td className="p-3 flex justify-end">
+                      <div>
+                        {post.published ? (
+                          <>
+                            <button
+                              onClick={() => handleUnpublish(post)}
+                              type="button"
+                              className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                            >
+                              Unpublish
+                            </button>
+                            <button
+                              onClick={() => handleDelete(post)}
+                              type="button"
+                              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                            >
+                              Delete
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => handlePublish(post)}
+                              type="button"
+                              className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                            >
+                              Publish
+                            </button>
+                            <button
+                              onClick={() => handleDelete(post)}
+                              type="button"
+                              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                            >
+                              Delete
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </AuthorRoute>
   );
 };

@@ -65,7 +65,17 @@ const SingleCourse = ({ course }) => {
   const {
     state: { user },
   } = useContext(Context);
-
+  const {
+    name,
+    description,
+    instructor,
+    updatedAt,
+    image,
+    price,
+    paid,
+    categories,
+    lessons,
+  } = course;
   // router
   const router = useRouter();
 
@@ -154,7 +164,14 @@ const SingleCourse = ({ course }) => {
         preview={preview}
         setPreview={setPreview}
       />
+      <div className="container">
+      <h1 className="text-4xl mt-4 font-weight-bold mb-4">Description</h1>
 
+       <p className="lead mb-4 text-xl font-sans">
+            {description && description}
+          </p>
+      <h1 className="text-4xl mt-4 font-weight-bold mb-4">Course content</h1>
+      </div>
       {course.lessons && (
         <SingleCourseLessons
           lessons={course.lessons}

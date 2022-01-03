@@ -14,9 +14,8 @@ export const completeRegistrationParams = (email, jwtLink) => {
                     <p>Click on the link below to complete registration:</p>
                     <a href=${process.env.CLIENT_URL}/register/${jwtLink}>${process.env.CLIENT_URL}/register/${jwtLink}</a>
                     <hr />
-                    <i>Please do not reply to this email</i> | <a href="https://twitter.com/CodeContinue?ref_src=twsrc%5Etfw">Follow us on Twitter</a>
                     <br />
-                    <i>Team CodeContinue</i>
+                    <i>Team website</i>
                 </html>
             `,
         },
@@ -45,9 +44,7 @@ export const forgotPasswordParams = (email, shortCode) => {
                     <p>Use this code to reset your password</p>
                     <h2 style="color:red;">${shortCode}</h2>
                     <hr />
-                    <i>Please do not reply to this email</i> | <a href="https://twitter.com/CodeContinue?ref_src=twsrc%5Etfw">Follow us on Twitter</a>
                     <br />
-                    <i>Team CodeContinue</i>
                 </html>
             `,
         },
@@ -79,9 +76,7 @@ export const supportEmailParams = (url, name, email, message) => {
                     <hr />
                     <div>${message}</div>
                     <hr />
-                    <i>Please do not reply to this email</i> | <a href="https://twitter.com/CodeContinue?ref_src=twsrc%5Etfw">Follow us on Twitter</a>
                     <br />
-                    <i>Team CodeContinue</i>
                 </html>
             `,
         },
@@ -115,9 +110,7 @@ export const enrollIssueResolved = (name, email) => {
                       process.env.CLIENT_URL + "/user/support"
                     }>Help & Support</a> page.</p>
                     <hr />
-                    <i>Please do not reply to this email</i> | <a href="https://twitter.com/CodeContinue?ref_src=twsrc%5Etfw">Follow us on Twitter</a>
                     <br />
-                    <i>Team CodeContinue</i>
                 </html>
             `,
         },
