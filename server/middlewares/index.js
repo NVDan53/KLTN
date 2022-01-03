@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 // UnauthorizedError, TokenExpiredError
 export const requireSignin = expressJwt({
   getToken: (req) => req.cookies.token,
-  secret: process.env.JWT_SECRET,s
+  secret: process.env.JWT_SECRET,
   algorithms: ["HS256"],
 });
 
