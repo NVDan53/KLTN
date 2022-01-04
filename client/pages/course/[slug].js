@@ -165,12 +165,12 @@ const SingleCourse = ({ course }) => {
         setPreview={setPreview}
       />
       <div className="container">
-      <h1 className="text-4xl mt-4 font-weight-bold mb-4">Description</h1>
+        <h1 className="text-4xl mt-4 font-weight-bold mb-4">Description</h1>
 
-       <p className="lead mb-4 text-xl font-sans">
-            {description && description}
-          </p>
-      <h1 className="text-4xl mt-4 font-weight-bold mb-4">Course content</h1>
+        <p className="lead mb-4 text-xl font-sans">
+          {description && description}
+        </p>
+        <h1 className="text-4xl mt-4 font-weight-bold mb-4">Course content</h1>
       </div>
       {course.lessons && (
         <SingleCourseLessons
@@ -199,7 +199,7 @@ const SingleCourse = ({ course }) => {
 
 export async function getServerSideProps({ query }) {
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL_DEPLOY}/api/course/public/${query.slug}`
+    `https://stress-apps.herokuapp.com/api/course/public/${query.slug}`
   );
   return {
     props: {

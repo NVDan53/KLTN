@@ -126,10 +126,10 @@ const SinglePost = ({ postItem, posts }) => {
 
 export async function getServerSideProps(ctx) {
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL_DEPLOY}/api/post/${ctx.params.slug}`
+    `https://stress-apps.herokuapp.com/api/post/${ctx.params.slug}`
   );
   const postList = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL_DEPLOY}/api/posts`
+    `https://stress-apps.herokuapp.com/api/posts`
   );
   return {
     props: {

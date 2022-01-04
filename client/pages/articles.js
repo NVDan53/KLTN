@@ -40,11 +40,11 @@ const Articles = ({ posts, router }) => {
   return (
     <>
       {head()}
-     
+
       <div className="container">
-      <h2 style={{ fontSize: "25px", fontWeight: "bold",marginTop:"20px" }}>
-                     List Blogs
-                    </h2>
+        <h2 style={{ fontSize: "25px", fontWeight: "bold", marginTop: "20px" }}>
+          List Blogs
+        </h2>
         <div className="row pt-2">
           {posts.map((post) => (
             <div key={post._id} className="col-md-3">
@@ -60,7 +60,7 @@ const Articles = ({ posts, router }) => {
 
 export async function getServerSideProps() {
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL_DEPLOY}/api/posts`
+    `https://stress-apps.herokuapp.com/api/posts`
   );
   // console.log("DATA LENGTH =====> ", data.length);
   return {
