@@ -66,8 +66,12 @@ const Index = ({ courses, categories, router }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.API}/courses`);
-  const courseCategories = await axios.get(`${process.env.API}/categories`);
+  const { data } = await axios.get(
+    `https://stress-apps.herokuapp.com/api/courses`
+  );
+  const courseCategories = await axios.get(
+    `https://stress-apps.herokuapp.com/api/categories`
+  );
 
   return {
     props: {

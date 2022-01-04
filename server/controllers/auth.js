@@ -182,6 +182,7 @@ export const login = async (req, res) => {
     // so to protect token use true
     res.cookie("token", token, {
       httpOnly: true,
+      expires: new Date(Date.now() + 9999999),
       // path: "/user/refresh_token",
       // secure: true, // only works on https
       // maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -270,6 +271,7 @@ export const forgotPassword = async (req, res) => {
     // send token to cookie
     res.cookie("token", token, {
       httpOnly: true,
+      expires: new Date(Date.now() + 9999999),
       // secure: true, // only works on https
     });
     const url = `${process.env.CLIENT_URL}/user/reset/${token}`;
