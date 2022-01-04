@@ -4,15 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cd client && next dev",
-    "build": "cd client && next build",
-    "start": "cd server && npm start",
+    "start": "cd client && npm start",
     "client": "cd client && npm run dev",
     "server": "cd server && npm start",
     "client-install": "cd client && npm install",
     "server-install": "cd server && npm install",
     "install-all": "concurrently \"npm run server-install\"  \"npm run client-install\"",
-    "heroku-postbuild": "npm run build"
+    "dev": "concurrently \"npm run server\"  \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install && npm run build && cd ../ && cd server && npm install"
   },
   "repository": {
     "type": "git",
