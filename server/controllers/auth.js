@@ -180,16 +180,16 @@ export const login = async (req, res) => {
     user.passwordResetCode = undefined;
     // without httpOnly, javascript will get access to cookie in browser
     // so to protect token use true
-    res.cookie("token", token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + 9999999),
-      sameSite: false,
-      // path: "/user/refresh_token",
-      // secure: true, // only works on https
-      // maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   expires: new Date(Date.now() + 9999999),
+    //   sameSite: false,
+    //   // path: "/user/refresh_token",
+    //   // secure: true, // only works on https
+    //   // maxAge: 7 * 24 * 60 * 60 * 1000,
+    // });
 
-    res.json(user);
+    res.json({ user, token });
   } catch (err) {
     console.log(err);
     return res.status(400).send("Error. Try again.");
