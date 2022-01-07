@@ -50,7 +50,9 @@ function SearchForm() {
     try {
       setLoad(true);
       setShowResults(true);
-      const res = await axios.get(`/api/search?name=${value.search}`);
+      const res = await axios.get(
+        `http://localhost:8000/api/search?name=${value.search}`
+      );
       setData(res.data);
       setLoad(false);
     } catch (err) {

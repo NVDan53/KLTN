@@ -18,7 +18,7 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const BecomeAuthor = () => {
   const {
-    state: { user },
+    state: { user, token },
     dispatch,
   } = useContext(Context);
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,10 @@ const BecomeAuthor = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "https://stress-apps.herokuapp.com/api/make-author"
+        "http://localhost:8000/api/make-author",
+        {
+          headers: { Authorization: token },
+        }
       );
       setLoading(false);
       dispatch({

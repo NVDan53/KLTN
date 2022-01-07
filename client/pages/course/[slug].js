@@ -63,7 +63,7 @@ const SingleCourse = ({ course }) => {
 
   // context
   const {
-    state: { user },
+    state: { user, token },
   } = useContext(Context);
   const {
     name,
@@ -86,7 +86,10 @@ const SingleCourse = ({ course }) => {
 
   const checkEnrollment = async () => {
     const { data } = await axios.get(
-      `https://stress-apps.herokuapp.com/api/check-enrollment/${course._id}`
+      `http://localhost:8000/api/check-enrollment/${course._id}`,
+      {
+        headers: { Authorization: token },
+      }
     );
     // console.log("CHECK ENROLLMENT => ", data);
     setEnrolled(data);
@@ -103,7 +106,10 @@ const SingleCourse = ({ course }) => {
         return router.push(`/user/course/${enrolled.course.slug}`);
       // console.log("enroll to this course > ", course._id);
       const { data } = await axios.post(
-        `https://stress-apps.herokuapp.com/api/paid-enrollment/${course._id}`
+        `http://localhost:8000/api/paid-enrollment/${course._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       // console.log("PAID ENROLLMENT => ", data);
       // load stripe for payment
@@ -128,7 +134,10 @@ const SingleCourse = ({ course }) => {
         return router.push(`/user/course/${enrolled.course.slug}`);
       // console.log("enroll to this course > ", course._id);
       const { data } = await axios.post(
-        `https://stress-apps.herokuapp.com/api/free-enrollment/${course._id}`
+        `http://localhost:8000/api/free-enrollment/${course._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       console.log("FREE ENROLLMENT => ", data);
       toast(data.message);

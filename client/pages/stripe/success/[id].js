@@ -1,12 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { SyncOutlined } from "@ant-design/icons";
 import UserRoute from "../../../components/routes/UserRoute";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { Context } from "../../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const StripeSuccess = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   // router
   const router = useRouter();
   const { id } = router.query;
@@ -18,7 +24,10 @@ const StripeSuccess = () => {
   const successRequest = async () => {
     try {
       const { data } = await axios.get(
-        `https://stress-apps.herokuapp.com/api/stripe-success/${id}`
+        `http://localhost:8000/api/stripe-success/${id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       // console.log("STRIPE SUCCESS FROM BACKEND => ", data);
       router.push(`/user/course/${data.course.slug}`);

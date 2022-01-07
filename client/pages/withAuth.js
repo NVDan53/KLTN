@@ -1,7 +1,13 @@
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
-const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+import { Context } from "../context";
 
 export default function withAuth(Component) {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const withAuth = (props) => {
     return <Component {...props} />;
   };
@@ -9,7 +15,10 @@ export default function withAuth(Component) {
   withAuth.getServerSideProps = async (ctx) => {
     try {
       const { data } = await axios.get(
-        `https://stress-apps.herokuapp.com/api/current-user`
+        `http://localhost:8000/api/current-user`,
+        {
+          headers: { Authorization: token },
+        }
       );
       console.log("data ===> ", data);
       if (data)

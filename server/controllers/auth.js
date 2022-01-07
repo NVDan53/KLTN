@@ -182,11 +182,7 @@ export const login = async (req, res) => {
     // so to protect token use true
     // res.cookie("token", token, {
     //   httpOnly: true,
-    //   expires: new Date(Date.now() + 9999999),
-    //   sameSite: false,
-    //   // path: "/user/refresh_token",
-    //   // secure: true, // only works on https
-    //   // maxAge: 7 * 24 * 60 * 60 * 1000,
+    //   // secure: true // only works on https
     // });
 
     res.json({ user, token });
@@ -208,7 +204,7 @@ export const currentUser = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
-    res.clearCookie("token");
+    // res.clearCookie("token");
     return res.json({ message: "Signout success!" });
   } catch (err) {
     console.log(err);

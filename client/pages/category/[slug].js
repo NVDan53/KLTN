@@ -14,7 +14,7 @@ const CourseForCategory = () => {
     if (categoryId) {
       const getCoursesForCategory = async () => {
         try {
-          const res = await axios.get("/api/courses");
+          const res = await axios.get("http://localhost:8000/api/courses");
           setCourses(res.data);
         } catch (error) {
           console.log(error);
@@ -28,7 +28,7 @@ const CourseForCategory = () => {
     if (categoryId) {
       const getCategories = async () => {
         try {
-          const res = await axios.get("/api/categories");
+          const res = await axios.get("http://localhost:8000/api/categories");
           setCategories(res.data);
         } catch (error) {
           console.log(error);

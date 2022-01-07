@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import UserNav from "../nav/UserNav";
+import { Context } from "../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const UserRoute = ({ children, showNav = true }) => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [ok, setOk] = useState(false);
   const router = useRouter();
 
@@ -16,9 +22,9 @@ const UserRoute = ({ children, showNav = true }) => {
 
   const fetchUser = async () => {
     try {
-      let { data } = await axios.get(
-        "https://stress-apps.herokuapp.com/api/current-user"
-      );
+      let { data } = await axios.get("http://localhost:8000/api/current-user", {
+        headers: { Authorization: token },
+      });
       // console.log("current-user", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

@@ -16,7 +16,7 @@ const UserNav = () => {
   return (
     <>
       <div
-        className="bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0"
+        className="min-h-screen bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0"
         style={{ height: "100%", marginLeft: "-15px" }}
       >
         <div className="flex items-center justify-center mt-8">
@@ -31,7 +31,7 @@ const UserNav = () => {
               className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             >
               <i
-                className="fas fa-tachometer-alt h-6 w-6"
+                class="fas fa-tachometer-alt h-6 w-6"
                 style={{ fontSize: "24px" }}
               ></i>
               <span className="mx-3">Dashboard</span>
@@ -43,7 +43,7 @@ const UserNav = () => {
               className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             >
               <i
-                className="fas fa-headset h-6 w-6"
+                class="fas fa-headset h-6 w-6"
                 style={{ fontSize: "24px" }}
               ></i>
 
@@ -57,7 +57,7 @@ const UserNav = () => {
                 className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
               >
                 <i
-                  className="far fa-question-circle h-6 w-6"
+                  class="far fa-question-circle h-6 w-6"
                   style={{ fontSize: "24px" }}
                 ></i>
                 <span className="mx-3">Question</span>

@@ -8,8 +8,6 @@ import { useRouter } from "next/router";
 
 // import { GoogleLogin } from "react-google-login";
 
-const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,46 +29,42 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      let res = await axios.post(
-        `https://stress-apps.herokuapp.com/api/login`,
-        {
-          email,
-          password,
-        }
-      );
+      let res = await axios.post(`http://localhost:8000/api/login`, {
+        email,
+        password,
+      });
       console.log("login res ==> ", res);
       // return;
       dispatch({
         type: "LOGIN",
-        payload: res.data,
+        payload: res.data.user,
       });
       // save in local storage
-      window.localStorage.setItem("user", JSON.stringify(res.data));
+      window.localStorage.setItem("user", JSON.stringify(res.data.user));
+      window.localStorage.setItem("token", JSON.stringify(res.data.token));
       // redirect
       // router.push("/user");
-      if (res.data.role.includes("Admin")) {
+      if (res.data.user.role.includes("Admin")) {
         router.push("/admin");
-      } else if (res.data.role.includes("Instructor")) {
+      } else if (res.data.user.role.includes("Instructor")) {
         router.push("/instructor");
       } else {
         router.push("/user");
       }
     } catch (err) {
       setLoading(false);
-      toast(err.response.data);
+      toast(err.response.data.user);
       console.log("err.response =====> ", err.response);
     }
   };
 
   // const responseGoogle = async (response) => {
+  //   console.log(response);
   //   try {
-  //     // setLoading(true);
-  //     const res = await axios.post(
-  //       "https://stress-apps.herokuapp.com/api/google_login",
-  //       {
-  //         tokenId: response.tokenId,
-  //       }
-  //     );
+  //     setLoading(true);
+  //     const res = await axios.post("http://localhost:8000/api/google_login", {
+  //       tokenId: response.tokenId,
+  //     });
 
   //     dispatch({
   //       type: "LOGIN",
@@ -88,10 +82,10 @@ const Login = () => {
   //     } else {
   //       router.push("/user");
   //     }
-  //     // setLoading(false);
+  //     setLoading(false);
   //   } catch (error) {
   //     toast(error.response.data.msg);
-  //     // setLoading(false);
+  //     setLoading(false);
   //   }
   // };
 
@@ -159,18 +153,18 @@ const Login = () => {
               </button>
             </form>
             <hr className="my-6 border-gray-300 w-full" />
-            <div className="flex items-center justify-center">
-              {/* <GoogleLogin
-                clientId="1074929433721-7hqftlfff4ap48da2l4oo3vk1v2l9rtq.apps.googleusercontent.com"
-                buttonText="Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy={"single_host_origin"}
-                className="w-100 text-center"
-              >
-                <span> Login with Google</span>
-              </GoogleLogin> */}
-            </div>
+            {/* <div className="flex items-center justify-center">
+        <GoogleLogin
+            clientId="1074929433721-7hqftlfff4ap48da2l4oo3vk1v2l9rtq.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            className="w-100 text-center"
+          >
+            <span> Login with Google</span>
+          </GoogleLogin>
+        </div> */}
 
             <p className="mt-8">
               Need an account?{" "}

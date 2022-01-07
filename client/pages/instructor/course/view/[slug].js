@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Avatar, Tooltip, Button, Modal, List } from "antd";
@@ -15,9 +15,17 @@ import ReactMarkdown from "react-markdown";
 import AddLessonForm from "../../../../components/forms/AddLessonForm";
 import { toast } from "react-toastify";
 import { Badge } from "antd";
+
+import { Context } from "../../../../context";
+
 const { Item } = List;
 
 const CourseView = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [course, setCourse] = useState({});
   const [visible, setVisible] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -46,18 +54,19 @@ const CourseView = () => {
   }, [course]);
 
   const fetchCourse = async () => {
-    let { data } = await axios.get(
-      `https://stress-apps.herokuapp.com/api/course/${slug}`
-    );
+    let { data } = await axios.get(`http://localhost:8000/api/course/${slug}`);
     // console.log(data);
     setCourse(data);
   };
 
   const studentCount = async () => {
     const { data } = await axios.post(
-      `https://stress-apps.herokuapp.com/api/instructor/student-count`,
+      `http://localhost:8000/api/instructor/student-count`,
       {
         courseId: course._id,
+      },
+      {
+        headers: { Authorization: token },
       }
     );
     // console.log("STUDENT COUNT => ", data.length);
@@ -69,8 +78,11 @@ const CourseView = () => {
     // console.log("**SEND TO BACKEND**", course);
     // console.table({ values });
     let { data } = await axios.post(
-      `https://stress-apps.herokuapp.com/api/course/lesson/${course._id}`,
-      values
+      `http://localhost:8000/api/course/lesson/${course._id}`,
+      values,
+      {
+        headers: { Authorization: token },
+      }
     );
     console.log("LESSON ADDED AND SAVED ===> ", data);
     setValues({ ...values, title: "", content: "", video: {} });
@@ -93,11 +105,14 @@ const CourseView = () => {
       videoData.append("courseId", course._id);
       // save progress bar and send video as form data to backend
       const { data } = await axios.post(
-        `https://stress-apps.herokuapp.com/api/course/upload-video/${course._id}`,
+        `http://localhost:8000/api/course/upload-video/${course._id}`,
         videoData,
         {
           onUploadProgress: (e) =>
             setProgress(Math.round((100 * e.loaded) / e.total)),
+        },
+        {
+          headers: { Authorization: token },
         }
       );
       // once response is received
@@ -114,8 +129,11 @@ const CourseView = () => {
   const handleVideoRemove = async () => {
     // remove video from s3
     const { data } = await axios.post(
-      `https://stress-apps.herokuapp.com/api/course/remove-video/${course._id}`,
-      values.video
+      `http://localhost:8000/api/course/remove-video/${course._id}`,
+      values.video,
+      {
+        headers: { Authorization: token },
+      }
     );
     console.log("remove uploaded video", data);
     setValues({ ...values, video: {} });
@@ -133,7 +151,10 @@ const CourseView = () => {
       );
       if (!answer) return;
       const { data } = await axios.put(
-        `https://stress-apps.herokuapp.com/api/course/publish/${course._id}`
+        `http://localhost:8000/api/course/publish/${course._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       // console.log("COURSE PUBLISHED RES", data);
       toast("Congrats. Your course is now live in marketplace!");
@@ -152,7 +173,10 @@ const CourseView = () => {
       );
       if (!answer) return;
       const { data } = await axios.put(
-        `https://stress-apps.herokuapp.com/api/course/unpublish/${course._id}`
+        `http://localhost:8000/api/course/unpublish/${course._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       toast("Your course is now removed from the marketplace!");
       setCourse(data);

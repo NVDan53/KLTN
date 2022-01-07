@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import AuthorRoute from "../../../components/routes/AuthorRoute";
 import { Select } from "antd";
@@ -9,12 +9,18 @@ import CodeBlock from "../../../components/marked/CodeBlock";
 import Resizer from "react-image-file-resizer";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { Context } from "../../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const { Option } = Select;
 
 const PostEdit = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [postId, setPostId] = useState("");
   const [postedBy, setPostedBy] = useState("");
   const [title, setTitle] = useState();
@@ -45,7 +51,7 @@ const PostEdit = () => {
   const loadPost = async () => {
     try {
       const { data } = await axios.get(
-        `https://stress-apps.herokuapp.com/api/post/${slug}`
+        `http://localhost:8000/api/post/${slug}`
       );
       console.log("SINGLE POST", data);
       setPostedBy(data.postedBy);
@@ -62,9 +68,9 @@ const PostEdit = () => {
   };
 
   const loadCategories = async () => {
-    const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/categories"
-    );
+    const { data } = await axios.get("http://localhost:8000/api/categories", {
+      headers: { Authorization: token },
+    });
     // console.log(data);
     setLoadedCategories(data);
   };
@@ -94,9 +100,12 @@ const PostEdit = () => {
         // post to s3
         try {
           let { data } = await axios.post(
-            "https://stress-apps.herokuapp.com/api/post/upload-image",
+            "http://localhost:8000/api/post/upload-image",
             {
               image: uri,
+            },
+            {
+              headers: { Authorization: token },
             }
           );
           console.log("image uploaded", data);
@@ -124,13 +133,16 @@ const PostEdit = () => {
     setLoading(true);
     try {
       const { data } = await axios.put(
-        `https://stress-apps.herokuapp.com/api/post/${slug}`,
+        `http://localhost:8000/api/post/${slug}`,
         {
           postId,
           title,
           thumbnail,
           body,
           categories,
+        },
+        {
+          headers: { Authorization: token },
         }
       );
       toast("Post updated");

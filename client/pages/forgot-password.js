@@ -33,7 +33,7 @@ const ForgotPassword = () => {
       setLoading(true);
       // send code to user email
       let { data } = await axios.post(
-        `https://stress-apps.herokuapp.com/api/forgot-password`,
+        `http://localhost:8000/api/forgot-password`,
         {
           email,
         }

@@ -1,11 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { Badge } from "antd";
+import { Context } from "../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const InstructorNav = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [current, setCurrent] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
 
@@ -19,7 +25,10 @@ const InstructorNav = () => {
 
   const loadQuestionCount = async () => {
     const { data } = await axios.get(
-      `https://stress-apps.herokuapp.com/api/instructor/question-count`
+      `http://localhost:8000/api/instructor/question-count`,
+      {
+        headers: { Authorization: token },
+      }
     );
     setQuestionCount(data);
   };
@@ -42,7 +51,7 @@ const InstructorNav = () => {
               className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             >
               <i
-                className="fas fa-tachometer-alt h-6 w-6"
+                class="fas fa-tachometer-alt h-6 w-6"
                 style={{ fontSize: "24px" }}
               ></i>
               <span className="mx-3">Dashboard</span>
@@ -55,10 +64,7 @@ const InstructorNav = () => {
               }`}
               className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             >
-              <i
-                className="fas fa-video h-6 w-6"
-                style={{ fontSize: "24px" }}
-              ></i>
+              <i class="fas fa-video h-6 w-6" style={{ fontSize: "24px" }}></i>
               <span className="mx-3">Create Course</span>
             </a>
           </Link>
@@ -69,10 +75,10 @@ const InstructorNav = () => {
               href="/tables"
             >
               <i
-                className="far fa-question-circle h-6 w-6"
+                class="far fa-question-circle h-6 w-6"
                 style={{ fontSize: "24px" }}
               ></i>
-              <span className="mx-3">Comment of user</span>
+              <span className="mx-3">Comment user</span>
               <Badge count={questionCount} offset={[21, 7]}></Badge>
             </a>
           </Link>
@@ -84,7 +90,7 @@ const InstructorNav = () => {
               className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             >
               <i
-                className="fas fa-dollar-sign h-6 w-6"
+                class="fas fa-dollar-sign h-6 w-6"
                 style={{ fontSize: "24px" }}
               ></i>
               <span className="mx-3">Revenue</span>

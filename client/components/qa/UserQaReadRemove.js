@@ -85,7 +85,7 @@ const UserQaReadRemove = ({
               <div className="d-flex pb-3">
                 <Avatar>
                   <span>
-                  {q.postedBy && q.postedBy.name && q.postedBy.name[0]}
+                    {q.postedBy && q.postedBy.name && q.postedBy.name[0]}
                   </span>
                 </Avatar>{" "}
                 <span className="pl-2 pt-1">{q.postedBy.name}</span>
@@ -96,74 +96,71 @@ const UserQaReadRemove = ({
                   {q.answers && q.answers.length + " answers"}
                 </span>
               </div>
-                <div className="float-right">
+              <div className="float-right">
                 {q.postedBy && user && user._id === q.postedBy ? (
-               <>
-                <Tooltip title="Add answer">
-                    <PlusCircleFilled
-                      onClick={() => handleAddAnswer(q)}
-                      className="text-success mr-4"
-                    />
-                  </Tooltip>
-                  <Tooltip onClick={() => handleQaEdit(q)} title="Edit">
-                    <EditFilled className="text-warning mr-4" />
-                  </Tooltip>
-                  <Tooltip onClick={() => handleQaDelete(q)} title="Delete">
-                    <DeleteFilled className="text-danger mr-4" />
-                  </Tooltip>
-                  <Tooltip
-                    onClick={() =>
-                      q.resolved ? markQaAsNotResolved(q) : markQaAsResolved(q)
-                    }
-                    title={q.resolved ? "Mark unresolved" : "Mark resolved"}
-                  >
-                    {q.resolved ? (
-                      <CloseCircleFilled className="text-info" />
-                    ) : (
-                      <CheckCircleFilled className="text-info" />
-                    )}
-                  </Tooltip>
-               </>
-                 
-                
-              ) : instructor ? (
-                <>
-                
-              
-                  <Tooltip title="Add answer">
-                    <PlusCircleFilled
-                      onClick={() => handleAddAnswer(q)}
-                      className="text-success mr-4"
-                    />
-                  </Tooltip>
+                  <>
+                    <Tooltip title="Add answer">
+                      <PlusCircleFilled
+                        onClick={() => handleAddAnswer(q)}
+                        className="text-success mr-4"
+                      />
+                    </Tooltip>
+                    <Tooltip onClick={() => handleQaEdit(q)} title="Edit">
+                      <EditFilled className="text-warning mr-4" />
+                    </Tooltip>
+                    <Tooltip onClick={() => handleQaDelete(q)} title="Delete">
+                      <DeleteFilled className="text-danger mr-4" />
+                    </Tooltip>
+                    <Tooltip
+                      onClick={() =>
+                        q.resolved
+                          ? markQaAsNotResolved(q)
+                          : markQaAsResolved(q)
+                      }
+                      title={q.resolved ? "Mark unresolved" : "Mark resolved"}
+                    >
+                      {q.resolved ? (
+                        <CloseCircleFilled className="text-info" />
+                      ) : (
+                        <CheckCircleFilled className="text-info" />
+                      )}
+                    </Tooltip>
+                  </>
+                ) : instructor ? (
+                  <>
+                    <Tooltip title="Add answer">
+                      <PlusCircleFilled
+                        onClick={() => handleAddAnswer(q)}
+                        className="text-success mr-4"
+                      />
+                    </Tooltip>
 
-                  <Tooltip
-                    onClick={() => handleQaDeleteByInstructor(q)}
-                    title="Delete"
-                  >
-                    <DeleteFilled className="text-danger" />
-                  </Tooltip>
+                    <Tooltip
+                      onClick={() => handleQaDeleteByInstructor(q)}
+                      title="Delete"
+                    >
+                      <DeleteFilled className="text-danger mr-4" />
+                    </Tooltip>
 
-                  <Tooltip
-                    onClick={() =>
-                      q.resolved
-                        ? markQaAsNotResolvedByInstructor(q)
-                        : markQaAsResolvedByInstructor(q)
-                    }
-                    title={q.resolved ? "Mark unresolved" : "Mark resolved"}
-                  >
-                    {q.resolved ? (
-                      <CloseCircleFilled className="text-info" />
-                    ) : (
-                      <CheckCircleFilled className="text-info" />
-                    )}
-                  </Tooltip>
-                
-                </>
-              ) : (
-                ""
-              )}
-                </div>
+                    <Tooltip
+                      onClick={() =>
+                        q.resolved
+                          ? markQaAsNotResolvedByInstructor(q)
+                          : markQaAsResolvedByInstructor(q)
+                      }
+                      title={q.resolved ? "Mark unresolved" : "Mark resolved"}
+                    >
+                      {q.resolved ? (
+                        <CloseCircleFilled className="text-info" />
+                      ) : (
+                        <CheckCircleFilled className="text-info" />
+                      )}
+                    </Tooltip>
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
               <h5 className="font-bold text-md">{q.title}</h5>
 
               <ReactMarkdown
@@ -171,8 +168,6 @@ const UserQaReadRemove = ({
                 renderers={{ code: CodeBlock }}
                 className="single-post"
               />
-
-             
             </div>
             {/* answers / comments */}
             {q.answers &&

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import AdminRoute from "../../../components/routes/AdminRoute";
@@ -6,10 +6,16 @@ import CategoryForm from "../../../components/forms/CategoryForm";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import { Avatar, Tooltip } from "antd";
+import { Context } from "../../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const AdminCategoryIndex = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -24,9 +30,7 @@ const AdminCategoryIndex = () => {
 
   const loadCategories = async () => {
     try {
-      let { data } = await axios.get(
-        "https://stress-apps.herokuapp.com/api/categories"
-      );
+      let { data } = await axios.get("http://localhost:8000/api/categories");
       setCategories(data);
     } catch (err) {
       console.log(err);
@@ -38,8 +42,11 @@ const AdminCategoryIndex = () => {
     try {
       setLoading(true);
       let { data } = await axios.post(
-        "https://stress-apps.herokuapp.com/api/category",
-        { name }
+        "http://localhost:8000/api/category",
+        { name },
+        {
+          headers: { Authorization: token },
+        }
       );
       // console.log(data);
       setName("");
@@ -57,8 +64,12 @@ const AdminCategoryIndex = () => {
   const handleDeleteClick = async (c) => {
     try {
       let { data } = await axios.delete(
-        `https://stress-apps.herokuapp.com/api/category/${c.slug}`
+        `http://localhost:8000/api/category/${c.slug}`,
+        {
+          headers: { Authorization: token },
+        }
       );
+      // console.log(c.slug);
 
       toast(`${data.name} deleted`);
       // update state
@@ -81,8 +92,11 @@ const AdminCategoryIndex = () => {
     e.preventDefault();
     try {
       let { data } = await axios.put(
-        `https://stress-apps.herokuapp.com/api/category/${slug}`,
-        { name }
+        `http://localhost:8000/api/category/${slug}`,
+        { name },
+        {
+          headers: { Authorization: token },
+        }
       );
       // console.log("updated", data);
       toast(`${data.name} updated`);

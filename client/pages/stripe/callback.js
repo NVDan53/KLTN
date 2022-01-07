@@ -8,7 +8,7 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const StripeCallback = () => {
   const {
-    state: { user },
+    state: { user, token },
     dispatch,
   } = useContext(Context);
 
@@ -16,7 +16,9 @@ const StripeCallback = () => {
     // console.log(user);
     if (user)
       axios
-        .post("https://stress-apps.herokuapp.com/api/get-account-status")
+        .post("http://localhost:8000/api/get-account-status", {
+          headers: { Authorization: token },
+        })
         .then((res) => {
           console.log("GET_ACCOUNT_STATUS_RES -> ", res);
           dispatch({

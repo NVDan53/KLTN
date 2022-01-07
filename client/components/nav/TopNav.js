@@ -38,11 +38,10 @@ const TopNav = () => {
 
   const logout = async () => {
     try {
-      const { data } = await axios.get(
-        "https://stress-apps.herokuapp.com/api/logout"
-      );
+      const { data } = await axios.get("http://localhost:8000/api/logout");
       dispatch({ type: "LOGOUT" });
       window.localStorage.removeItem("user");
+      window.localStorage.removeItem("token");
       if (data) {
         toast(data.message);
         router.push("/");
@@ -175,7 +174,7 @@ const TopNav = () => {
                 </Link>
               </Item>
 
-              <Item key="/logout" onClick={logout}>
+              <Item onClick={logout}>
                 <i
                   class="fas fa-sign-out-alt pr-2 h-4 w-8"
                   style={{ fontSize: "18px" }}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import CourseEditForm from "../../../../components/forms/CourseEditForm";
 import axios from "axios";
@@ -8,12 +8,18 @@ import { useRouter } from "next/router";
 import { List, Avatar, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import UpdateLessonForm from "../../../../components/forms/UpdateLessonForm";
+import { Context } from "../../../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const { Item } = List;
 
 const CourseEdit = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   // state
   const [values, setValues] = useState({
     _id: "",
@@ -60,9 +66,7 @@ const CourseEdit = () => {
   }, []);
 
   const fetchCourse = async () => {
-    let { data } = await axios.get(
-      `https://stress-apps.herokuapp.com/api/course/${slug}`
-    );
+    let { data } = await axios.get(`http://localhost:8000/api/course/${slug}`);
     // console.log(data);
     setValues(data);
     // push array of categories to be used by ant select component
@@ -74,9 +78,7 @@ const CourseEdit = () => {
   };
 
   const loadCategories = async () => {
-    const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/categories"
-    );
+    const { data } = await axios.get("http://localhost:8000/api/categories");
     // console.log(data);
     setCategoryList(data);
   };
@@ -90,10 +92,13 @@ const CourseEdit = () => {
     // console.log("HANDLE SUBMIT => ", values);
     try {
       const { data } = await axios.put(
-        `https://stress-apps.herokuapp.com/api/course/${values._id}`,
+        `http://localhost:8000/api/course/${values._id}`,
         {
           ...values,
           categories: selectedCategories,
+        },
+        {
+          headers: { Authorization: token },
         }
       );
       // console.log(data);
@@ -110,9 +115,12 @@ const CourseEdit = () => {
     if (values.image && values.image.Location) {
       // console.log("YES VALUES IMAGE", values.image);
       let { data } = await axios.post(
-        `https://stress-apps.herokuapp.com/api/course/remove-image/${values._id}`,
+        `http://localhost:8000/api/course/remove-image/${values._id}`,
         {
           image: values.image,
+        },
+        {
+          headers: { Authorization: token },
         }
       );
       // console.log("removed previous image", data);
@@ -135,9 +143,12 @@ const CourseEdit = () => {
         // post to s3
         try {
           let { data } = await axios.post(
-            "https://stress-apps.herokuapp.com/api/course/upload-image",
+            "http://localhost:8000/api/course/upload-image",
             {
               image: uri,
+            },
+            {
+              headers: { Authorization: token },
             }
           );
           // console.log("image uploaded", data);
@@ -176,10 +187,13 @@ const CourseEdit = () => {
     // make request to backend to save the re-ordered lessons
     // console.log("SEND TO BACKEND", values.lessons);
     const { data } = await axios.put(
-      `https://stress-apps.herokuapp.com/api/course/${values._id}`,
+      `http://localhost:8000/api/course/${values._id}`,
       {
         ...values,
         categories: selectedCategories,
+      },
+      {
+        headers: { Authorization: token },
       }
     );
     console.log(data);
@@ -194,16 +208,21 @@ const CourseEdit = () => {
     // remove previous video
     if (removed && removed.length && removed[0].video) {
       let res = await axios.post(
-        `https://stress-apps.herokuapp.com/api/course/remove-video/${values._id}`,
-        removed[0].video
+        `http://localhost:8000/api/course/remove-video/${values._id}`,
+        removed[0].video,
+        {
+          headers: { Authorization: token },
+        }
       );
-      console.log(res);
     }
 
     setValues({ ...values, lessons: allLessons });
     // console.log("removed", removed, "slug", slug);`
     const { data } = await axios.post(
-      `https://stress-apps.herokuapp.com/api/course/${values._id}/${removed[0]._id}`
+      `http://localhost:8000/api/course/${values._id}/${removed[0]._id}`,
+      {
+        headers: { Authorization: token },
+      }
     );
     if (data.ok) toast("Deleted");
     console.log("delete lesson => ", data);
@@ -213,8 +232,11 @@ const CourseEdit = () => {
     // remove previous
     if (current.video && current.video.Location) {
       const res = await axios.post(
-        `https://stress-apps.herokuapp.com/api/course/remove-video/${values._id}`,
-        current.video
+        `http://localhost:8000/api/course/remove-video/${values._id}`,
+        current.video,
+        {
+          headers: { Authorization: token },
+        }
       );
       console.log("REMOVED ===> ", res);
     }
@@ -229,11 +251,14 @@ const CourseEdit = () => {
     videoData.append("courseId", values._id);
     // save progress bar and send video as form data to backend
     const { data } = await axios.post(
-      `https://stress-apps.herokuapp.com/api/course/upload-video/${values._id}`,
+      `http://localhost:8000/api/course/upload-video/${values._id}`,
       videoData,
       {
         onUploadProgress: (e) =>
           setProgress(Math.round((100 * e.loaded) / e.total)),
+      },
+      {
+        headers: { Authorization: token },
       }
     );
     // once response is received
@@ -248,8 +273,11 @@ const CourseEdit = () => {
     // console.log("**SEND TO BACKEND**");
     // console.table({ values });
     let { data } = await axios.post(
-      `https://stress-apps.herokuapp.com/api/course/lesson/${values._id}/${current._id}`,
-      current
+      `http://localhost:8000/api/course/lesson/${values._id}/${current._id}`,
+      current,
+      {
+        headers: { Authorization: token },
+      }
     );
     // console.log("LESSON UPDATED AND SAVED ===> ", data);
     setUploadButtonText("Upload video");
@@ -267,10 +295,19 @@ const CourseEdit = () => {
 
   return (
     <InstructorRoute>
- <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/instructor" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/instructor" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>Update Course</li>
         </ul>
       </div>

@@ -21,6 +21,7 @@ const Index = ({ courses, categories, router }) => {
         href="/images/favicon/favicon.ico"
         type="image/x-icon"
       />
+      {/* <link rel="shortcut icon" href="/images/favicon/favicon.ico" type="image/x-icon" /> */}
       <link
         rel="stylesheet"
         href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
@@ -60,17 +61,15 @@ const Index = ({ courses, categories, router }) => {
       <Become />
       {/* <Feature /> */}
 
-      {/* <Saying /> */}
+      <Saying />
     </>
   );
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(
-    `https://stress-apps.herokuapp.com/api/courses`
-  );
+  const { data } = await axios.get(`http://localhost:8000/api/courses`);
   const courseCategories = await axios.get(
-    `https://stress-apps.herokuapp.com/api/categories`
+    `http://localhost:8000/api/categories`
   );
 
   return {

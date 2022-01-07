@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import UserRoute from "../../components/routes/UserRoute";
 import ContactForm from "../../components/forms/ContactForm";
 import axios from "axios";
@@ -12,10 +12,16 @@ import {
   TwitterOutlined,
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
+import { Context } from "../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const UserIndex = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -24,9 +30,9 @@ const UserIndex = () => {
   }, []);
 
   const loadUserIssues = async () => {
-    const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/user/issues"
-    );
+    const { data } = await axios.get("http://localhost:8000/api/user/issues", {
+      headers: { Authorization: token },
+    });
     console.log(data);
     setIssues(data);
   };
@@ -35,9 +41,12 @@ const UserIndex = () => {
     setLoading(true);
     try {
       const { data } = await axios.put(
-        `https://stress-apps.herokuapp.com/api/user/issue/mark-resolved`,
+        `http://localhost:8000/api/user/issue/mark-resolved`,
         {
           issueId,
+        },
+        {
+          headers: { Authorization: token },
         }
       );
       loadUserIssues();
@@ -56,7 +65,10 @@ const UserIndex = () => {
     setLoading(true);
     try {
       const { data } = await axios.delete(
-        `https://stress-apps.herokuapp.com/api/user/issue/delete/${issueId}`
+        `http://localhost:8000/api/user/issue/delete/${issueId}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       loadUserIssues();
       // console.log("ISSUE RESOLVED =>", data);
@@ -71,10 +83,19 @@ const UserIndex = () => {
 
   return (
     <UserRoute>
-      <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/user" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/user" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>Support</li>
         </ul>
       </div>
@@ -89,7 +110,6 @@ const UserIndex = () => {
 
             <ContactForm loadUserIssues={loadUserIssues} />
           </div>
-          
         </div>
 
         {/* show provious support posts */}
@@ -109,7 +129,10 @@ const UserIndex = () => {
                   )}
                 </li>
 
-                <li className="list-group-item">{new Date(issue.createdAt).toLocaleDateString()} <br/>{issue.message}</li>
+                <li className="list-group-item">
+                  {new Date(issue.createdAt).toLocaleDateString()} <br />
+                  {issue.message}
+                </li>
                 {/* bottom icons */}
                 <li className="list-group-item">
                   <div className="d-flex justify-content-between">

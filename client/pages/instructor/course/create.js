@@ -1,14 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import InstructorRoute from "../../../components/routes/InstructorRoute";
 import CourseCreateForm from "../../../components/forms/CourseCreateForm";
 import axios from "axios";
 import Resizer from "react-image-file-resizer";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { Context } from "../../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const CourseCreate = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   // state
   const [values, setValues] = useState({
     name: "",
@@ -37,9 +43,7 @@ const CourseCreate = () => {
   }, []);
 
   const loadCategories = async () => {
-    const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/categories"
-    );
+    const { data } = await axios.get("http://localhost:8000/api/categories");
     // console.log(data);
     setCategoryList(data);
   };
@@ -52,11 +56,14 @@ const CourseCreate = () => {
   const handleSubmit = async (e) => {
     try {
       const { data } = await axios.post(
-        "https://stress-apps.herokuapp.com/api/course",
+        "http://localhost:8000/api/course",
         {
           ...values,
           categories: selectedCategories,
           image,
+        },
+        {
+          headers: { Authorization: token },
         }
       );
       // console.log(data);
@@ -86,9 +93,12 @@ const CourseCreate = () => {
         // post to s3
         try {
           let { data } = await axios.post(
-            "https://stress-apps.herokuapp.com/api/course/upload-image",
+            "http://localhost:8000/api/course/upload-image",
             {
               image: uri,
+            },
+            {
+              headers: { Authorization: token },
             }
           );
           // console.log("image uploaded", data);
@@ -109,8 +119,11 @@ const CourseCreate = () => {
       console.log("remove image from s3 ===> ", image.Key);
       setValues({ ...values, loading: true });
       let { data } = await axios.post(
-        "https://stress-apps.herokuapp.com/api/course/remove-image",
-        { image }
+        "http://localhost:8000/api/course/remove-image",
+        { image },
+        {
+          headers: { Authorization: token },
+        }
       );
       // console.log("Remove image ===> ", data);
       if (data.ok) {
@@ -127,10 +140,19 @@ const CourseCreate = () => {
 
   return (
     <InstructorRoute>
-     <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/instructor" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/instructor" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>Create Course</li>
         </ul>
       </div>

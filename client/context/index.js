@@ -7,11 +7,16 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 // initial state
 const initialState = {
   user: null,
+  token: null,
 };
 
 // if auth is found in localstorage, use that as default value
 if (process.browser && window.localStorage.getItem("user")) {
   initialState.auth = JSON.parse(window.localStorage.getItem("user"));
+}
+
+if (process.browser && window.localStorage.getItem("token")) {
+  initialState.token = JSON.parse(window.localStorage.getItem("token"));
 }
 
 // create context
@@ -23,7 +28,9 @@ const rootReducer = (state, action) => {
     case "LOGIN":
       return { ...state, user: action.payload };
     case "LOGOUT":
-      return { ...state, user: null };
+      return { ...state, user: null, token: null };
+    case "GET_TOKEN":
+      return { ...state, token: action.payload };
     default:
       return state;
   }
@@ -40,6 +47,11 @@ const Provider = ({ children }) => {
       type: "LOGIN",
       payload: JSON.parse(window.localStorage.getItem("user")),
     });
+
+    dispatch({
+      type: "GET_TOKEN",
+      payload: JSON.parse(window.localStorage.getItem("token")),
+    });
   }, []);
 
   axios.interceptors.response.use(
@@ -51,16 +63,18 @@ const Provider = ({ children }) => {
     function (error) {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
+      console.log("ERORRRRR:", error);
 
       let res = error.response;
       if (res.status === 401 && res.config && !res.config.__isRetryRequest) {
         return new Promise((resolve, reject) => {
           axios
-            .get("https://stress-apps.herokuapp.com/api/logout")
+            .get("http://localhost:8000/api/logout")
             .then((data) => {
               console.log("/401 error > logout");
               dispatch({ type: "LOGOUT" });
               window.localStorage.removeItem("user");
+              window.localStorage.removeItem("token");
               router.push("/login");
             })
             .catch((err) => {
@@ -78,9 +92,7 @@ const Provider = ({ children }) => {
   // https://www.synopsys.com/glossary/what-is-csrf.html
   useEffect(() => {
     const getCsrfToken = async () => {
-      const { data } = await axios.get(
-        "https://stress-apps.herokuapp.com/api/csrf-token"
-      );
+      const { data } = await axios.get("http://localhost:8000/api/csrf-token");
       // console.log(data);
       axios.defaults.headers["X-CSRF-Token"] = data.csrfToken;
     };

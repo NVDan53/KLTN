@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import AuthorRoute from "../../components/routes/AuthorRoute";
 import Link from "next/link";
@@ -9,9 +9,14 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
-const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
+import { Context } from "../../context";
 
 const AuthorIndex = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -20,7 +25,10 @@ const AuthorIndex = () => {
 
   const loadPostsByAuthor = async () => {
     const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/posts-by-author"
+      "http://localhost:8000/api/posts-by-author",
+      {
+        headers: { Authorization: token },
+      }
     );
     setPosts(data);
   };
@@ -30,7 +38,10 @@ const AuthorIndex = () => {
       const answer = window.confirm("Are you sure?");
       if (!answer) return;
       const { data } = await axios.delete(
-        `https://stress-apps.herokuapp.com/api/post/${post._id}`
+        `http://localhost:8000/api/post/${post._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       loadPostsByAuthor();
       toast("Post deleted!");
@@ -46,7 +57,10 @@ const AuthorIndex = () => {
       let answer = window.confirm("Are you sure you want to publish?");
       if (!answer) return;
       const { data } = await axios.put(
-        `https://stress-apps.herokuapp.com/api/post/publish/${post._id}`
+        `http://localhost:8000/api/post/publish/${post._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       // console.log("COURSE PUBLISHED RES", data);
       toast("Congrats. Your post live published!");
@@ -63,7 +77,10 @@ const AuthorIndex = () => {
       let answer = window.confirm("Are you sure you want to unpublish?");
       if (!answer) return;
       const { data } = await axios.put(
-        `https://stress-apps.herokuapp.com/api/post/unpublish/${post._id}`
+        `http://localhost:8000/api/post/unpublish/${post._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       toast("Your post is unpublished");
       loadPostsByAuthor();

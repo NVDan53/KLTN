@@ -15,7 +15,7 @@ const ContactForm = ({ loadUserIssues = (f) => f }) => {
 
   // context
   const {
-    state: { user },
+    state: { user, token },
   } = useContext(Context);
 
   useEffect(() => {
@@ -36,6 +36,9 @@ const ContactForm = ({ loadUserIssues = (f) => f }) => {
           name,
           email,
           message,
+        },
+        {
+          headers: { Authorization: token },
         }
       );
       setLoading(false);
