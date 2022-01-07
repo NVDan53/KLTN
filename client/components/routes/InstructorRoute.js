@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import InstructorNav from "../nav/InstructorNav";
+import { Context } from "../../context";
 
 const InstructorRoute = ({ children }) => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [ok, setOk] = useState(false);
   const router = useRouter();
 
@@ -14,7 +20,12 @@ const InstructorRoute = ({ children }) => {
 
   const fetchInstructor = async () => {
     try {
-      let { data } = await axios.get("/api/current-instructor");
+      let { data } = await axios.get(
+        "http://localhost:8000/api/current-instructor",
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("current-user", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

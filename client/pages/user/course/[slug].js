@@ -27,7 +27,7 @@ const { Item } = Menu;
 const SingleCourse = () => {
   // state
   const {
-    state: { user },
+    state: { user, token },
   } = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState({ lessons: [] });
@@ -79,16 +79,27 @@ const SingleCourse = () => {
   }, [course]);
 
   const loadCourse = async () => {
-    const { data } = await axios.get(`/api/user/course/${slug}`);
+    const { data } = await axios.get(
+      `http://localhost:8000/api/user/course/${slug}`,
+      {
+        headers: { Authorization: token },
+      }
+    );
     console.log("USER COURSE => ", data);
     setCourse(data);
   };
 
   // use POST route to avoid mongo objectId string issue
   const loadCompletedLessons = async () => {
-    const { data } = await axios.post(`/api/list-completed`, {
-      courseId: course._id,
-    });
+    const { data } = await axios.post(
+      `http://localhost:8000/api/list-completed`,
+      {
+        courseId: course._id,
+      },
+      {
+        headers: { Authorization: token },
+      }
+    );
     console.log("COMPLETED LESSONS => ", data);
     setCompletedLessons(data);
   };
@@ -97,10 +108,16 @@ const SingleCourse = () => {
   // each time video ends, send lesson id to backend and store as completed
   const markCompleted = async () => {
     // console.log(course.lessons[clicked]._id, course._id);
-    const { data } = await axios.post(`/api/mark-completed`, {
-      courseId: course._id,
-      lessonId: course.lessons[clicked]._id,
-    });
+    const { data } = await axios.post(
+      `http://localhost:8000/api/mark-completed`,
+      {
+        courseId: course._id,
+        lessonId: course.lessons[clicked]._id,
+      },
+      {
+        headers: { Authorization: token },
+      }
+    );
     // console.log(data);
     setCompletedLessons([...completedLessons, course.lessons[clicked]._id]);
   };
@@ -108,10 +125,16 @@ const SingleCourse = () => {
   const markIncomplete = async () => {
     try {
       // console.log(course.lessons[clicked]._id, course._id);
-      const { data } = await axios.post(`/api/mark-incomplete`, {
-        courseId: course._id,
-        lessonId: course.lessons[clicked]._id,
-      });
+      const { data } = await axios.post(
+        `http://localhost:8000/api/mark-incomplete`,
+        {
+          courseId: course._id,
+          lessonId: course.lessons[clicked]._id,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log(data);
       // remove the 'mark incomplete' id from completedLessons
       const all = completedLessons;
@@ -145,7 +168,13 @@ const SingleCourse = () => {
         lessonId: course.lessons[clicked]._id,
         userId: user._id,
       };
-      const { data } = await axios.post("/api/qa", allData);
+      const { data } = await axios.post(
+        "http://localhost:8000/api/qa",
+        allData,
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("QA CREATE => ", data);
       setValues({ ...values, title: "", description: "", loading: false });
       // setClickedLessonQa([data, ...clickedLessonQa]);
@@ -163,7 +192,9 @@ const SingleCourse = () => {
   }, [clicked]);
 
   const loadQuestions = async (req, res) => {
-    const { data } = await axios.get(`/api/qa/${course.lessons[clicked]._id}`);
+    const { data } = await axios.get(
+      `http://localhost:8000/api/qa/${course.lessons[clicked]._id}`
+    );
     // console.log(data);
     setClickedLessonQa(data);
   };
@@ -173,7 +204,12 @@ const SingleCourse = () => {
       let answer = confirm("Are you sure you want to delete?");
       // if (answer) console.log("handle qa delete", qaId);
       if (!answer) return;
-      const { data } = await axios.delete(`/api/qa/${q._id}/${q.postedBy._id}`);
+      const { data } = await axios.delete(
+        `http://localhost:8000/api/qa/${q._id}/${q.postedBy._id}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("DELETED QA => ", data);
       loadQuestions();
     } catch (err) {
@@ -191,7 +227,13 @@ const SingleCourse = () => {
     console.log("editvalues => ", editValues);
     try {
       // console.log("EDIT POST REQ => ", editValues);
-      const { data } = await axios.put(`/api/qa/${editValues._id}`, editValues);
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/${editValues._id}`,
+        editValues,
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("EDIT POST RES => ", data);
       loadQuestions();
       setEditModalVisible(false);
@@ -214,11 +256,17 @@ const SingleCourse = () => {
   const handleAnswerPost = async () => {
     try {
       setAnswerLoading(true);
-      const { data } = await axios.put(`/api/qa/answer`, {
-        questionId: currentQuestion._id,
-        content: answerContent,
-        userId: user._id,
-      });
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/answer`,
+        {
+          questionId: currentQuestion._id,
+          content: answerContent,
+          userId: user._id,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       setAnswerContent("");
       setAnswerModalVisible(false);
       loadQuestions();
@@ -242,7 +290,13 @@ const SingleCourse = () => {
     try {
       setAnswerEditLoading(true);
       // console.log("handleEditAnswerPost => currentanswer", currentAnswer);
-      const { data } = await axios.put(`/api/qa/answer-edit`, currentAnswer);
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/answer-edit`,
+        currentAnswer,
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("ANSWER EDIT RES", data);
       loadQuestions();
       setAnswerEditModalVisible(false);
@@ -262,7 +316,10 @@ const SingleCourse = () => {
       if (!answer) return;
       // console.log("handle delete ans qa", a._id);
       const { data } = await axios.delete(
-        `/api/qa/answer-delete/${a._id}/${a.postedBy._id}`
+        `http://localhost:8000/api/qa/answer-delete/${a._id}/${a.postedBy._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       loadQuestions();
       toast("Answer successfully deleted");
@@ -274,10 +331,16 @@ const SingleCourse = () => {
   const markQaAsResolved = async (q) => {
     try {
       // console.log("mark as resolved", q._id, q.postedBy._id);
-      const { data } = await axios.put(`/api/qa/mark-resolved`, {
-        questionId: q._id,
-        postedBy: q.postedBy._id,
-      });
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/mark-resolved`,
+        {
+          questionId: q._id,
+          postedBy: q.postedBy._id,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       loadQuestions();
       console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");
@@ -290,10 +353,16 @@ const SingleCourse = () => {
   const markQaAsNotResolved = async (q) => {
     try {
       // console.log("mark as resolved", q._id, q.postedBy._id);
-      const { data } = await axios.put(`/api/qa/mark-unresolved`, {
-        questionId: q._id,
-        postedBy: q.postedBy._id,
-      });
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/mark-unresolved`,
+        {
+          questionId: q._id,
+          postedBy: q.postedBy._id,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       loadQuestions();
       console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");
@@ -333,9 +402,9 @@ const SingleCourse = () => {
           {/* how many completed */}
           {!collapsed && course && (
             <div className="pt-2" style={{ borderBottom: "3px solid #222" }}>
-            
-             
-              <span className="text-success ml-16">{completedLessons.length}</span>
+              <span className="text-success ml-16">
+                {completedLessons.length}
+              </span>
               {" / "}
               <span className="text-danger">{course.lessons.length}</span>{" "}
               lessons completed

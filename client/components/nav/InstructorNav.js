@@ -1,9 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { Badge } from "antd";
+import { Context } from "../../context";
 
 const InstructorNav = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [current, setCurrent] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
 
@@ -16,7 +22,12 @@ const InstructorNav = () => {
   }, []);
 
   const loadQuestionCount = async () => {
-    const { data } = await axios.get(`/api/instructor/question-count`);
+    const { data } = await axios.get(
+      `http://localhost:8000/api/instructor/question-count`,
+      {
+        headers: { Authorization: token },
+      }
+    );
     setQuestionCount(data);
   };
 

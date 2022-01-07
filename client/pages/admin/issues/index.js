@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Tooltip } from "antd";
 import {
@@ -10,8 +10,14 @@ import {
 import AdminRoute from "../../../components/routes/AdminRoute";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { Context } from "../../../context";
 
 const AdminIssuesIndex = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +26,9 @@ const AdminIssuesIndex = () => {
   }, []);
 
   const loadIssues = async () => {
-    const { data } = await axios.get("/api/admin/issues");
+    const { data } = await axios.get("http://localhost:8000/api/admin/issues", {
+      headers: { Authorization: token },
+    });
     setIssues(data);
   };
 
@@ -34,10 +42,16 @@ const AdminIssuesIndex = () => {
   const handleEnrollmentIssue = async (issue) => {
     setLoading(true);
     try {
-      const { data } = await axios.post(`/api/admin/refresh-user-status`, {
-        userId: issue.postedBy._id,
-        courseUrl: issue.course_url,
-      });
+      const { data } = await axios.post(
+        `http://localhost:8000/api/admin/refresh-user-status`,
+        {
+          userId: issue.postedBy._id,
+          courseUrl: issue.course_url,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       console.log("SESSION REFRESH =>", data);
       toast(data.message);
       setLoading(false);
@@ -52,7 +66,12 @@ const AdminIssuesIndex = () => {
     console.log(issueId);
     setLoading(true);
     try {
-      const { data } = await axios.delete(`/api/admin/issue/delete/${issueId}`);
+      const { data } = await axios.delete(
+        `http://localhost:8000/api/admin/issue/delete/${issueId}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
       loadIssues();
       // console.log("ISSUE RESOLVED =>", data);
       toast("Issue deleted");

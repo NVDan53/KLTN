@@ -6,22 +6,26 @@ import axios from "axios";
 
 const StripeCallback = () => {
   const {
-    state: { user },
+    state: { user, token },
     dispatch,
   } = useContext(Context);
 
   useEffect(() => {
     // console.log(user);
     if (user)
-      axios.post("/api/get-account-status").then((res) => {
-        console.log("GET_ACCOUNT_STATUS_RES -> ", res);
-        dispatch({
-          type: "LOGIN",
-          payload: res.data,
+      axios
+        .post("http://localhost:8000/api/get-account-status", {
+          headers: { Authorization: token },
+        })
+        .then((res) => {
+          console.log("GET_ACCOUNT_STATUS_RES -> ", res);
+          dispatch({
+            type: "LOGIN",
+            payload: res.data,
+          });
+          window.localStorage.setItem("user", JSON.stringify(res.data));
+          window.location.href = "/instructor";
         });
-        window.localStorage.setItem("user", JSON.stringify(res.data));
-        window.location.href = "/instructor";
-      });
   }, [user]);
 
   return (

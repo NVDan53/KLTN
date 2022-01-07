@@ -13,7 +13,7 @@ const ContactForm = ({ loadUserIssues = (f) => f }) => {
 
   // context
   const {
-    state: { user },
+    state: { user, token },
   } = useContext(Context);
 
   useEffect(() => {
@@ -27,12 +27,18 @@ const ContactForm = ({ loadUserIssues = (f) => f }) => {
     event.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/contact-support", {
-        url,
-        name,
-        email,
-        message,
-      });
+      const { data } = await axios.post(
+        "http://localhost:8000/api/contact-support",
+        {
+          url,
+          name,
+          email,
+          message,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       setLoading(false);
       toast(
         "Thank you. We will try our best to resolve your issue as soon as possible"

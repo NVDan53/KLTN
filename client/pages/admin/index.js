@@ -1,11 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Tabs } from "antd";
 import AdminRoute from "../../components/routes/AdminRoute";
+import { Context } from "../../context";
 
 const { TabPane } = Tabs;
 
 const AdminIndex = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [users, setUsers] = useState([
     {
       name: "",
@@ -35,23 +41,27 @@ const AdminIndex = () => {
   }, []);
 
   const loadUsers = async () => {
-    const { data } = await axios.get("/api/admin/users");
+    const { data } = await axios.get("http://localhost:8000/api/admin/users", {
+      headers: { Authorization: token },
+    });
     setUsers(data);
   };
   const loadCategories = async () => {
     try {
-      let { data } = await axios.get("/api/categories");
+      let { data } = await axios.get("http://localhost:8000/api/categories");
       setCategories(data);
     } catch (err) {
       console.log(err);
     }
   };
   const loadPosts = async () => {
-    const { data } = await axios.get("/api/admin/posts");
+    const { data } = await axios.get("http://localhost:8000/api/admin/posts");
     setPosts(data);
   };
   const loadIssues = async () => {
-    const { data } = await axios.get("/api/admin/issues");
+    const { data } = await axios.get("http://localhost:8000/api/admin/issues", {
+      headers: { Authorization: token },
+    });
     setIssues(data);
   };
   const loadCourses = async () => {
@@ -64,7 +74,7 @@ const AdminIndex = () => {
     //   setCourses(data);
     // };
     try {
-      const { data } = await axios.get("/api/courses");
+      const { data } = await axios.get("http://localhost:8000/api/courses");
       setCourses(data);
     } catch (error) {
       console.log(error);

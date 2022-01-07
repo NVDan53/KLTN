@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Avatar, Tooltip, Button, Modal, List } from "antd";
@@ -15,9 +15,17 @@ import ReactMarkdown from "react-markdown";
 import AddLessonForm from "../../../../components/forms/AddLessonForm";
 import { toast } from "react-toastify";
 import { Badge } from "antd";
+
+import { Context } from "../../../../context";
+
 const { Item } = List;
 
 const CourseView = () => {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const [course, setCourse] = useState({});
   const [visible, setVisible] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -46,15 +54,21 @@ const CourseView = () => {
   }, [course]);
 
   const fetchCourse = async () => {
-    let { data } = await axios.get(`/api/course/${slug}`);
+    let { data } = await axios.get(`http://localhost:8000/api/course/${slug}`);
     // console.log(data);
     setCourse(data);
   };
 
   const studentCount = async () => {
-    const { data } = await axios.post(`/api/instructor/student-count`, {
-      courseId: course._id,
-    });
+    const { data } = await axios.post(
+      `http://localhost:8000/api/instructor/student-count`,
+      {
+        courseId: course._id,
+      },
+      {
+        headers: { Authorization: token },
+      }
+    );
     // console.log("STUDENT COUNT => ", data.length);
     setStudents(data.length);
   };
@@ -63,7 +77,13 @@ const CourseView = () => {
     e.preventDefault();
     // console.log("**SEND TO BACKEND**", course);
     // console.table({ values });
-    let { data } = await axios.post(`/api/course/lesson/${course._id}`, values);
+    let { data } = await axios.post(
+      `http://localhost:8000/api/course/lesson/${course._id}`,
+      values,
+      {
+        headers: { Authorization: token },
+      }
+    );
     console.log("LESSON ADDED AND SAVED ===> ", data);
     setValues({ ...values, title: "", content: "", video: {} });
     setUploadButtonText("Upload video");
@@ -85,11 +105,14 @@ const CourseView = () => {
       videoData.append("courseId", course._id);
       // save progress bar and send video as form data to backend
       const { data } = await axios.post(
-        `/api/course/upload-video/${course._id}`,
+        `http://localhost:8000/api/course/upload-video/${course._id}`,
         videoData,
         {
           onUploadProgress: (e) =>
             setProgress(Math.round((100 * e.loaded) / e.total)),
+        },
+        {
+          headers: { Authorization: token },
         }
       );
       // once response is received
@@ -106,8 +129,11 @@ const CourseView = () => {
   const handleVideoRemove = async () => {
     // remove video from s3
     const { data } = await axios.post(
-      `/api/course/remove-video/${course._id}`,
-      values.video
+      `http://localhost:8000/api/course/remove-video/${course._id}`,
+      values.video,
+      {
+        headers: { Authorization: token },
+      }
     );
     console.log("remove uploaded video", data);
     setValues({ ...values, video: {} });
@@ -124,7 +150,12 @@ const CourseView = () => {
         "Once you publish your course, it will be live in the marketplace for students to enroll."
       );
       if (!answer) return;
-      const { data } = await axios.put(`/api/course/publish/${course._id}`);
+      const { data } = await axios.put(
+        `http://localhost:8000/api/course/publish/${course._id}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("COURSE PUBLISHED RES", data);
       toast("Congrats. Your course is now live in marketplace!");
       setCourse(data);
@@ -141,7 +172,12 @@ const CourseView = () => {
         "Once you unpublish your course, it will not appear in the marketplace for students to enroll."
       );
       if (!answer) return;
-      const { data } = await axios.put(`/api/course/unpublish/${course._id}`);
+      const { data } = await axios.put(
+        `http://localhost:8000/api/course/unpublish/${course._id}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
       toast("Your course is now removed from the marketplace!");
       setCourse(data);
     } catch (err) {
@@ -151,16 +187,28 @@ const CourseView = () => {
 
   return (
     <InstructorRoute>
-     <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/instructor" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/instructor" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>Add Lesson</li>
         </ul>
       </div>
 
       {course && (
-        <div className="container-fluid"style={{padding:"40px",backgroundColor:"#fff"}}>
+        <div
+          className="container-fluid"
+          style={{ padding: "40px", backgroundColor: "#fff" }}
+        >
           <div className="media items-center">
             <Avatar
               size={80}
@@ -171,13 +219,15 @@ const CourseView = () => {
                 <div className="col">
                   <h5 className="mt-2 text-primary">{course.name}</h5>
 
-                 <p>             
-                    {course.categories &&course.categories.map((category) => (
-                        <p key={category._id}style={{color:"red"}}>{category.name}</p>
-                      ))}                    
+                  <p>
+                    {course.categories &&
+                      course.categories.map((category) => (
+                        <p key={category._id} style={{ color: "red" }}>
+                          {category.name}
+                        </p>
+                      ))}
                   </p>
                 </div>
-
 
                 <div className="d-flex">
                   {/* total students enrolled */}
@@ -217,13 +267,13 @@ const CourseView = () => {
               </div>
             </div>
           </div>
-         
+
           <div className="row">
             <div className="col my-4">
               <ReactMarkdown source={course.description} />
             </div>
           </div>
-         
+
           <div className="row">
             <Button
               onClick={() => setVisible(true)}
@@ -257,7 +307,7 @@ const CourseView = () => {
               setMarkdownCheetsheetModal={setMarkdownCheetsheetModal}
             />
           </Modal>
-         
+
           {/* {JSON.stringify(course)} */}
           <div className="row pb-5">
             <div className="col lesson-list">
@@ -267,9 +317,12 @@ const CourseView = () => {
                 renderItem={(item, index) => (
                   <Item>
                     <Item.Meta
-                      avatar={<Avatar  style={{backgroundColor:"#1890ff"}}>{index + 1}</Avatar>}
+                      avatar={
+                        <Avatar style={{ backgroundColor: "#1890ff" }}>
+                          {index + 1}
+                        </Avatar>
+                      }
                       title={item.title}
-                     
                     />
                   </Item>
                 )}

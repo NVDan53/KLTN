@@ -180,12 +180,12 @@ export const login = async (req, res) => {
     user.passwordResetCode = undefined;
     // without httpOnly, javascript will get access to cookie in browser
     // so to protect token use true
-    res.cookie("token", token, {
-      httpOnly: true,
-      // secure: true // only works on https
-    });
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   // secure: true // only works on https
+    // });
 
-    res.json(user);
+    res.json({ user, token });
   } catch (err) {
     console.log(err);
     return res.status(400).send("Error. Try again.");
@@ -204,7 +204,7 @@ export const currentUser = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
-    res.clearCookie("token");
+    // res.clearCookie("token");
     return res.json({ message: "Signout success!" });
   } catch (err) {
     console.log(err);

@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 
 const BecomeAuthor = () => {
   const {
-    state: { user },
+    state: { user, token },
     dispatch,
   } = useContext(Context);
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,12 @@ const BecomeAuthor = () => {
   const makeAuthor = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post("/api/make-author");
+      const { data } = await axios.post(
+        "http://localhost:8000/api/make-author",
+        {
+          headers: { Authorization: token },
+        }
+      );
       setLoading(false);
       dispatch({
         type: "LOGIN",

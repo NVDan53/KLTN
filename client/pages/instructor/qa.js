@@ -21,7 +21,7 @@ import { Context } from "../../context";
 const InstructorQa = () => {
   // state
   const {
-    state: { user },
+    state: { user, token },
   } = useContext(Context);
   // for qa
   const [qas, setQas] = useState([]);
@@ -54,7 +54,12 @@ const InstructorQa = () => {
   }, []);
 
   const loadQuestions = async () => {
-    const { data } = await axios.get("/api/instructor/qas");
+    const { data } = await axios.get(
+      "http://localhost:8000/api/instructor/qas",
+      {
+        headers: { Authorization: token },
+      }
+    );
     console.log("DATA ON LOAD_QUESTIONS => => ", data);
     setQas(data);
   };
@@ -70,7 +75,12 @@ const InstructorQa = () => {
       let answer = confirm("Are you sure you want to delete?");
       // if (answer) console.log("handle qa delete", qaId);
       if (!answer) return;
-      const { data } = await axios.delete(`/api/qa/${q._id}/${q.postedBy}`);
+      const { data } = await axios.delete(
+        `http://localhost:8000/api/qa/${q._id}/${q.postedBy}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("DELETED QA => ", data);
       loadQuestions();
     } catch (err) {
@@ -89,8 +99,11 @@ const InstructorQa = () => {
       //   console.log("EDIT POST REQ => ", editValues);
       //   return;
       const { data } = await axios.put(
-        `/api/user/qa/${editValues._id}`,
-        editValues
+        `http://localhost:8000/api/user/qa/${editValues._id}`,
+        editValues,
+        {
+          headers: { Authorization: token },
+        }
       );
       // console.log("EDIT POST RES => ", data);
       loadQuestions();
@@ -117,11 +130,17 @@ const InstructorQa = () => {
     // return;
     try {
       setAnswerLoading(true);
-      const { data } = await axios.put(`/api/qa/answer`, {
-        questionId: currentQuestion._id,
-        content: answerContent,
-        userId: user._id,
-      });
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/answer`,
+        {
+          questionId: currentQuestion._id,
+          content: answerContent,
+          userId: user._id,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       setAnswerContent("");
       setAnswerModalVisible(false);
       loadQuestions();
@@ -145,7 +164,13 @@ const InstructorQa = () => {
     try {
       setAnswerEditLoading(true);
       // console.log("handleEditAnswerPost => currentanswer", currentAnswer);
-      const { data } = await axios.put(`/api/qa/answer-edit`, currentAnswer);
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/answer-edit`,
+        currentAnswer,
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("ANSWER EDIT RES", data);
       loadQuestions();
       setAnswerEditModalVisible(false);
@@ -167,7 +192,10 @@ const InstructorQa = () => {
       if (!answer) return;
       // console.log("handle delete ans qa", a._id);
       const { data } = await axios.delete(
-        `/api/qa/answer-delete/${a._id}/${a.postedBy._id}`
+        `http://localhost:8000/api/qa/answer-delete/${a._id}/${a.postedBy._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       loadQuestions();
       toast("Answer successfully deleted");
@@ -185,7 +213,10 @@ const InstructorQa = () => {
       if (!answer) return;
       // console.log("handle delete ans qa", a._id);
       const { data } = await axios.delete(
-        `/api/qa/answer-delete-by-instructor/${a._id}`
+        `http://localhost:8000/api/qa/answer-delete-by-instructor/${a._id}`,
+        {
+          headers: { Authorization: token },
+        }
       );
       loadQuestions();
       toast("Answer successfully deleted");
@@ -199,10 +230,16 @@ const InstructorQa = () => {
       //   console.log("QQQ markQaAsResolved => ", q);
       //   return;
       // console.log("mark as resolved", q._id, q.postedBy._id);
-      const { data } = await axios.put(`/api/qa/mark-resolved`, {
-        questionId: q._id,
-        postedBy: q.postedBy,
-      });
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/mark-resolved`,
+        {
+          questionId: q._id,
+          postedBy: q.postedBy,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       loadQuestions();
       //   console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");
@@ -216,10 +253,16 @@ const InstructorQa = () => {
     try {
       //   console.log("QQQ markQaAsNotResolved => ", q);
       //   return;
-      const { data } = await axios.put(`/api/qa/mark-unresolved`, {
-        questionId: q._id,
-        postedBy: q.postedBy,
-      });
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/mark-unresolved`,
+        {
+          questionId: q._id,
+          postedBy: q.postedBy,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       loadQuestions();
       //   console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");
@@ -237,7 +280,12 @@ const InstructorQa = () => {
       let answer = confirm("Are you sure you want to delete?");
       // if (answer) console.log("handle qa delete", qaId);
       if (!answer) return;
-      const { data } = await axios.delete(`/api/qa-by-instructor/${q._id}`);
+      const { data } = await axios.delete(
+        `http://localhost:8000/api/qa-by-instructor/${q._id}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("DELETED QA => ", data);
       loadQuestions();
     } catch (err) {
@@ -250,9 +298,15 @@ const InstructorQa = () => {
       //   console.log("QQQ markQaAsResolved => ", q);
       //   return;
       // console.log("mark as resolved", q._id, q.postedBy._id);
-      const { data } = await axios.put(`/api/qa/mark-resolved-by-instructor`, {
-        questionId: q._id,
-      });
+      const { data } = await axios.put(
+        `http://localhost:8000/api/qa/mark-resolved-by-instructor`,
+        {
+          questionId: q._id,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      );
       loadQuestions();
       //   console.log("MARK RESOLVED => ", data);
       toast("You marked it resolved");
@@ -267,9 +321,12 @@ const InstructorQa = () => {
       //   console.log("QQQ markQaAsNotResolved => ", q);
       //   return;
       const { data } = await axios.put(
-        `/api/qa/mark-unresolved-by-instructor`,
+        `http://localhost:8000/api/qa/mark-unresolved-by-instructor`,
         {
           questionId: q._id,
+        },
+        {
+          headers: { Authorization: token },
         }
       );
       loadQuestions();
@@ -283,10 +340,19 @@ const InstructorQa = () => {
 
   return (
     <InstructorRoute>
-      <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/instructor" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/instructor" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>Comment of user</li>
         </ul>
       </div>

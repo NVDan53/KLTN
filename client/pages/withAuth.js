@@ -1,13 +1,25 @@
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import { Context } from "../context";
 
 export default function withAuth(Component) {
+  const {
+    state: { user, token },
+    dispatch,
+  } = useContext(Context);
+
   const withAuth = (props) => {
     return <Component {...props} />;
   };
 
   withAuth.getServerSideProps = async (ctx) => {
     try {
-      const { data } = await axios.get(`/api/current-user`);
+      const { data } = await axios.get(
+        `http://localhost:8000/api/current-user`,
+        {
+          headers: { Authorization: token },
+        }
+      );
       console.log("data ===> ", data);
       if (data)
         return {

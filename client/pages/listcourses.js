@@ -6,10 +6,7 @@ import Head from "next/head";
 const ListCourses = ({ courses, router }) => {
   const head = () => (
     <Head>
-      <title>
-       List Course |{" "}
-        {process.env.APP_NAME}
-      </title>
+      <title>List Course | {process.env.APP_NAME}</title>
       <meta
         name="description"
         content="Articles on Modern JavaScript React Next.js Node MongoDB GraphQL SEO MERN Full Stack Web Development Courses Free and Paid"
@@ -49,12 +46,12 @@ const ListCourses = ({ courses, router }) => {
   return (
     <>
       {head()}
-     
+
       <div className="container">
-      <h2 style={{ fontSize: "25px", fontWeight: "bold",marginTop:"20px" }}>
-                     List Courses
-                    </h2>
-        <div className="row my-4" style={{marginLeft:"-23px"}}>
+        <h2 style={{ fontSize: "25px", fontWeight: "bold", marginTop: "20px" }}>
+          List Courses
+        </h2>
+        <div className="row my-4" style={{ marginLeft: "-23px" }}>
           {courses.map((course) => (
             <div key={course._id} className="col-md-3">
               <ListCourseCard key={course._id} course={course} />
@@ -67,7 +64,7 @@ const ListCourses = ({ courses, router }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.API}/courses`);
+  const { data } = await axios.get(`http://localhost:8000/api/courses`);
   // console.log("DATA LENGTH =====> ", data.length);
   return {
     props: {

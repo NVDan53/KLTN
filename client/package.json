@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
@@ -25,7 +25,7 @@
     "http-proxy-middleware": "^1.0.6",
     "markdown-to-txt": "^1.0.1",
     "nanoid": "^3.1.20",
-    "next": "^10.0.6",
+    "next": "^10.2.3",
     "nprogress": "^0.2.0",
     "postcss": "^7.0.39",
     "prop-types": "^15.7.2",

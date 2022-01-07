@@ -10,17 +10,20 @@ import {
 import { toast } from "react-toastify";
 import UserRoute from "../../components/routes/UserRoute";
 import InstructorTerms from "../../components/modal/InstructorTerms";
+import { Context } from "../../context";
 
 const BecomeInstructor = () => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { state } = useContext(Context);
-  const { user } = state;
+  const { user, token } = state;
 
   const becomeInstructor = () => {
     setLoading(true);
     axios
-      .post("/api/make-instructor")
+      .post("http://localhost:8000/api/make-instructor", {
+        headers: { Authorization: token },
+      })
       .then((res) => {
         window.location.href = res.data;
       })

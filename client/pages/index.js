@@ -66,8 +66,10 @@ const Index = ({ courses, categories, router }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`${process.env.API}/courses`);
-  const courseCategories = await axios.get(`${process.env.API}/categories`);
+  const { data } = await axios.get(`http://localhost:8000/api/courses`);
+  const courseCategories = await axios.get(
+    `http://localhost:8000/api/categories`
+  );
 
   return {
     props: {

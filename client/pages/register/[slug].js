@@ -30,7 +30,10 @@ const RegisterActivate = () => {
 
   const handleSubmit = async (jwtLink) => {
     try {
-      let { data } = await axios.post(`/api/register-activate`, { jwtLink });
+      let { data } = await axios.post(
+        `http://localhost:8000/api/register-activate`,
+        { jwtLink }
+      );
 
       if (data.ok) {
         toast("Registration successful. Please login");

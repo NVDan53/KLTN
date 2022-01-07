@@ -61,7 +61,7 @@ const SingleCourse = ({ course }) => {
 
   // context
   const {
-    state: { user },
+    state: { user, token },
   } = useContext(Context);
   const {
     name,
@@ -83,7 +83,12 @@ const SingleCourse = ({ course }) => {
   }, [course, user]);
 
   const checkEnrollment = async () => {
-    const { data } = await axios.get(`/api/check-enrollment/${course._id}`);
+    const { data } = await axios.get(
+      `http://localhost:8000/api/check-enrollment/${course._id}`,
+      {
+        headers: { Authorization: token },
+      }
+    );
     // console.log("CHECK ENROLLMENT => ", data);
     setEnrolled(data);
   };
@@ -98,7 +103,12 @@ const SingleCourse = ({ course }) => {
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
       // console.log("enroll to this course > ", course._id);
-      const { data } = await axios.post(`/api/paid-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `http://localhost:8000/api/paid-enrollment/${course._id}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("PAID ENROLLMENT => ", data);
       // load stripe for payment
       // on successful payment, user will get redirected to /stripe/success page
@@ -121,7 +131,12 @@ const SingleCourse = ({ course }) => {
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
       // console.log("enroll to this course > ", course._id);
-      const { data } = await axios.post(`/api/free-enrollment/${course._id}`);
+      const { data } = await axios.post(
+        `http://localhost:8000/api/free-enrollment/${course._id}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
       console.log("FREE ENROLLMENT => ", data);
       toast(data.message);
       // redirect user to course page
@@ -157,12 +172,12 @@ const SingleCourse = ({ course }) => {
         setPreview={setPreview}
       />
       <div className="container">
-      <h1 className="text-4xl mt-4 font-weight-bold mb-4">Description</h1>
+        <h1 className="text-4xl mt-4 font-weight-bold mb-4">Description</h1>
 
-       <p className="lead mb-4 text-xl font-sans">
-            {description && description}
-          </p>
-      <h1 className="text-4xl mt-4 font-weight-bold mb-4">Course content</h1>
+        <p className="lead mb-4 text-xl font-sans">
+          {description && description}
+        </p>
+        <h1 className="text-4xl mt-4 font-weight-bold mb-4">Course content</h1>
       </div>
       {course.lessons && (
         <SingleCourseLessons
