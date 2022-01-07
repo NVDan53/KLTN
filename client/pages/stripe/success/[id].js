@@ -24,7 +24,7 @@ const StripeSuccess = () => {
   const successRequest = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/stripe-success/${id}`,
+        `https://stress-apps.herokuapp.com/api/stripe-success/${id}`,
         {
           headers: { Authorization: token },
         }

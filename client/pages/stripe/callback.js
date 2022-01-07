@@ -16,7 +16,7 @@ const StripeCallback = () => {
     // console.log(user);
     if (user)
       axios
-        .post("http://localhost:8000/api/get-account-status", {
+        .post("https://stress-apps.herokuapp.com/api/get-account-status", {
           headers: { Authorization: token },
         })
         .then((res) => {

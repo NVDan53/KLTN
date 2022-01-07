@@ -25,7 +25,7 @@ const AdminRoute = ({ children }) => {
   const fetchAdmin = async () => {
     try {
       let { data } = await axios.get(
-        "http://localhost:8000/api/current-admin",
+        "https://stress-apps.herokuapp.com/api/current-admin",
         {
           headers: { Authorization: token },
         }

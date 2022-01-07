@@ -38,7 +38,9 @@ const TopNav = () => {
 
   const logout = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/api/logout");
+      const { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/logout"
+      );
       dispatch({ type: "LOGOUT" });
       window.localStorage.removeItem("user");
       window.localStorage.removeItem("token");

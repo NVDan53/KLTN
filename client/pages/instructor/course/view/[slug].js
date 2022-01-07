@@ -54,14 +54,16 @@ const CourseView = () => {
   }, [course]);
 
   const fetchCourse = async () => {
-    let { data } = await axios.get(`http://localhost:8000/api/course/${slug}`);
+    let { data } = await axios.get(
+      `https://stress-apps.herokuapp.com/api/course/${slug}`
+    );
     // console.log(data);
     setCourse(data);
   };
 
   const studentCount = async () => {
     const { data } = await axios.post(
-      `http://localhost:8000/api/instructor/student-count`,
+      `https://stress-apps.herokuapp.com/api/instructor/student-count`,
       {
         courseId: course._id,
       },
@@ -78,7 +80,7 @@ const CourseView = () => {
     // console.log("**SEND TO BACKEND**", course);
     // console.table({ values });
     let { data } = await axios.post(
-      `http://localhost:8000/api/course/lesson/${course._id}`,
+      `https://stress-apps.herokuapp.com/api/course/lesson/${course._id}`,
       values,
       {
         headers: { Authorization: token },
@@ -105,7 +107,7 @@ const CourseView = () => {
       videoData.append("courseId", course._id);
       // save progress bar and send video as form data to backend
       const { data } = await axios.post(
-        `http://localhost:8000/api/course/upload-video/${course._id}`,
+        `https://stress-apps.herokuapp.com/api/course/upload-video/${course._id}`,
         videoData,
         {
           onUploadProgress: (e) =>
@@ -129,7 +131,7 @@ const CourseView = () => {
   const handleVideoRemove = async () => {
     // remove video from s3
     const { data } = await axios.post(
-      `http://localhost:8000/api/course/remove-video/${course._id}`,
+      `https://stress-apps.herokuapp.com/api/course/remove-video/${course._id}`,
       values.video,
       {
         headers: { Authorization: token },
@@ -151,7 +153,7 @@ const CourseView = () => {
       );
       if (!answer) return;
       const { data } = await axios.put(
-        `http://localhost:8000/api/course/publish/${course._id}`,
+        `https://stress-apps.herokuapp.com/api/course/publish/${course._id}`,
         {
           headers: { Authorization: token },
         }
@@ -173,7 +175,7 @@ const CourseView = () => {
       );
       if (!answer) return;
       const { data } = await axios.put(
-        `http://localhost:8000/api/course/unpublish/${course._id}`,
+        `https://stress-apps.herokuapp.com/api/course/unpublish/${course._id}`,
         {
           headers: { Authorization: token },
         }

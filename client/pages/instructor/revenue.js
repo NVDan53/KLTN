@@ -27,7 +27,7 @@ const InstructorRevenue = () => {
   const sendBalanceRequest = async () => {
     // console.log("send balance request");
     const { data } = await axios.get(
-      `http://localhost:8000/api/instructor/balance`,
+      `https://stress-apps.herokuapp.com/api/instructor/balance`,
       {
         headers: { Authorization: token },
       }
@@ -40,7 +40,7 @@ const InstructorRevenue = () => {
     try {
       setLoading(true);
       let { data } = await axios.get(
-        "http://localhost:8000/api/instructor/payout-settings",
+        "https://stress-apps.herokuapp.com/api/instructor/payout-settings",
         {
           headers: { Authorization: token },
         }

@@ -23,7 +23,7 @@ const BecomeInstructor = () => {
   const becomeInstructor = () => {
     setLoading(true);
     axios
-      .post("http://localhost:8000/api/make-instructor", {
+      .post("https://stress-apps.herokuapp.com/api/make-instructor", {
         headers: { Authorization: token },
       })
       .then((res) => {

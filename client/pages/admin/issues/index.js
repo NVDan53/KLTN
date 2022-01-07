@@ -28,9 +28,12 @@ const AdminIssuesIndex = () => {
   }, []);
 
   const loadIssues = async () => {
-    const { data } = await axios.get("http://localhost:8000/api/admin/issues", {
-      headers: { Authorization: token },
-    });
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/admin/issues",
+      {
+        headers: { Authorization: token },
+      }
+    );
     setIssues(data);
   };
 
@@ -45,7 +48,7 @@ const AdminIssuesIndex = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `http://localhost:8000/api/admin/refresh-user-status`,
+        `https://stress-apps.herokuapp.com/api/admin/refresh-user-status`,
         {
           userId: issue.postedBy._id,
           courseUrl: issue.course_url,
@@ -69,7 +72,7 @@ const AdminIssuesIndex = () => {
     setLoading(true);
     try {
       const { data } = await axios.delete(
-        `http://localhost:8000/api/admin/issue/delete/${issueId}`,
+        `https://stress-apps.herokuapp.com/api/admin/issue/delete/${issueId}`,
         {
           headers: { Authorization: token },
         }

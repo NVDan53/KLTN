@@ -33,7 +33,7 @@ const RegisterActivate = () => {
   const handleSubmit = async (jwtLink) => {
     try {
       let { data } = await axios.post(
-        `http://localhost:8000/api/register-activate`,
+        `https://stress-apps.herokuapp.com/api/register-activate`,
         { jwtLink }
       );
 

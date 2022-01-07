@@ -57,7 +57,7 @@ const InstructorQa = () => {
 
   const loadQuestions = async () => {
     const { data } = await axios.get(
-      "http://localhost:8000/api/instructor/qas",
+      "https://stress-apps.herokuapp.com/api/instructor/qas",
       {
         headers: { Authorization: token },
       }
@@ -78,7 +78,7 @@ const InstructorQa = () => {
       // if (answer) console.log("handle qa delete", qaId);
       if (!answer) return;
       const { data } = await axios.delete(
-        `http://localhost:8000/api/qa/${q._id}/${q.postedBy}`,
+        `https://stress-apps.herokuapp.com/api/qa/${q._id}/${q.postedBy}`,
         {
           headers: { Authorization: token },
         }
@@ -101,7 +101,7 @@ const InstructorQa = () => {
       //   console.log("EDIT POST REQ => ", editValues);
       //   return;
       const { data } = await axios.put(
-        `http://localhost:8000/api/user/qa/${editValues._id}`,
+        `https://stress-apps.herokuapp.com/api/user/qa/${editValues._id}`,
         editValues,
         {
           headers: { Authorization: token },
@@ -133,7 +133,7 @@ const InstructorQa = () => {
     try {
       setAnswerLoading(true);
       const { data } = await axios.put(
-        `http://localhost:8000/api/qa/answer`,
+        `https://stress-apps.herokuapp.com/api/qa/answer`,
         {
           questionId: currentQuestion._id,
           content: answerContent,
@@ -167,7 +167,7 @@ const InstructorQa = () => {
       setAnswerEditLoading(true);
       // console.log("handleEditAnswerPost => currentanswer", currentAnswer);
       const { data } = await axios.put(
-        `http://localhost:8000/api/qa/answer-edit`,
+        `https://stress-apps.herokuapp.com/api/qa/answer-edit`,
         currentAnswer,
         {
           headers: { Authorization: token },
@@ -194,7 +194,7 @@ const InstructorQa = () => {
       if (!answer) return;
       // console.log("handle delete ans qa", a._id);
       const { data } = await axios.delete(
-        `http://localhost:8000/api/qa/answer-delete/${a._id}/${a.postedBy._id}`,
+        `https://stress-apps.herokuapp.com/api/qa/answer-delete/${a._id}/${a.postedBy._id}`,
         {
           headers: { Authorization: token },
         }
@@ -215,7 +215,7 @@ const InstructorQa = () => {
       if (!answer) return;
       // console.log("handle delete ans qa", a._id);
       const { data } = await axios.delete(
-        `http://localhost:8000/api/qa/answer-delete-by-instructor/${a._id}`,
+        `https://stress-apps.herokuapp.com/api/qa/answer-delete-by-instructor/${a._id}`,
         {
           headers: { Authorization: token },
         }
@@ -233,7 +233,7 @@ const InstructorQa = () => {
       //   return;
       // console.log("mark as resolved", q._id, q.postedBy._id);
       const { data } = await axios.put(
-        `http://localhost:8000/api/qa/mark-resolved`,
+        `https://stress-apps.herokuapp.com/api/qa/mark-resolved`,
         {
           questionId: q._id,
           postedBy: q.postedBy,
@@ -256,7 +256,7 @@ const InstructorQa = () => {
       //   console.log("QQQ markQaAsNotResolved => ", q);
       //   return;
       const { data } = await axios.put(
-        `http://localhost:8000/api/qa/mark-unresolved`,
+        `https://stress-apps.herokuapp.com/api/qa/mark-unresolved`,
         {
           questionId: q._id,
           postedBy: q.postedBy,
@@ -283,7 +283,7 @@ const InstructorQa = () => {
       // if (answer) console.log("handle qa delete", qaId);
       if (!answer) return;
       const { data } = await axios.delete(
-        `http://localhost:8000/api/qa-by-instructor/${q._id}`,
+        `https://stress-apps.herokuapp.com/api/qa-by-instructor/${q._id}`,
         {
           headers: { Authorization: token },
         }
@@ -301,7 +301,7 @@ const InstructorQa = () => {
       //   return;
       // console.log("mark as resolved", q._id, q.postedBy._id);
       const { data } = await axios.put(
-        `http://localhost:8000/api/qa/mark-resolved-by-instructor`,
+        `https://stress-apps.herokuapp.com/api/qa/mark-resolved-by-instructor`,
         {
           questionId: q._id,
         },
@@ -323,7 +323,7 @@ const InstructorQa = () => {
       //   console.log("QQQ markQaAsNotResolved => ", q);
       //   return;
       const { data } = await axios.put(
-        `http://localhost:8000/api/qa/mark-unresolved-by-instructor`,
+        `https://stress-apps.herokuapp.com/api/qa/mark-unresolved-by-instructor`,
         {
           questionId: q._id,
         },

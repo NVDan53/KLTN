@@ -17,9 +17,12 @@ function ActivationEmail() {
     if (activation_token) {
       const activationEmail = async () => {
         try {
-          const res = await axios.post("http://localhost:8000/api/activate", {
-            activation_token,
-          });
+          const res = await axios.post(
+            "https://stress-apps.herokuapp.com/api/activate",
+            {
+              activation_token,
+            }
+          );
           setSuccess(res.data.msg);
           toast(res.data.msg);
         } catch (error) {

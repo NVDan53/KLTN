@@ -23,7 +23,7 @@ const AuthorRoute = ({ children }) => {
   const fetchAuthor = async () => {
     try {
       let { data } = await axios.get(
-        "http://localhost:8000/api/current-author",
+        "https://stress-apps.herokuapp.com/api/current-author",
         {
           headers: { Authorization: token },
         }

@@ -30,7 +30,9 @@ const AdminCategoryIndex = () => {
 
   const loadCategories = async () => {
     try {
-      let { data } = await axios.get("http://localhost:8000/api/categories");
+      let { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/categories"
+      );
       setCategories(data);
     } catch (err) {
       console.log(err);
@@ -42,7 +44,7 @@ const AdminCategoryIndex = () => {
     try {
       setLoading(true);
       let { data } = await axios.post(
-        "http://localhost:8000/api/category",
+        "https://stress-apps.herokuapp.com/api/category",
         { name },
         {
           headers: { Authorization: token },
@@ -64,7 +66,7 @@ const AdminCategoryIndex = () => {
   const handleDeleteClick = async (c) => {
     try {
       let { data } = await axios.delete(
-        `http://localhost:8000/api/category/${c.slug}`,
+        `https://stress-apps.herokuapp.com/api/category/${c.slug}`,
         {
           headers: { Authorization: token },
         }
@@ -92,7 +94,7 @@ const AdminCategoryIndex = () => {
     e.preventDefault();
     try {
       let { data } = await axios.put(
-        `http://localhost:8000/api/category/${slug}`,
+        `https://stress-apps.herokuapp.com/api/category/${slug}`,
         { name },
         {
           headers: { Authorization: token },

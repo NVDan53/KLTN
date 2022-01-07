@@ -15,7 +15,7 @@ export default function withAuth(Component) {
   withAuth.getServerSideProps = async (ctx) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/current-user`,
+        `https://stress-apps.herokuapp.com/api/current-user`,
         {
           headers: { Authorization: token },
         }

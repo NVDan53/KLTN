@@ -26,9 +26,12 @@ const UserIndex = () => {
   }, []);
 
   const loadCourses = async () => {
-    const { data } = await axios.get(`http://localhost:8000/api/user-courses`, {
-      headers: { Authorization: token },
-    });
+    const { data } = await axios.get(
+      `https://stress-apps.herokuapp.com/api/user-courses`,
+      {
+        headers: { Authorization: token },
+      }
+    );
     console.log(data);
     setCourses(data);
   };

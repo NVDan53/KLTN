@@ -25,9 +25,12 @@ const Register = () => {
     console.log(response);
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:8000/api/google_login", {
-        tokenId: response.tokenId,
-      });
+      const res = await axios.post(
+        "https://stress-apps.herokuapp.com/api/google_login",
+        {
+          tokenId: response.tokenId,
+        }
+      );
 
       dispatch({
         type: "LOGIN",
@@ -55,11 +58,14 @@ const Register = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      let { data } = await axios.post(`http://localhost:8000/api/register`, {
-        name,
-        email,
-        password,
-      });
+      let { data } = await axios.post(
+        `https://stress-apps.herokuapp.com/api/register`,
+        {
+          name,
+          email,
+          password,
+        }
+      );
       // console.log(data);
       if (data.ok) {
         // toast("Registration successful. Please login");

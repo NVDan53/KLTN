@@ -25,7 +25,7 @@ const AuthorIndex = () => {
 
   const loadPostsByAuthor = async () => {
     const { data } = await axios.get(
-      "http://localhost:8000/api/posts-by-author",
+      "https://stress-apps.herokuapp.com/api/posts-by-author",
       {
         headers: { Authorization: token },
       }
@@ -38,7 +38,7 @@ const AuthorIndex = () => {
       const answer = window.confirm("Are you sure?");
       if (!answer) return;
       const { data } = await axios.delete(
-        `http://localhost:8000/api/post/${post._id}`,
+        `https://stress-apps.herokuapp.com/api/post/${post._id}`,
         {
           headers: { Authorization: token },
         }
@@ -57,7 +57,7 @@ const AuthorIndex = () => {
       let answer = window.confirm("Are you sure you want to publish?");
       if (!answer) return;
       const { data } = await axios.put(
-        `http://localhost:8000/api/post/publish/${post._id}`,
+        `https://stress-apps.herokuapp.com/api/post/publish/${post._id}`,
         {
           headers: { Authorization: token },
         }
@@ -77,7 +77,7 @@ const AuthorIndex = () => {
       let answer = window.confirm("Are you sure you want to unpublish?");
       if (!answer) return;
       const { data } = await axios.put(
-        `http://localhost:8000/api/post/unpublish/${post._id}`,
+        `https://stress-apps.herokuapp.com/api/post/unpublish/${post._id}`,
         {
           headers: { Authorization: token },
         }

@@ -32,7 +32,7 @@ function resetPassword() {
       setLoading(true);
       const resetPassword = async () => {
         const res = await axios.post(
-          "http://localhost:8000/api/reset-password",
+          "https://stress-apps.herokuapp.com/api/reset-password",
           { password: data },
           {
             headers: { Authorization: token },

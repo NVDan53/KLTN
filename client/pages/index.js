@@ -2,6 +2,7 @@ import axios from "axios";
 import Head from "next/head";
 import { withRouter } from "next/router";
 import Become from "../components/layout/Become";
+import Saying from "../components/layout/Saying";
 import CourseCategories from "../components/layout/CourseCategories";
 import Statistical from "../components/layout/Statistical";
 import SimpleSlider from "../components/nav/SimpleSlider";
@@ -67,9 +68,11 @@ const Index = ({ courses, categories, router }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`http://localhost:8000/api/courses`);
+  const { data } = await axios.get(
+    `https://stress-apps.herokuapp.com/api/courses`
+  );
   const courseCategories = await axios.get(
-    `http://localhost:8000/api/categories`
+    `https://stress-apps.herokuapp.com/api/categories`
   );
 
   return {

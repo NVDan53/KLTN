@@ -26,9 +26,12 @@ const AdminPostIndex = () => {
   }, []);
 
   const loadPosts = async () => {
-    const { data } = await axios.get("http://localhost:8000/api/admin/posts", {
-      headers: { Authorization: token },
-    });
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/admin/posts",
+      {
+        headers: { Authorization: token },
+      }
+    );
     setPosts(data);
   };
 
@@ -37,7 +40,7 @@ const AdminPostIndex = () => {
       const answer = window.confirm("Are you sure?");
       if (!answer) return;
       const { data } = await axios.delete(
-        `http://localhost:8000/api/admin/post/${post._id}`,
+        `https://stress-apps.herokuapp.com/api/admin/post/${post._id}`,
         {
           headers: { Authorization: token },
         }
@@ -56,7 +59,7 @@ const AdminPostIndex = () => {
       let answer = window.confirm("Are you sure you want to publish?");
       if (!answer) return;
       const { data } = await axios.put(
-        `http://localhost:8000/api/admin/post/publish/${post._id}`,
+        `https://stress-apps.herokuapp.com/api/admin/post/publish/${post._id}`,
         {
           headers: { Authorization: token },
         }
@@ -76,7 +79,7 @@ const AdminPostIndex = () => {
       let answer = window.confirm("Are you sure you want to unpublish?");
       if (!answer) return;
       const { data } = await axios.put(
-        `http://localhost:8000/api/admin/post/unpublish/${post._id}`,
+        `https://stress-apps.herokuapp.com/api/admin/post/unpublish/${post._id}`,
         {
           headers: { Authorization: token },
         }

@@ -30,9 +30,12 @@ const UserIndex = () => {
   }, []);
 
   const loadUserIssues = async () => {
-    const { data } = await axios.get("http://localhost:8000/api/user/issues", {
-      headers: { Authorization: token },
-    });
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/user/issues",
+      {
+        headers: { Authorization: token },
+      }
+    );
     console.log(data);
     setIssues(data);
   };
@@ -41,7 +44,7 @@ const UserIndex = () => {
     setLoading(true);
     try {
       const { data } = await axios.put(
-        `http://localhost:8000/api/user/issue/mark-resolved`,
+        `https://stress-apps.herokuapp.com/api/user/issue/mark-resolved`,
         {
           issueId,
         },
@@ -65,7 +68,7 @@ const UserIndex = () => {
     setLoading(true);
     try {
       const { data } = await axios.delete(
-        `http://localhost:8000/api/user/issue/delete/${issueId}`,
+        `https://stress-apps.herokuapp.com/api/user/issue/delete/${issueId}`,
         {
           headers: { Authorization: token },
         }

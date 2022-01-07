@@ -41,27 +41,37 @@ const AdminIndex = () => {
   }, []);
 
   const loadUsers = async () => {
-    const { data } = await axios.get("http://localhost:8000/api/admin/users", {
-      headers: { Authorization: token },
-    });
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/admin/users",
+      {
+        headers: { Authorization: token },
+      }
+    );
     setUsers(data);
   };
   const loadCategories = async () => {
     try {
-      let { data } = await axios.get("http://localhost:8000/api/categories");
+      let { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/categories"
+      );
       setCategories(data);
     } catch (err) {
       console.log(err);
     }
   };
   const loadPosts = async () => {
-    const { data } = await axios.get("http://localhost:8000/api/admin/posts");
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/admin/posts"
+    );
     setPosts(data);
   };
   const loadIssues = async () => {
-    const { data } = await axios.get("http://localhost:8000/api/admin/issues", {
-      headers: { Authorization: token },
-    });
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/admin/issues",
+      {
+        headers: { Authorization: token },
+      }
+    );
     setIssues(data);
   };
   const loadCourses = async () => {
@@ -74,7 +84,9 @@ const AdminIndex = () => {
     //   setCourses(data);
     // };
     try {
-      const { data } = await axios.get("http://localhost:8000/api/courses");
+      const { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/courses"
+      );
       setCourses(data);
     } catch (error) {
       console.log(error);

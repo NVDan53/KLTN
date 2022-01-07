@@ -25,7 +25,7 @@ const InstructorNav = () => {
 
   const loadQuestionCount = async () => {
     const { data } = await axios.get(
-      `http://localhost:8000/api/instructor/question-count`,
+      `https://stress-apps.herokuapp.com/api/instructor/question-count`,
       {
         headers: { Authorization: token },
       }

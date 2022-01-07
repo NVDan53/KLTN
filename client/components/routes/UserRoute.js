@@ -22,9 +22,12 @@ const UserRoute = ({ children, showNav = true }) => {
 
   const fetchUser = async () => {
     try {
-      let { data } = await axios.get("http://localhost:8000/api/current-user", {
-        headers: { Authorization: token },
-      });
+      let { data } = await axios.get(
+        "https://stress-apps.herokuapp.com/api/current-user",
+        {
+          headers: { Authorization: token },
+        }
+      );
       // console.log("current-user", data);
       //   console.log("data", data);
       if (data.ok) setOk(true);

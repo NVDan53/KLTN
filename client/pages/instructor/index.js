@@ -22,7 +22,7 @@ const InstructorIndex = () => {
 
   const loadCourses = async () => {
     const { data } = await axios.get(
-      "http://localhost:8000/api/instructor-courses",
+      "https://stress-apps.herokuapp.com/api/instructor-courses",
       {
         headers: { Authorization: token },
       }

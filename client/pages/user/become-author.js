@@ -30,7 +30,7 @@ const BecomeAuthor = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/make-author",
+        "https://stress-apps.herokuapp.com/api/make-author",
         {
           headers: { Authorization: token },
         }

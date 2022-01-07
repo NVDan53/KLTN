@@ -33,9 +33,12 @@ const AdminUsersIndex = () => {
   }, []);
 
   const loadUsers = async () => {
-    const { data } = await axios.get("http://localhost:8000/api/admin/users", {
-      headers: { Authorization: token },
-    });
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/admin/users",
+      {
+        headers: { Authorization: token },
+      }
+    );
     setUsers(data);
   };
 

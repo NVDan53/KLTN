@@ -51,7 +51,7 @@ const PostEdit = () => {
   const loadPost = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8000/api/post/${slug}`
+        `https://stress-apps.herokuapp.com/api/post/${slug}`
       );
       console.log("SINGLE POST", data);
       setPostedBy(data.postedBy);
@@ -68,9 +68,12 @@ const PostEdit = () => {
   };
 
   const loadCategories = async () => {
-    const { data } = await axios.get("http://localhost:8000/api/categories", {
-      headers: { Authorization: token },
-    });
+    const { data } = await axios.get(
+      "https://stress-apps.herokuapp.com/api/categories",
+      {
+        headers: { Authorization: token },
+      }
+    );
     // console.log(data);
     setLoadedCategories(data);
   };
@@ -100,7 +103,7 @@ const PostEdit = () => {
         // post to s3
         try {
           let { data } = await axios.post(
-            "http://localhost:8000/api/post/upload-image",
+            "https://stress-apps.herokuapp.com/api/post/upload-image",
             {
               image: uri,
             },
@@ -133,7 +136,7 @@ const PostEdit = () => {
     setLoading(true);
     try {
       const { data } = await axios.put(
-        `http://localhost:8000/api/post/${slug}`,
+        `https://stress-apps.herokuapp.com/api/post/${slug}`,
         {
           postId,
           title,

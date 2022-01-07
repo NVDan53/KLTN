@@ -23,7 +23,7 @@ const InstructorRoute = ({ children }) => {
   const fetchInstructor = async () => {
     try {
       let { data } = await axios.get(
-        "http://localhost:8000/api/current-instructor",
+        "https://stress-apps.herokuapp.com/api/current-instructor",
         {
           headers: { Authorization: token },
         }
