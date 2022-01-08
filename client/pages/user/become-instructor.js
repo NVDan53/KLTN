@@ -10,7 +10,6 @@ import {
 import { toast } from "react-toastify";
 import UserRoute from "../../components/routes/UserRoute";
 import InstructorTerms from "../../components/modal/InstructorTerms";
-import { Context } from "../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 

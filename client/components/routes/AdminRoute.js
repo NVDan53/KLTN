@@ -13,8 +13,6 @@ const AdminRoute = ({ children }) => {
     dispatch,
   } = useContext(Context);
 
-  console.log("TOKENNNN:", token);
-
   const [ok, setOk] = useState(false);
   const router = useRouter();
 
