@@ -64,7 +64,10 @@ const InstructorNav = () => {
               }`}
               className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
             >
-              <i class="fas fa-video h-6 w-6" style={{ fontSize: "24px" }}></i>
+              <i
+                className="fas fa-video h-6 w-6"
+                style={{ fontSize: "24px" }}
+              ></i>
               <span className="mx-3">Create Course</span>
             </a>
           </Link>

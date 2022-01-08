@@ -108,7 +108,7 @@ const AdminIndex = () => {
             style={{ width: "300px" }}
           >
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-              <i class="fas fa-users text-dark text-2xl"></i>
+              <i className="fas fa-users text-dark text-2xl"></i>
             </div>
             <div className="text-right">
               <p className="text-2xl">{users.length}</p>
@@ -120,7 +120,7 @@ const AdminIndex = () => {
             style={{ width: "300px" }}
           >
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-              <i class="fas fa-book text-dark text-2xl"></i>
+              <i className="fas fa-book text-dark text-2xl"></i>
             </div>
             <div className="text-right">
               <p className="text-2xl">{categories.length}</p>
@@ -132,7 +132,7 @@ const AdminIndex = () => {
             style={{ width: "300px" }}
           >
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-              <i class="fas fa-paste text-dark text-2xl"></i>
+              <i className="fas fa-paste text-dark text-2xl"></i>
             </div>
             <div className="text-right">
               <p className="text-2xl">{posts.length}</p>
@@ -144,7 +144,7 @@ const AdminIndex = () => {
             style={{ width: "300px" }}
           >
             <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-              <i class="fas fa-video text-dark text-2xl"></i>
+              <i className="fas fa-video text-dark text-2xl"></i>
             </div>
             <div className="text-right">
               <p className="text-2xl">

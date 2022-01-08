@@ -70,7 +70,7 @@ const SingleCourseJumbotron = ({
             <p>Created by {instructor.name}</p>
             {/* updated date */}
             <p className="my-2">
-              <i class="fas fa-clock"></i> Last updated{" "}
+              <i className="fas fa-clock"></i> Last updated{" "}
               {new Date(updatedAt).toLocaleDateString()}
             </p>
             {/* price */}

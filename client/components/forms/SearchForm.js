@@ -117,9 +117,10 @@ function SearchForm() {
           }}
         >
           {search &&
-            courses?.map((course) => {
+            courses?.map((course, id) => {
               return (
                 <li
+                  key={course._id}
                   style={{
                     overflow: "hidden",
                     display: "-webkit-box",
@@ -148,6 +149,7 @@ function SearchForm() {
             posts?.map((post) => {
               return (
                 <li
+                  key={post._id}
                   style={{
                     overflow: "hidden",
                     display: "-webkit-box",
