@@ -4,9 +4,20 @@ import { Context } from "../context";
 
 export default function withAuth(Component) {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
+
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
 
   const withAuth = (props) => {
     return <Component {...props} />;

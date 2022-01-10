@@ -5,10 +5,11 @@ import { WarningOutlined } from "@ant-design/icons";
 import AdminRoute from "../../../components/routes/AdminRoute";
 
 import { Context } from "../../../context";
+import { getToken } from "../../../context";
 
 const AdminUsersIndex = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
@@ -29,10 +30,10 @@ const AdminUsersIndex = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    loadUsers();
+    getToken().then((token) => loadUsers(token));
   }, []);
 
-  const loadUsers = async () => {
+  const loadUsers = async (token) => {
     const { data } = await axios.get(
       "https://stress-apps.herokuapp.com/api/admin/users",
       {

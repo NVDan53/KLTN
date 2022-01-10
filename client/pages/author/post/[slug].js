@@ -17,7 +17,7 @@ const { Option } = Select;
 
 const PostEdit = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
@@ -33,20 +33,31 @@ const PostEdit = () => {
   const [thumbnail, setThumbnail] = useState("");
   const [uploadButtonText, setUploadButtonText] = useState("Upload thumbnail");
 
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
   // markdown cheetsheet modal
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
   // router
   const router = useRouter();
   const { slug } = router.query;
 
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
   // functions
   useEffect(() => {
     loadPost();
-  }, [slug]);
+  }, [slug, token]);
 
   useEffect(() => {
     loadCategories();
-  }, []);
+  }, [token]);
 
   const loadPost = async () => {
     try {

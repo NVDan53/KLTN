@@ -29,7 +29,7 @@ const { Item } = Menu;
 const SingleCourse = () => {
   // state
   const {
-    state: { user, token },
+    state: { user },
   } = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState({ lessons: [] });
@@ -68,17 +68,28 @@ const SingleCourse = () => {
   // markdown cheetsheet modal
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
 
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
   // router
   const router = useRouter();
   const { slug } = router.query;
 
   useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
+  useEffect(() => {
     if (slug) loadCourse();
-  }, [slug]);
+  }, [slug, token]);
 
   useEffect(() => {
     if (course) loadCompletedLessons();
-  }, [course]);
+  }, [course, token]);
 
   const loadCourse = async () => {
     const { data } = await axios.get(

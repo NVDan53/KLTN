@@ -23,8 +23,20 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 const InstructorQa = () => {
   // state
   const {
-    state: { user, token },
+    state: { user },
   } = useContext(Context);
+
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
   // for qa
   const [qas, setQas] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -53,7 +65,7 @@ const InstructorQa = () => {
 
   useEffect(() => {
     loadQuestions();
-  }, []);
+  }, [token]);
 
   const loadQuestions = async () => {
     const { data } = await axios.get(

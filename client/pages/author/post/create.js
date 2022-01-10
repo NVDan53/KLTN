@@ -17,9 +17,20 @@ const { Option } = Select;
 
 const PostCreate = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
+
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
 
   // from localstorage
   const savedTitle = () => {

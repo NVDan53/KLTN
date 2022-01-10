@@ -7,7 +7,7 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 // initial state
 const initialState = {
   user: null,
-  token: null,
+  token: "",
 };
 
 // if auth is found in localstorage, use that as default value
@@ -36,6 +36,11 @@ const rootReducer = (state, action) => {
   }
 };
 
+export const getToken = async () => {
+  const token = JSON.parse(window.localStorage.getItem("token"));
+  return token;
+};
+
 // context provider
 const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState);
@@ -47,7 +52,9 @@ const Provider = ({ children }) => {
       type: "LOGIN",
       payload: JSON.parse(window.localStorage.getItem("user")),
     });
+  }, []);
 
+  useEffect(() => {
     dispatch({
       type: "GET_TOKEN",
       payload: JSON.parse(window.localStorage.getItem("token")),

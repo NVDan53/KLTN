@@ -12,18 +12,28 @@ const ContactForm = ({ loadUserIssues = (f) => f }) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
 
   // context
   const {
-    state: { user, token },
+    state: { user },
   } = useContext(Context);
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
 
   useEffect(() => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
     }
-  }, [user]);
+  }, [user, token]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

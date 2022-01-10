@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "antd";
 import axios from "axios";
 import {
@@ -18,13 +18,24 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const BecomeAuthor = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
   // router
   const router = useRouter();
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
 
   const makeAuthor = async () => {
     setLoading(true);

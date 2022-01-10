@@ -23,7 +23,7 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 const UserQa = () => {
   // state
   const {
-    state: { user, token },
+    state: { user },
   } = useContext(Context);
   // for qa
   const [qas, setQas] = useState([]);
@@ -51,9 +51,20 @@ const UserQa = () => {
   // markdown cheetsheet modal
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
 
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
   useEffect(() => {
     loadQuestions();
-  }, []);
+  }, [token]);
 
   const loadQuestions = async () => {
     const { data } = await axios.get(

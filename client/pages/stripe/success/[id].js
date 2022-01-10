@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { SyncOutlined } from "@ant-design/icons";
 import UserRoute from "../../../components/routes/UserRoute";
 import { useRouter } from "next/router";
@@ -9,7 +9,7 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const StripeSuccess = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
@@ -17,9 +17,20 @@ const StripeSuccess = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
   useEffect(() => {
     if (id) successRequest();
-  }, [id]);
+  }, [id, token]);
 
   const successRequest = async () => {
     try {

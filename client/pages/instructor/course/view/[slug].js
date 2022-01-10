@@ -22,7 +22,7 @@ const { Item } = List;
 
 const CourseView = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
@@ -41,17 +41,28 @@ const CourseView = () => {
   // markdown cheetsheet modal
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
 
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
   const router = useRouter();
   const { slug } = router.query;
 
   useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
+  useEffect(() => {
     // console.log(slug);
     if (slug) fetchCourse();
-  }, [slug]);
+  }, [slug, token]);
 
   useEffect(() => {
     course && studentCount();
-  }, [course]);
+  }, [course, token]);
 
   const fetchCourse = async () => {
     let { data } = await axios.get(

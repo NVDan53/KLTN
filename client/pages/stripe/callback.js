@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Context } from "../../context";
 import { SyncOutlined } from "@ant-design/icons";
 import UserRoute from "../../components/routes/UserRoute";
@@ -8,9 +8,20 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const StripeCallback = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
+
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
 
   useEffect(() => {
     // console.log(user);
@@ -28,7 +39,7 @@ const StripeCallback = () => {
           window.localStorage.setItem("user", JSON.stringify(res.data));
           window.location.href = "/instructor";
         });
-  }, [user]);
+  }, [user, token]);
 
   return (
     <UserRoute>

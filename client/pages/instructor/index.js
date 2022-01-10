@@ -5,20 +5,32 @@ import Link from "next/link";
 import { Avatar, Badge } from "antd";
 import { CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import { Context } from "../../context";
+// import { getToken } from "../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const InstructorIndex = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
   const [courses, setCourses] = useState([]);
 
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
   useEffect(() => {
     loadCourses();
-  }, []);
+  }, [token]);
 
   const loadCourses = async () => {
     const { data } = await axios.get(

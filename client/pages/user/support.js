@@ -18,16 +18,27 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const UserIndex = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
   useEffect(() => {
     loadUserIssues();
-  }, []);
+  }, [token]);
 
   const loadUserIssues = async () => {
     const { data } = await axios.get(

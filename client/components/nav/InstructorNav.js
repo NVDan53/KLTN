@@ -8,20 +8,30 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const InstructorNav = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
   const [current, setCurrent] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
 
   useEffect(() => {
     process.browser && setCurrent(window.location.pathname);
   }, [process.browser && window.location.pathname]);
 
   useEffect(() => {
-    loadQuestionCount();
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
   }, []);
+
+  useEffect(() => {
+    loadQuestionCount();
+  }, [token]);
 
   const loadQuestionCount = async () => {
     const { data } = await axios.get(

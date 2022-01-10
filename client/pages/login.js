@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Context } from "../context";
 import { useRouter } from "next/router";
 
-// import { GoogleLogin } from "react-google-login";
+import { GoogleLogin } from "react-google-login";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -61,36 +61,37 @@ const Login = () => {
     }
   };
 
-  // const responseGoogle = async (response) => {
-  //   console.log(response);
-  //   try {
-  //     setLoading(true);
-  //     const res = await axios.post("https://stress-apps.herokuapp.com/api/google_login", {
-  //       tokenId: response.tokenId,
-  //     });
+  const responseGoogle = async (response) => {
+    console.log(response);
+    try {
+      const res = await axios.post(
+        "https://stress-apps.herokuapp.com/api/google_login",
+        {
+          tokenId: response.tokenId,
+        }
+      );
 
-  //     dispatch({
-  //       type: "LOGIN",
-  //       payload: res.data,
-  //     });
+      dispatch({
+        type: "LOGIN",
+        payload: res.data.user,
+      });
 
-  //     toast.success("Login successfully");
+      toast.success("Login successfully");
 
-  //     window.localStorage.setItem("user", JSON.stringify(res.data));
+      window.localStorage.setItem("user", JSON.stringify(res.data.user));
+      window.localStorage.setItem("token", JSON.stringify(res.data.token));
 
-  //     if (res.data.role.includes("Admin")) {
-  //       router.push("/admin");
-  //     } else if (res.data.role.includes("Instructor")) {
-  //       router.push("/instructor");
-  //     } else {
-  //       router.push("/user");
-  //     }
-  //     setLoading(false);
-  //   } catch (error) {
-  //     toast(error.response.data.msg);
-  //     setLoading(false);
-  //   }
-  // };
+      if (res.data.user.role.includes("Admin")) {
+        router.push("/admin");
+      } else if (res.data.user.role.includes("Instructor")) {
+        router.push("/instructor");
+      } else {
+        router.push("/user");
+      }
+    } catch (error) {
+      toast("Failed login");
+    }
+  };
 
   return (
     <>
@@ -156,18 +157,17 @@ const Login = () => {
               </button>
             </form>
             <hr className="my-6 border-gray-300 w-full" />
-            {/* <div className="flex items-center justify-center">
-        <GoogleLogin
-            clientId="1074929433721-7hqftlfff4ap48da2l4oo3vk1v2l9rtq.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-            className="w-100 text-center"
-          >
-            <span> Login with Google</span>
-          </GoogleLogin>
-        </div> */}
+            <div className="flex items-center justify-center">
+              <GoogleLogin
+                clientId="1074929433721-7hqftlfff4ap48da2l4oo3vk1v2l9rtq.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={responseGoogle}
+                // cookiePolicy={"single_host_origin"}
+                className="w-100 text-center"
+              >
+                <span> Login with Google</span>
+              </GoogleLogin>
+            </div>
 
             <p className="mt-8">
               Need an account?{" "}

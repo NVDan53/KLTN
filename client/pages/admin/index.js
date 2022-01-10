@@ -3,12 +3,13 @@ import axios from "axios";
 import { Tabs } from "antd";
 import AdminRoute from "../../components/routes/AdminRoute";
 import { Context } from "../../context";
+// import { getToken } from "../../context";
 
 const { TabPane } = Tabs;
 
 const AdminIndex = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
@@ -32,13 +33,24 @@ const AdminIndex = () => {
   const [issues, setIssues] = useState([]);
   const [courses, setCourses] = useState([]);
 
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
   useEffect(() => {
     loadUsers();
     loadCategories();
     loadPosts();
     loadIssues();
     loadCourses();
-  }, []);
+  }, [token]);
 
   const loadUsers = async () => {
     const { data } = await axios.get(
@@ -75,14 +87,6 @@ const AdminIndex = () => {
     setIssues(data);
   };
   const loadCourses = async () => {
-    // const { data } = await axios.get(`${process.env.API}/courses`);
-    // // console.log(data);
-    // return {
-    //   props: {
-    //     courses: data,
-    //   },
-    //   setCourses(data);
-    // };
     try {
       const { data } = await axios.get(
         "https://stress-apps.herokuapp.com/api/courses"

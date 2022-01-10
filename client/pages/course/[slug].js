@@ -63,7 +63,7 @@ const SingleCourse = ({ course }) => {
 
   // context
   const {
-    state: { user, token },
+    state: { user },
   } = useContext(Context);
   const {
     name,
@@ -76,13 +76,25 @@ const SingleCourse = ({ course }) => {
     categories,
     lessons,
   } = course;
+
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
   // router
   const router = useRouter();
 
   useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
+
+  useEffect(() => {
     // is already enrolled?
     if (user && course) checkEnrollment();
-  }, [course, user]);
+  }, [course, user, token]);
 
   const checkEnrollment = async () => {
     const { data } = await axios.get(

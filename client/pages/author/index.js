@@ -10,18 +10,29 @@ import {
 } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { Context } from "../../context";
+// import { getToken } from "../../context";
 
 const AuthorIndex = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
   const [posts, setPosts] = useState([]);
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
+  useEffect(() => {
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
+  }, []);
 
   useEffect(() => {
     loadPostsByAuthor();
-  }, []);
+  }, [token]);
 
   const loadPostsByAuthor = async () => {
     const { data } = await axios.get(
@@ -85,6 +96,7 @@ const AuthorIndex = () => {
       toast("Your post is unpublished");
       loadPostsByAuthor();
     } catch (err) {
+      console.log("===>ERRRRRRRRRRRRRRRRR:", err);
       toast("Post unpublish failed. Try again");
     }
   };

@@ -11,7 +11,7 @@ const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const CourseCreate = () => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
@@ -36,11 +36,22 @@ const CourseCreate = () => {
   // markdown cheetsheet modal
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
 
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
+
   const router = useRouter();
 
   useEffect(() => {
-    loadCategories();
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
   }, []);
+
+  useEffect(() => {
+    loadCategories();
+  }, [token]);
 
   const loadCategories = async () => {
     const { data } = await axios.get(

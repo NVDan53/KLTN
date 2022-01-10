@@ -3,21 +3,32 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { SyncOutlined } from "@ant-design/icons";
 import { Context } from "../../context";
+// import { getToken } from "../../context";
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const StudentRoute = ({ children, showNav = true }) => {
   const {
-    state: { user, token },
+    state: { user },
     dispatch,
   } = useContext(Context);
 
   const [ok, setOk] = useState(false);
+  const [token, setToken] = useState(() => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(window.localStorage.getItem("token"));
+    }
+  });
   const router = useRouter();
 
   useEffect(() => {
-    fetchUser();
+    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    setToken(tokenStorage);
   }, []);
+
+  useEffect(() => {
+    fetchUser();
+  }, [token]);
 
   const fetchUser = async () => {
     try {

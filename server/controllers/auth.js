@@ -23,46 +23,6 @@ const ses = new SES({
   apiVersion: process.env.AWS_API_VERSION,
 });
 
-// export const register = async (req, res) => {
-//   try {
-//     // console.log(req.body);
-//     const { name, email, password } = req.body;
-//     // validation
-//     if (!name) return res.status(400).send("Name is required");
-//     if (!password || password.length < 6)
-//       return res
-//         .status(400)
-//         .send("Password is required and should be min 6 characters long");
-//     // use .lean() on queries for improved performance
-//     // it returns plain json object instead of mongoose document
-//     let userExist = await User.findOne({ email }).exec();
-//     if (userExist) return res.status(400).send("Email is taken");
-
-//     // send email with register activation link
-//     const jwtLink = jwt.sign(
-//       { name, email, password },
-//       process.env.JWT_REGISTER_COMPLETE,
-//       {
-//         expiresIn: "90d",
-//       }
-//     );
-//     const params = completeRegistrationParams(email, jwtLink);
-//     // send
-//     const emailSent = ses.sendEmail(params).promise();
-//     emailSent
-//       .then((data) => {
-//         // console.log(data);
-//         return res.json({ ok: true });
-//       })
-//       .catch((err) => {
-//         console.log("ERRRRRRRRRRRRRRRRR ===>", err);
-//       });
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(400).send("Error. Try again.");
-//   }
-// };
-
 // REGISTER
 export const register = async (req, res) => {
   try {
@@ -212,53 +172,12 @@ export const logout = (req, res) => {
 };
 
 export const forgotPassword = async (req, res) => {
-  // try {
-  //   const { email } = req.body;
-  //   // console.log(email);
-  //   // generate unique code
-  //   const shortCode = nanoid(6).toUpperCase();
-  //   // console.log(shortCode);
-  //   // save shortcode as passwordResetCode in db
-  //   let user = await User.findOneAndUpdate(
-  //     { email },
-  //     { passwordResetCode: shortCode }
-  //   ).exec();
-  //   // console.log(found);
-  //   if (!user) return res.status(400).send("User not found");
-
-  //   // prepare for email
-  //   const params = forgotPasswordParams(email, shortCode);
-  //   // send
-  //   const emailSent = ses.sendEmail(params).promise();
-  //   emailSent
-  //     .then((data) => {
-  //       console.log(data);
-  //       res.json({ ok: true });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // } catch (err) {
-  //   console.log(err);
-  // }
-
   try {
     const { email } = req.body;
-    // const shortCode = nanoid(6).toLowerCase();
-    // const user = await User.findOneAndUpdate(
-    //   { email },
-    //   {
-    //     passwordResetCode: shortCode,
-    //   }
-    // );
 
     const user = await User.findOne({ email });
 
     if (!user) return res.status(400).send("User is not exist");
-
-    // prepare for email
-    // Googleapis
-    // const access_token = createAccessToken({ id: user._id });
 
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
@@ -266,79 +185,20 @@ export const forgotPassword = async (req, res) => {
     // return user and token to client, exclude hashed password
     user.password = undefined;
     // send token to cookie
-    res.cookie("token", token, {
-      httpOnly: true,
-      expires: new Date(Date.now() + 9999999),
-      // secure: true, // only works on https
-    });
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   expires: new Date(Date.now() + 9999999),
+    //   // secure: true, // only works on https
+    // });
     const url = `${process.env.CLIENT_URL}/user/reset/${token}`;
     sendMail(email, url, "Reset your password");
     res.json({ msg: "Re-send the password, please check your email." });
-
-    // AWS
-    // const params = {
-    //   Source: process.env.EMAIL_FROM,
-    //   Destination: {
-    //     ToAddresses: [email],
-    //   },
-    //   Message: {
-    //     Body: {
-    //       Html: {
-    //         Charset: "UTF-8",
-    //         Data: `
-    //         <html>
-    //           <h1>Reset password</h1>
-    //           <p>Use this code to reset password</p>
-    //           <h2 style="color: red;">${shortCode}</h2>
-    //         </html>
-    //         `,
-    //       },
-    //     },
-    //     Subject: {
-    //       Charset: "UTF-8",
-    //       Data: "Reset password",
-    //     },
-    //   },
-    // };
-
-    // const emailSent = SES.sendEmail(params).promise();
-    // emailSent.then((data) => {
-    //   console.log(data);
-    //   res.json({ ok: true });
-    // });
   } catch (error) {
     console.log(error);
   }
 };
 
 export const resetPassword = async (req, res) => {
-  // try {
-  // const { email, code, newPassword } = req.body;
-  //----test
-  // console.log("email, code", email, code);
-  // let u = await User.findOne({ email, passwordResetCode: code });
-  // console.log("FOUND USER", u);
-  // return;
-  //--test
-
-  // hash password
-  //   const hashedPassword = await hashPassword(newPassword);
-
-  //   let user = await User.findOneAndUpdate(
-  //     { email, passwordResetCode: code },
-  //     {
-  //       password: hashedPassword,
-  //       passwordResetCode: "",
-  //     },
-  //     { new: true }
-  //   ).exec();
-  //   // console.log("password reset done", user);
-  //   res.json({ ok: true });
-  // } catch (err) {
-  //   console.log(err);
-  //   return res.status(400).send("Error. Try again.");
-  // }
-
   try {
     const { password } = req.body;
 
@@ -391,11 +251,11 @@ export const googleLogin = async (req, res) => {
       // return user and token to client, exclude hashed password
       user.password = undefined;
       // send token to cookie
-      res.cookie("token", token, {
-        httpOnly: true,
-        // secure: true, // only works on https
-      });
-      res.json(user);
+      // res.cookie("token", token, {
+      //   httpOnly: true,
+      //   // secure: true, // only works on https
+      // });
+      res.json({ user, token });
     } else {
       const newUser = new User({
         name,
@@ -413,11 +273,11 @@ export const googleLogin = async (req, res) => {
       // return user and token to client, exclude hashed password
       // user.password = undefined;
       // send token to cookie
-      res.cookie("token", token, {
-        httpOnly: true,
-        // secure: true, // only works on https
-      });
-      res.json(newUser);
+      // res.cookie("token", token, {
+      //   httpOnly: true,
+      //   // secure: true, // only works on https
+      // });
+      res.json({ newUser, token });
     }
   } catch (err) {
     return res.status(500).json({ msg: err.message });
