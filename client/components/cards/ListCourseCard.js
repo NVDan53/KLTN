@@ -16,7 +16,6 @@ const ListCourseCard = ({ course }) => {
   return (
     <Link href="/course/[slug]" as={`/course/${slug}`}>
       <div className="cursor-pointer my-3 max-w-sm bg-white px-2 pt-2 pb-2 rounded-xl border-solid border-2 transform hover:scale-90 transition duration-500 border-gray-200">
-        {/* <h3 className="mb-2 text-xl font-bold text-indigo-600">Beginner Friendly</h3> */}
         <div className="relative">
           <img
             className="w-full rounded-xl"

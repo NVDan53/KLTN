@@ -145,7 +145,7 @@ const Login = () => {
               <button
                 type="submit"
                 disabled={!email || !password || loading}
-                className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
+                className="w-full block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
         px-4 py-3 mt-6"
               >
                 {loading ? <SyncOutlined spin /> : "Login"}
@@ -178,7 +178,7 @@ const Login = () => {
             </p>
           </div>
         </div>
-        <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
+        <div className="bg-blue-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
           <img src="/images/loginbg.jpg" alt="" className="w-full h-full" />
         </div>
       </section>
