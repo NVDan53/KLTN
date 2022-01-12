@@ -48,7 +48,7 @@ const ListCourseCard = ({ course }) => {
           <div className="flex space-x-1 items-center">
             <p>By {instructor.name}</p>
           </div>
-          <button className="mt-2 w-full text-white bg-indigo-600 py-2 rounded-xl">
+          <button className="mt-2 w-full text-white bg-blue-600 py-2 rounded-xl">
             {paid ? "Buy Course" : "Enroll"}
           </button>
         </div>

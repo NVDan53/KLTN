@@ -58,7 +58,7 @@ const TopNav = () => {
         mode="horizontal"
         style={{
           lineHeight: "64px",
-          display:"block",
+          display: "block",
           boxShadow:
             "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
         }}
@@ -74,7 +74,6 @@ const TopNav = () => {
                   height: "34px",
                   width: "100%",
                   marginBottom: "16px",
-                
                 }}
               />
             </a>
@@ -86,7 +85,7 @@ const TopNav = () => {
 
         <Item key="/listcourses">
           <Link href="/listcourses">
-            <a className="typewriter">Courses</a>
+            <a className="typewriter">Course</a>
           </Link>
         </Item>
 
@@ -123,13 +122,28 @@ const TopNav = () => {
           <>
             <Item key="/register" className="float-right ">
               <Link href="/register">
-              <a className="btn-register font-bold" style={{border:"1px solid #1c1d1f",padding:"6px 20px",color:"#fff",backgroundColor:"#1c1d1f"}}>Register</a>
+                <a
+                  className="btn-register font-bold bg-blue-600 text-white uppercase transition-colors duration-200 transform bg-blue-600 rounded-md lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+                  style={{
+                    padding: "6px 20px",
+                  }}
+                >
+                  Register
+                </a>
               </Link>
             </Item>
 
             <Item key="/login" className="float-right ">
               <Link href="/login">
-                <a className="btn-login font-bold" style={{border:"1px solid #1c1d1f",padding:"6px 20px",color:"#1c1d1f",marginRight:"-30px"}}>Login</a>
+                <a
+                  className="btn-login font-bold uppercase"
+                  style={{
+                    marginRight: "-30px",
+                    padding: "6px 20px",
+                  }}
+                >
+                  Log in
+                </a>
               </Link>
             </Item>
           </>
@@ -140,12 +154,23 @@ const TopNav = () => {
             <ItemGroup>
               <Item key="/user">
                 <Link href="/user">
-
-                  <a><i class="fas fa-tachometer-alt pr-2 h-4 w-8"style={{fontSize:"18px"}}></i>Dashboard</a>
+                  <a>
+                    <i
+                      class="fas fa-tachometer-alt pr-2 h-4 w-8"
+                      style={{ fontSize: "18px" }}
+                    ></i>
+                    Dashboard
+                  </a>
                 </Link>
               </Item>
 
-              <Item onClick={logout}><i class="fas fa-sign-out-alt pr-2 h-4 w-8"style={{fontSize:"18px"}}></i>Logout</Item>
+              <Item onClick={logout}>
+                <i
+                  class="fas fa-sign-out-alt pr-2 h-4 w-8"
+                  style={{ fontSize: "18px" }}
+                ></i>
+                Logout
+              </Item>
             </ItemGroup>
           </SubMenu>
         )}

@@ -126,15 +126,13 @@ a {
   cursor: pointer;
 }
 
-
-
-.text-w :hover{
-color: #fff !important;
+.text-w :hover {
+  color: #fff !important;
 }
-.side-ml-16{
+.side-ml-16 {
   margin-left: -16px;
 }
-.ant-btn{
+.ant-btn {
   /* background-color: #1890ff !important; */
 }
 /* Categories Courses*/
@@ -154,7 +152,7 @@ color: #fff !important;
   position: absolute !important;
   top: 40% !important;
   left: -40px !important;
-  margin-left: 15px;
+  margin-left: 10px;
 }
 
 .row-style .slick-next {
@@ -171,25 +169,17 @@ color: #fff !important;
 /* .row-style .slick-slide {
   margin-right: 15px !important;
 } */
-.ant-list-item-meta-title{
+.ant-list-item-meta-title {
   margin-top: 5px !important;
 }
-.delete-hover{
+.delete-hover {
   background-color: #fff !important;
 }
-.delete-hover:hover{
+.delete-hover:hover {
   background-color: #fff !important;
 }
 /* bỏ hover */
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after{
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after {
   border-bottom: 1px solid #fff !important;
-}
-
-.btn-login:hover{
-  background-color: rgba(0,0,0,.04)!important;
-  color: #1c1d1f !important;
-}
-.btn-register:hover{
-  background-color: #333 !important;
 }
