@@ -33,8 +33,8 @@ const CourseCategories = ({ courses, categories }) => {
       <div>
         {getCategories(categories).categories.map((category) => {
           return (
-            <div className="container"style={{ marginTop: "100px" }}>
-              <div className="row"style={{ marginTop: "20px" }}>
+            <div className="container" style={{ marginTop: "100px" }}>
+              <div className="row" style={{ marginTop: "20px" }}>
                 {getCategories(categories).courses.filter((course) => {
                   return course.categories.some((ctg) => {
                     return category._id === ctg._id;
@@ -53,7 +53,10 @@ const CourseCategories = ({ courses, categories }) => {
                       });
                     }).length >= 4 && (
                       <Link href={`/category/${category._id}`}>
-                        <a>{`See all `}<i class="fas fa-arrow-right"></i></a>
+                        <a>
+                          {`See all `}
+                          <i class="fas fa-arrow-right"></i>
+                        </a>
                       </Link>
                     )}
                   </div>

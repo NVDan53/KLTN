@@ -323,7 +323,7 @@ const SingleCourse = () => {
         <div style={{ maxWidth: 320 }}>
           <Button
             onClick={() => setCollapsed(!collapsed)}
-            className="text-primary mt-1 btn-block mb-2"
+            className="text-primary mt-3 btn-block mb-2"
             disabled={onlyWidth < 800}
           >
             {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
@@ -333,9 +333,9 @@ const SingleCourse = () => {
           {/* how many completed */}
           {!collapsed && course && (
             <div className="pt-2" style={{ borderBottom: "3px solid #222" }}>
-            
-             
-              <span className="text-success ml-16">{completedLessons.length}</span>
+              <span className="text-success ml-16">
+                {completedLessons.length}
+              </span>
               {" / "}
               <span className="text-danger">{course.lessons.length}</span>{" "}
               lessons completed
@@ -380,7 +380,7 @@ const SingleCourse = () => {
         </div>
         {/* right content area */}
         <div
-          className="col pt-2"
+          className="col pt-3"
           // style={{
           //   height: "100vh",
           //   overflow: "scroll",

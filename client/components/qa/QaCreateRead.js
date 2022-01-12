@@ -19,8 +19,8 @@ import { Context } from "../../context";
 import CodeBlock from "../../components/marked/CodeBlock";
 import MarkdownCheetsheet from "../../components/modal/MarkdownCheatsheet";
 import Link from "next/link";
-import { Select } from 'antd';
-
+import { Select } from "antd";
+const { Option } = Select;
 const { Meta } = Card;
 
 const QaCreateRead = ({
@@ -58,10 +58,9 @@ const QaCreateRead = ({
             className="col-md-6 offset-md-3 text-center"
             type="primary"
             shape="round"
-            icon={<QuestionCircleOutlined />}
             size="large"
           >
-            Post A Question
+            Add A Question
           </Button>
         </div>
       )}
@@ -123,124 +122,124 @@ const QaCreateRead = ({
 
       <div className="row pt-4">
         {clickedLessonQa.map((q) => (
-          <div key={q._id} className="col-md-12 pt-2 pb-4">
+          <div
+            key={q._id}
+            className="col-md-12 pt-2 pb-4 border-b-2 border-gray-100"
+          >
             {/* {JSON.stringify(q)} */}
 
-            <div className="p-3">
+            <div className="py-3 pl-3">
               <div className="d-flex pb-3">
                 <Avatar>
                   <span>
                     {q.postedBy && q.postedBy.name && q.postedBy.name[0]}
                   </span>
                 </Avatar>{" "}
-                <span className="pl-2 pt-1">{q.postedBy.name}</span>
-                <span className="pl-2 pt-1">
-                  {new Date(q.createdAt).toLocaleDateString()}
-                </span>
-                <span className="pt-1 ml-auto">
-                  {q.answers && q.answers.length + " answers"}
-                </span>
-              </div>
-                <div className="float-right">
-                                
-                                  {q.postedBy && user && user._id === q.postedBy._id ? (
-                                    <>
-                                     <Tooltip title="Add answer">
-                                      <PlusCircleFilled
-                                        onClick={() => handleAddAnswer(q)}
-                                        className="text-success mr-4"
-                                      />
-                                    </Tooltip>
-                                    <Tooltip onClick={() => handleQaEdit(q)} title="Edit">
-                                      <EditFilled className="text-warning mr-4" />
-                                    </Tooltip>
-                                    <Tooltip onClick={() => handleQaDelete(q)} title="Delete">
-                                      <DeleteFilled className="text-danger mr-4" />
-                                    </Tooltip>
-                                    <Tooltip
-                                      onClick={() =>
-                                        q.resolved ? markQaAsNotResolved(q) : markQaAsResolved(q)
-                                      }
-                                      title={q.resolved ? "Mark unresolved" : "Mark resolved"}
-                                    >
-                                      {q.resolved ? (
-                                        <CloseCircleFilled className="text-info" />
-                                      ) : (
-                                        <CheckCircleFilled className="text-info" />
-                                      )}
-                                    </Tooltip>
-                                     
-                                    </>
-                                ) : (
-                                  <>
-                                  <Tooltip title="Add answer ">
-                                      <PlusCircleOutlined
-                                        onClick={() => handleAddAnswer(q)}
-                                        className="text-success mr-4"
-                                      />
-                                    </Tooltip>
-                                    <Tooltip title={q.resolved ? "Resolved" : "Unresolved"}>
-                                      {q.resolved ? (
-                                        <CheckCircleFilled
-                                          style={{ cursor: "help" }}
-                                          className="text-info"
-                                        />
-                                      ) : (
-                                        <CloseCircleFilled
-                                          style={{ cursor: "help" }}
-                                          className="text-info"
-                                        />
-                                      )}
-                                    </Tooltip>
-                                
-                                  </>
-                                )}
+                <div style={{ marginTop: "-12px" }}>
+                  <p className="pl-2 pt-1 font-bold uppercase text-md">
+                    {q.title}
+                  </p>
+                  <span className="pl-2 pt-1">{q.postedBy.name}</span>
+                  <span className="pl-2 pt-1">
+                    {new Date(q.createdAt).toLocaleDateString()}
+                  </span>
                 </div>
-
-              <h5 className="font-bold text-md">{q.title}</h5>
+                {q.postedBy && user && user._id === q.postedBy._id ? (
+                  <>
+                    <span className="pt-1 ml-auto">
+                      <Select defaultValue="select" style={{ width: 115 }}>
+                        <Option value="select">Select</Option>
+                        <Option value="add">
+                          <p onClick={() => handleAddAnswer(q)}>Add answer</p>
+                        </Option>
+                        <Option value="Edit">
+                          <p onClick={() => handleQaEdit(q)}>Edit answer</p>
+                        </Option>
+                        <Option value="Delete">
+                          <p onClick={() => handleQaDelete(q)}>Delete answer</p>
+                        </Option>
+                      </Select>
+                    </span>{" "}
+                  </>
+                ) : (
+                  <>
+                    <span className="pt-1 ml-auto">
+                      <Select defaultValue="select" style={{ width: 115 }}>
+                        <Option value="select">Select</Option>
+                        <Option value="add">
+                          <p onClick={() => handleAddAnswer(q)}>Add answer</p>
+                        </Option>
+                      </Select>
+                    </span>
+                  </>
+                )}
+              </div>
 
               <ReactMarkdown
                 source={q.description}
                 renderers={{ code: CodeBlock }}
-                className="single-post"
+                className="single-post pr-40"
               />
-
-             
             </div>
-
             {/* answers / comments */}
-            {q.answers &&
-              q.answers.map((a) => (
-                <Card
-                  key={a._id}
-                  actions={
-                    a.postedBy &&
-                    user &&
-                    user._id === a.postedBy._id && [
-                      <Tooltip title="Edit answer">
-                        <EditOutlined onClick={() => handleEditAnswer(a)} />
-                      </Tooltip>,
-                      <Tooltip title="Delete answer">
-                        <DeleteOutlined onClick={() => handleDeleteAnswer(a)} />
-                      </Tooltip>,
-                    ]
-                  }
-                >
-                  <Meta
-                    avatar={<CommentOutlined />}
-                    title={`By ${a.postedBy && a.postedBy.name} ${new Date(
-                      q.createdAt
-                    ).toLocaleDateString()}`}
-                    description={
-                      <ReactMarkdown
-                        source={a.content}
-                        renderers={{ code: CodeBlock }}
-                        className="single-post"
-                      />
-                    }
-                  />
-                </Card>
-              ))}
+
+            <div style={{ paddingLeft: "40px" }}>
+              {q.answers &&
+                q.answers.map((a) => (
+                  <>
+                    <div key={a._id} style={{ borderBottom: "none" }}>
+                      <div className="py-2 pl-3">
+                        <p className="font-bold">
+                          {" "}
+                          {a.postedBy && a.postedBy.name}{" "}
+                        </p>
+                        <p> {new Date(q.createdAt).toLocaleDateString()}</p>
+
+                        {a.postedBy &&
+                          user &&
+                          user._id === a.postedBy._id && [
+                            <Select
+                              defaultValue="select"
+                              style={{ width: 130 }}
+                              className="float-right"
+                              style={{ marginTop: "-47px", width: "115px" }}
+                            >
+                              <Option value="select">Select</Option>
+                              <Option value="edit">
+                                <p onClick={() => handleEditAnswer(a)}>
+                                  Edit answer
+                                </p>
+                              </Option>
+                              <Option value="add">
+                                <p onClick={() => handleDeleteAnswer(a)}>
+                                  Delete answer
+                                </p>
+                              </Option>
+                            </Select>,
+                          ]}
+                      </div>
+                      <>
+                        <div className="pl-3 pr-40 pb-3">
+                          {
+                            <ReactMarkdown
+                              source={a.content}
+                              // renderers={{ code: CodeBlock }}
+                            />
+                          }
+                        </div>
+                      </>
+                      <></>
+                    </div>
+                  </>
+                ))}
+
+              <button
+                className="bg-gray-200 my-8 w-full text-dark border-solid border-2 border-light-blue-500 font-bold py-2 pr-3"
+                onClick={() => handleAddAnswer(q)}
+              >
+                Add reply
+              </button>
+            </div>
           </div>
         ))}
       </div>

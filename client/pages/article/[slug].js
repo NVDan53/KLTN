@@ -56,27 +56,10 @@ const SinglePost = ({ postItem, posts }) => {
       {head()}
       <div className="container-fluid">
         {/* full width row for heading */}
-        <div className="row">
+        <div className="row px-8">
           <div className="col pt-3">
-            <h1>{postItem.title}</h1>
-            <p>
-              <small className="text-muted">
-                {postItem.postedBy ? postItem.postedBy.name : ""}{" "}
-                {new Date(postItem.updatedAt).toLocaleDateString()}
-              </small>
-            </p>
-          </div>
-        </div>
-        {/* col 8 for post */}
-        <div className="row">
-          <div className="col-md-8 single-post">
-            <hr />
-            <ReactMarkdown
-              source={postItem.body}
-              renderers={{ code: CodeBlock }}
-              className="lead single-post"
-            />
-            <br />
+            <h1 className="text-3xl font-bold">{postItem.title}</h1>
+
             {postItem.categories &&
               postItem.categories.map((c) => (
                 <Tag key={c.name}>
@@ -86,6 +69,17 @@ const SinglePost = ({ postItem, posts }) => {
               </Link> */}
                 </Tag>
               ))}
+          </div>
+        </div>
+        {/* col 8 for post */}
+        <div className="row">
+          <div className="col-md-8 single-post">
+            <ReactMarkdown
+              source={postItem.body}
+              renderers={{ code: CodeBlock }}
+              className="lead single-post px-8 mt-4"
+            />
+            <br />
 
             <div className="p-4"></div>
 
@@ -96,8 +90,8 @@ const SinglePost = ({ postItem, posts }) => {
             />
           </div>
 
-          <div className="col-md-4">
-            <h2>Relative blogs</h2>
+          <div className="col-md-4" style={{ marginTop: "-20px" }}>
+            <h2 className="font-bold">Relative blogs</h2>
             {/* <cite>(Comming soon by Henry)</cite> */}
 
             {posts

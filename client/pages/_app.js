@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from "react";
 import { Provider } from "../context";
 import NProgress from "nprogress";
 import Router from "next/router";
@@ -12,7 +12,7 @@ import "nprogress/nprogress.css";
 import Footer from "../components/nav/Footer";
 import ScrollToTop from "react-scroll-up";
 import { UpCircleOutlined } from "@ant-design/icons";
-import 'tailwindcss/tailwind.css'
+import "tailwindcss/tailwind.css";
 import "../public/css/slick.css";
 import "../public/css/slick-theme.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -25,19 +25,21 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   return (
     <Provider>
-        
-           <TopNav />         
-        
+      <TopNav />
+
       <ToastContainer position="top-center" />
       <Component {...pageProps} />
-      {
-            router.pathname =='/login' || router.pathname =='/register'  
-            || router.pathname =='/forgot-password' || router.pathname =='/user/reset/[slug]'|| router.pathname =='/user'
-            || router.pathname =='/user/support'|| router.pathname =='/author'|| router.pathname =='/user/qa'
-            
-            
-            ? '': <Footer />          
-        }
+      {router.pathname == "/" ||
+      router.pathname == "/listcourses" ||
+      router.pathname == "/articles" ||
+      router.pathname == "/techweb" ||
+      router.pathname == "/course/[slug]" ||
+      router.pathname == "/category/[slug]" ||
+      router.pathname == "/article/[slug]" ? (
+        <Footer />
+      ) : (
+        ""
+      )}
       <ScrollToTop showUnder={160}>
         <UpCircleOutlined className="h2" />
       </ScrollToTop>

@@ -58,10 +58,15 @@ const CourseForCategory = () => {
     <div className="container">
       <row>
         <h1
-          style={{ fontWeight: "bold", fontSize: "25px", margin: "15px 0" }}
+          style={{
+            fontWeight: "bold",
+            fontSize: "25px",
+            margin: "50px 0",
+            marginTop: "50px",
+          }}
         >{`Courses for ${categoryName}`}</h1>
       </row>
-      <div className="row">
+      <div className="row" style={{ marginBottom: "50px" }}>
         {handleGetCourses()?.map((course) => {
           return (
             <div key={course._id} className="col-md-3">

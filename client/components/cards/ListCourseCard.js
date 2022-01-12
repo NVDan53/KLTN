@@ -11,7 +11,8 @@ const twoLineStyle = {
 };
 const ListCourseCard = ({ course }) => {
   // destructure
-  const { name, instructor, price, image, slug, paid, categories } = course;
+  const { name, instructor, price, image, slug, paid, categories, updatedAt } =
+    course;
 
   return (
     <Link href="/course/[slug]" as={`/course/${slug}`}>
@@ -44,7 +45,8 @@ const ListCourseCard = ({ course }) => {
               className="pb-2 mr-2 mt-2"
             />
           ))}
-          <div className="flex space-x-1 items-center">
+          <div className="">
+            <p>Updated {new Date(updatedAt).toLocaleDateString()}</p>
             <p>By {instructor.name}</p>
           </div>
           <button className="mt-2 w-full text-white bg-blue-600 py-2 rounded-xl">
