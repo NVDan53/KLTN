@@ -48,16 +48,12 @@ const BecomeAuthor = () => {
 
   return (
     <UserRoute>
-      {/* <h1 className="jumbotron text-center square">Become Instructor</h1> */}
-
       <div className="container">
         <div className="row">
           <div className="col-md-6 offset-md-3 text-center">
             <div className="pt-4">
               <FormOutlined className="h2" />
               <br />
-              {/* <h4>Setup payouts to publish courses on Code Continue</h4>
-              <p>...</p> */}
 
               <Button
                 className="mb-3"

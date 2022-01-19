@@ -33,17 +33,15 @@ const BecomeInstructor = () => {
 
   return (
     <UserRoute>
-      {/* <h1 className="jumbotron text-center square">Become Instructor</h1> */}
-
       <div className="container">
         <div className="row">
           <div className="col-md-6 offset-md-3 text-center">
             <div className="pt-4">
               <UserSwitchOutlined className="display-1 pb-3" />
               <br />
-              <h2>Setup payout to publish courses on Code Continue</h2>
+              <h2>Setup payout to publish courses on website</h2>
               <p className="lead text-warning">
-                Code Continue partners with{" "}
+                We partners with{" "}
                 <a href="https://stripe.com/" target="_blank">
                   Stripe
                 </a>{" "}

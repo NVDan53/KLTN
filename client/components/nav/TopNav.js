@@ -68,8 +68,8 @@ const TopNav = () => {
           <Link href="/">
             <a className="">
               <img
-                src="/images/logo/codecontinue.png"
-                alt="code continue logo"
+                src="/images/logo/logo.png"
+                alt="logo"
                 style={{
                   height: "34px",
                   width: "100%",

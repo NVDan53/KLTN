@@ -37,21 +37,18 @@ const InstructorTerms = ({ showModal, setShowModal }) => {
             based on the scheduled payout timeframe (usually between 1-4 weeks).
           </li>
           <li>
-            We (Code Continue) will not be responsible by any means for the loss
-            of revenue, course materials, students engagements and all other
-            platform related issues.
+            We will not be responsible by any means for the loss of revenue,
+            course materials, students engagements and all other platform
+            related issues.
           </li>
           <li>
-            We (Code Continue) will not be responsible for any issues caused by
+            We will not be responsible for any issues caused by
             software/hardware related issues.
           </li>
+          <li>We will not be responsible for any copyright related issues.</li>
           <li>
-            We (Code Continue) will not be responsible for any copyright related
-            issues.
-          </li>
-          <li>
-            We (Code Continue) hold the right to update the terms and conditions
-            at any time and it will come to effect immidately.
+            We hold the right to update the terms and conditions at any time and
+            it will come to effect immidately.
           </li>
         </ol>
       </Modal>
