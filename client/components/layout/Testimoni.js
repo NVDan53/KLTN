@@ -94,9 +94,9 @@ const Testimoni = ({
             <div className="border-2 border-gray-500 hover:border-orange-500 transition-all rounded-lg p-8 flex flex-col">
               <div className="flex flex-col xl:flex-row w-full items-stretch xl:items-center">
                 <div className="flex order-2 xl:order-1">
-                <div className="overflow-hidden rounded-full w-14 h-14 bg-gray-50 border border-gray-200">
-                  <img src="https://i.pravatar.cc/100?img=1" alt="" />
-                </div>
+                  <div className="overflow-hidden rounded-full w-14 h-14 bg-gray-50 border border-gray-200">
+                    <img src="https://i.pravatar.cc/100?img=1" alt="" />
+                  </div>
                   <div className="flex flex-col ml-5 text-left">
                     <p className="text-lg text-black-600 capitalize">
                       {listTestimonis.name}
@@ -106,7 +106,6 @@ const Testimoni = ({
                     </p>
                   </div>
                 </div>
-               
               </div>
               <p className="mt-5 text-left">“{listTestimonis.testimoni}”.</p>
             </div>

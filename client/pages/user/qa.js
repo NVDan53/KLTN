@@ -213,15 +213,23 @@ const UserQa = () => {
 
   return (
     <UserRoute>
-      <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/user" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/user" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>Question</li>
         </ul>
       </div>
 
-      
       {/* read remove */}
       <UserQaReadRemove
         visible={visible}

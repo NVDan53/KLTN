@@ -62,10 +62,19 @@ const UserIndex = () => {
 
   return (
     <UserRoute>
-      <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/user" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/user" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>Support</li>
         </ul>
       </div>
@@ -80,7 +89,6 @@ const UserIndex = () => {
 
             <ContactForm loadUserIssues={loadUserIssues} />
           </div>
-          
         </div>
 
         {/* show provious support posts */}
@@ -100,7 +108,10 @@ const UserIndex = () => {
                   )}
                 </li>
 
-                <li className="list-group-item">{new Date(issue.createdAt).toLocaleDateString()} <br/>{issue.message}</li>
+                <li className="list-group-item">
+                  {new Date(issue.createdAt).toLocaleDateString()} <br />
+                  {issue.message}
+                </li>
                 {/* bottom icons */}
                 <li className="list-group-item">
                   <div className="d-flex justify-content-between">

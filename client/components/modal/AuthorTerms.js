@@ -15,9 +15,7 @@ const AuthorTerms = ({ showModal, setShowModal }) => {
             Write what you know, what you learned and what you would like to
             share easily.
           </li>
-          <li>
-            Reach out to thousands of free and paid students at website
-          </li>
+          <li>Reach out to thousands of free and paid students at website</li>
           <li>Potential to promote your courses (if any) to wider audience</li>
           <li>Create, read, update or delete anytime</li>
           <li>Write in markdown supported editor</li>

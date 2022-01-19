@@ -151,16 +151,28 @@ const CourseView = () => {
 
   return (
     <InstructorRoute>
-     <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/instructor" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/instructor" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>Add Lesson</li>
         </ul>
       </div>
 
       {course && (
-        <div className="container-fluid"style={{padding:"40px",backgroundColor:"#fff"}}>
+        <div
+          className="container-fluid"
+          style={{ padding: "40px", backgroundColor: "#fff" }}
+        >
           <div className="media items-center">
             <Avatar
               size={80}
@@ -171,13 +183,15 @@ const CourseView = () => {
                 <div className="col">
                   <h5 className="mt-2 text-primary">{course.name}</h5>
 
-                 <p>             
-                    {course.categories &&course.categories.map((category) => (
-                        <p key={category._id}style={{color:"red"}}>{category.name}</p>
-                      ))}                    
+                  <p>
+                    {course.categories &&
+                      course.categories.map((category) => (
+                        <p key={category._id} style={{ color: "red" }}>
+                          {category.name}
+                        </p>
+                      ))}
                   </p>
                 </div>
-
 
                 <div className="d-flex">
                   {/* total students enrolled */}
@@ -217,13 +231,13 @@ const CourseView = () => {
               </div>
             </div>
           </div>
-         
+
           <div className="row">
             <div className="col my-4">
               <ReactMarkdown source={course.description} />
             </div>
           </div>
-         
+
           <div className="row">
             <Button
               onClick={() => setVisible(true)}
@@ -257,7 +271,7 @@ const CourseView = () => {
               setMarkdownCheetsheetModal={setMarkdownCheetsheetModal}
             />
           </Modal>
-         
+
           {/* {JSON.stringify(course)} */}
           <div className="row pb-5">
             <div className="col lesson-list">
@@ -267,9 +281,12 @@ const CourseView = () => {
                 renderItem={(item, index) => (
                   <Item>
                     <Item.Meta
-                      avatar={<Avatar  style={{backgroundColor:"#1890ff"}}>{index + 1}</Avatar>}
+                      avatar={
+                        <Avatar style={{ backgroundColor: "#1890ff" }}>
+                          {index + 1}
+                        </Avatar>
+                      }
                       title={item.title}
-                     
                     />
                   </Item>
                 )}

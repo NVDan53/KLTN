@@ -25,14 +25,22 @@ const UserIndex = () => {
 
   return (
     <UserRoute>
-      <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/user" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/user" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>List Courses</li>
         </ul>
       </div>
-
 
       {!courses.length && (
         <Link href="/">
@@ -46,36 +54,32 @@ const UserIndex = () => {
           className="d-flex justify-content-center display-1 text-primary p-5"
         />
       )}
-       
-                  
-                 
-          <div className="row pt-2 mb-4 cursor-pointer ">
 
-      {courses &&
-        courses.map((course) => (
-          <Link
-          href={`/user/course/${course.slug}`}
-          className="pointer"
-        >
-
-          <div className="m-2 rounded-lg bg-white shadow-lg transform hover:scale-105 transition duration-500" style={{width:"300px"}}>
-          <div className="relative">
-            <img className="w-full" src={course.image ? course.image.Location : "/course.png"}  style={{ height: "200px", objectFit: "cover" }} />
-          </div>
-          <p className="p-2 text-gray-800 font-bold ">{course.name}</p>
-          <div className="p-2">
-            <div className="flex items-center">           
-              <p>By {course.instructor.name}</p>
-            </div>    
-          </div>
-        </div>
-        
-        </Link>
-          
-        ))}
-        
-          </div>
-         
+      <div className="row pt-2 mb-4 cursor-pointer ">
+        {courses &&
+          courses.map((course) => (
+            <Link href={`/user/course/${course.slug}`} className="pointer">
+              <div
+                className="m-2 rounded-lg bg-white shadow-lg transform hover:scale-105 transition duration-500"
+                style={{ width: "300px" }}
+              >
+                <div className="relative">
+                  <img
+                    className="w-full"
+                    src={course.image ? course.image.Location : "/course.png"}
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+                </div>
+                <p className="p-2 text-gray-800 font-bold ">{course.name}</p>
+                <div className="p-2">
+                  <div className="flex items-center">
+                    <p>By {course.instructor.name}</p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
+      </div>
     </UserRoute>
   );
 };

@@ -32,66 +32,72 @@ const AdminUsersIndex = () => {
 
   return (
     <AdminRoute>
-       <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/admin" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/admin" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>List users</li>
         </ul>
       </div>
-     <div>
-   
-   <div className="inline-block w-full shadow rounded-lg overflow-hidden mb-4">
-     <table className="w-full bg-white leading-normal">
-       <thead>
-         <tr>
-           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-             Name
-           </th>
-           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-             Email
-           </th>
-           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-            Role
-           </th>
-           <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-           Created at
-           </th>
-          
-         </tr>
-       </thead>
-       <tbody>
-       {users.map((user) => (
-            
-         <tr key={user._id} className="xyz hover:bg-sky-100">
-          
-           <td className="px-4 py-4 border-b border-gray-200  text-sm">
-             <p className="text-gray-900 whitespace-no-wrap font-semibold"> {user.name}{" "}</p>
-           </td>
-           <td className="px-4 py-4 border-b border-gray-200  text-sm">
-             <p className="text-gray-900 whitespace-no-wrap font-semibold"> {user.email}</p>
-           </td>
-           <td className="px-4 py-4 border-b border-gray-200   text-sm">
-             <p className="text-gray-900 whitespace-no-wrap">
-             {JSON.stringify(user.role)}
-             </p>
-           </td>
-           <td className="px-4 py-4 border-b border-gray-200   text-sm">
-             <p className="text-gray-900 whitespace-no-wrap">
-             Joined {new Date(user.createdAt).toLocaleDateString()}
-             </p>
-           </td>
-         
-         </tr>
-        
-         ))}
-       </tbody>
-     </table>
-     
-  
- 
-</div>
-</div>
+      <div>
+        <div className="inline-block w-full shadow rounded-lg overflow-hidden mb-4">
+          <table className="w-full bg-white leading-normal">
+            <thead>
+              <tr>
+                <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Email
+                </th>
+                <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Role
+                </th>
+                <th className="px-4 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Created at
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user._id} className="xyz hover:bg-sky-100">
+                  <td className="px-4 py-4 border-b border-gray-200  text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap font-semibold">
+                      {" "}
+                      {user.name}{" "}
+                    </p>
+                  </td>
+                  <td className="px-4 py-4 border-b border-gray-200  text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap font-semibold">
+                      {" "}
+                      {user.email}
+                    </p>
+                  </td>
+                  <td className="px-4 py-4 border-b border-gray-200   text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap">
+                      {JSON.stringify(user.role)}
+                    </p>
+                  </td>
+                  <td className="px-4 py-4 border-b border-gray-200   text-sm">
+                    <p className="text-gray-900 whitespace-no-wrap">
+                      Joined {new Date(user.createdAt).toLocaleDateString()}
+                    </p>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </AdminRoute>
   );
 };

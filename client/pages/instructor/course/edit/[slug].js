@@ -37,9 +37,8 @@ const CourseEdit = () => {
    */
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState({});
-  const [uploadVideoButtonText, setUploadVideoButtonText] = useState(
-    "Upload video"
-  );
+  const [uploadVideoButtonText, setUploadVideoButtonText] =
+    useState("Upload video");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   // markdown cheetsheet modal
@@ -253,10 +252,19 @@ const CourseEdit = () => {
 
   return (
     <InstructorRoute>
- <div className="text-blue-900 text-sm rounded-md"style={{margin:"16px"}}>
+      <div
+        className="text-blue-900 text-sm rounded-md"
+        style={{ margin: "16px" }}
+      >
         <ul className="flex">
-          <li><a href="/instructor" className="underline font-semibold">Dashboard</a></li>
-          <li><span className="mx-2">/</span></li>  
+          <li>
+            <a href="/instructor" className="underline font-semibold">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <span className="mx-2">/</span>
+          </li>
           <li>Update Course</li>
         </ul>
       </div>

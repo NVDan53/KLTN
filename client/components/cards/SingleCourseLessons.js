@@ -11,8 +11,6 @@ const SingleCourseLessons = ({
   <div className="container">
     <div className="row">
       <div className="col lesson-list">
-       
-       
         <List
           itemLayout="horizontal"
           dataSource={lessons}

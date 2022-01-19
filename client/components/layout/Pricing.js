@@ -1,7 +1,6 @@
 import React from "react";
 import Testimoni from "./Testimoni";
 
-
 const Pricing = () => {
   return (
     <div
@@ -17,7 +16,6 @@ const Pricing = () => {
           <div className="w-full flex flex-col py-12">
             <Testimoni />
           </div>
-         
         </div>
       </div>
     </div>

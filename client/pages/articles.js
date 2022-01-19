@@ -40,11 +40,11 @@ const Articles = ({ posts, router }) => {
   return (
     <>
       {head()}
-     
+
       <div className="container">
-      <h2 style={{ fontSize: "25px", fontWeight: "bold",marginTop:"20px" }}>
-                     List Blogs
-                    </h2>
+        <h2 style={{ fontSize: "25px", fontWeight: "bold", marginTop: "20px" }}>
+          List Blogs
+        </h2>
         <div className="row pt-2">
           {posts.map((post) => (
             <div key={post._id} className="col-md-3">
