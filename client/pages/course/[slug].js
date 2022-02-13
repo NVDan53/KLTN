@@ -1,21 +1,21 @@
-import { useState, useContext, useEffect } from "react";
-import { withRouter, useRouter } from "next/router";
-import axios from "axios";
-import SingleCourseJumbotron from "../../components/cards/SingleCourseJumbotron";
-import SingleCourseLessons from "../../components/cards/SingleCourseLessons";
-import PreviewModal from "../../components/modal/PreviewModal";
-import { Context } from "../../context";
-import { toast } from "react-toastify";
-import { loadStripe } from "@stripe/stripe-js";
-import Head from "next/head";
-import { markdownToTxt } from "markdown-to-txt";
-import DisqusThread from "../../components/DisqusThread";
+import { useState, useContext, useEffect } from 'react';
+import { withRouter, useRouter } from 'next/router';
+import axios from 'axios';
+import SingleCourseJumbotron from '../../components/cards/SingleCourseJumbotron';
+import SingleCourseLessons from '../../components/cards/SingleCourseLessons';
+import PreviewModal from '../../components/modal/PreviewModal';
+import { Context } from '../../context';
+import { toast } from 'react-toastify';
+import { loadStripe } from '@stripe/stripe-js';
+import Head from 'next/head';
+import { markdownToTxt } from 'markdown-to-txt';
+import DisqusThread from '../../components/DisqusThread';
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
 const SingleCourse = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [enrolled, setEnrolled] = useState({});
 
@@ -50,11 +50,11 @@ const SingleCourse = ({ course }) => {
       <meta property="og:site_name" content={process.env.APP_NAME} />
       <meta
         property="og:image"
-        content={`${course.image ? course.image.Location : "/default.jpg"}`}
+        content={`${course.image ? course.image.Location : '/default.jpg'}`}
       />
       <meta
         property="og:image:secure_url"
-        content={`${course.image ? course.image.Location : "/default.jpg"}`}
+        content={`${course.image ? course.image.Location : '/default.jpg'}`}
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={process.env.NEXT_PUBLIC_FB_APP_ID} />
@@ -78,18 +78,20 @@ const SingleCourse = ({ course }) => {
   } = course;
 
   const [token, setToken] = useState(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("token"));
+    if (typeof window !== 'undefined') {
+      return JSON.parse(window.localStorage.getItem('token'));
     }
   });
+
+  console.log('TOKENnn:', token);
 
   // router
   const router = useRouter();
 
-  useEffect(() => {
-    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
-    setToken(tokenStorage);
-  }, []);
+  // useEffect(() => {
+  //   const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+  //   setToken(tokenStorage);
+  // }, []);
 
   useEffect(() => {
     // is already enrolled?
@@ -103,7 +105,7 @@ const SingleCourse = ({ course }) => {
         headers: { Authorization: token },
       }
     );
-    // console.log("CHECK ENROLLMENT => ", data);
+    console.log('CHECK ENROLLMENT => ', data);
     setEnrolled(data);
   };
 
@@ -112,25 +114,29 @@ const SingleCourse = ({ course }) => {
 
     try {
       setLoading(true);
-      if (!user) return router.push("/login");
+      if (!user) return router.push('/login');
       // if user is already enrolled, redirect to course page
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
-      // console.log("enroll to this course > ", course._id);
+      console.log('enroll to this course > ', course._id);
+
       const { data } = await axios.post(
         `https://stress-apps.herokuapp.com/api/paid-enrollment/${course._id}`,
+        null,
         {
           headers: { Authorization: token },
         }
       );
-      // console.log("PAID ENROLLMENT => ", data);
+      console.log('PAID ENROLLMENT => ', data);
       // load stripe for payment
       // on successful payment, user will get redirected to /stripe/success page
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
+
+      console.log('STRIPE:', stripe);
       stripe.redirectToCheckout({ sessionId: data });
     } catch (err) {
-      toast("Enrollment failed, Try again.");
-      // console.log(err);
+      toast('Enrollment failed, Try again.');
+      console.log(err);
       setLoading(false);
     }
   };
@@ -140,23 +146,24 @@ const SingleCourse = ({ course }) => {
 
     try {
       setLoading(true);
-      if (!user) return router.push("/login");
+      if (!user) return router.push('/login');
       // if user is already enrolled, redirect to course page
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
       // console.log("enroll to this course > ", course._id);
       const { data } = await axios.post(
         `https://stress-apps.herokuapp.com/api/free-enrollment/${course._id}`,
+        null,
         {
           headers: { Authorization: token },
         }
       );
-      console.log("FREE ENROLLMENT => ", data);
+      console.log('FREE ENROLLMENT => ', data);
       toast(data.message);
       // redirect user to course page
       router.push(`/user/course/${data.course.slug}`);
     } catch (err) {
-      toast("Enrollment failed, Try again.");
+      toast('Enrollment failed, Try again.');
       console.log(err);
       setLoading(false);
     }

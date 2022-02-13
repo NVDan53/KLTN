@@ -1,15 +1,15 @@
-import { useEffect, useState, useContext } from "react";
-import axios from "axios";
-import AuthorRoute from "../../../components/routes/AuthorRoute";
-import { Select } from "antd";
-import { SyncOutlined } from "@ant-design/icons";
-import MarkdownCheetsheet from "../../../components/modal/MarkdownCheatsheet";
-import ReactMarkdown from "react-markdown";
-import CodeBlock from "../../../components/marked/CodeBlock";
-import Resizer from "react-image-file-resizer";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
-import { Context } from "../../../context";
+import { useEffect, useState, useContext } from 'react';
+import axios from 'axios';
+import AuthorRoute from '../../../components/routes/AuthorRoute';
+import { Select } from 'antd';
+import { SyncOutlined } from '@ant-design/icons';
+import MarkdownCheetsheet from '../../../components/modal/MarkdownCheatsheet';
+import ReactMarkdown from 'react-markdown';
+import CodeBlock from '../../../components/marked/CodeBlock';
+import Resizer from 'react-image-file-resizer';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+import { Context } from '../../../context';
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
@@ -21,8 +21,8 @@ const PostEdit = () => {
     dispatch,
   } = useContext(Context);
 
-  const [postId, setPostId] = useState("");
-  const [postedBy, setPostedBy] = useState("");
+  const [postId, setPostId] = useState('');
+  const [postedBy, setPostedBy] = useState('');
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
   const [categories, setCategories] = useState([]);
@@ -30,12 +30,12 @@ const PostEdit = () => {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  const [thumbnail, setThumbnail] = useState("");
-  const [uploadButtonText, setUploadButtonText] = useState("Upload thumbnail");
+  const [thumbnail, setThumbnail] = useState('');
+  const [uploadButtonText, setUploadButtonText] = useState('Upload thumbnail');
 
   const [token, setToken] = useState(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("token"));
+    if (typeof window !== 'undefined') {
+      return JSON.parse(window.localStorage.getItem('token'));
     }
   });
 
@@ -46,7 +46,7 @@ const PostEdit = () => {
   const { slug } = router.query;
 
   useEffect(() => {
-    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    const tokenStorage = JSON.parse(window.localStorage.getItem('token'));
     setToken(tokenStorage);
   }, []);
 
@@ -64,7 +64,7 @@ const PostEdit = () => {
       const { data } = await axios.get(
         `https://stress-apps.herokuapp.com/api/post/${slug}`
       );
-      console.log("SINGLE POST", data);
+      console.log('SINGLE POST', data);
       setPostedBy(data.postedBy);
       setTitle(data.title);
       setBody(data.body);
@@ -80,7 +80,7 @@ const PostEdit = () => {
 
   const loadCategories = async () => {
     const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/categories",
+      'https://stress-apps.herokuapp.com/api/categories',
       {
         headers: { Authorization: token },
       }
@@ -107,14 +107,14 @@ const PostEdit = () => {
       file, // file
       720, // maxWidth
       500, // maxHeight
-      "JPEG", // compressionFormat
+      'JPEG', // compressionFormat
       100, // quality
       0, // rotation
       async (uri) => {
         // post to s3
         try {
           let { data } = await axios.post(
-            "https://stress-apps.herokuapp.com/api/post/upload-image",
+            'https://stress-apps.herokuapp.com/api/post/upload-image',
             {
               image: uri,
             },
@@ -122,24 +122,24 @@ const PostEdit = () => {
               headers: { Authorization: token },
             }
           );
-          console.log("image uploaded", data);
-          setBody(`${body} ![${file.name.replace(/\.[^/.]+$/, "")}](${data})`);
+          console.log('image uploaded', data);
+          setBody(`${body} ![${file.name.replace(/\.[^/.]+$/, '')}](${data})`);
           // update local storage with image
           localStorage.setItem(
-            "body",
+            'body',
             JSON.stringify(
-              `${body} ![${file.name.replace(/\.[^/.]+$/, "")}](${data})`
+              `${body} ![${file.name.replace(/\.[^/.]+$/, '')}](${data})`
             )
           );
           setThumbnail(data);
           setUploading(false);
         } catch (err) {
           setUploading(false);
-          toast("Image upload failed. Try again.");
+          toast('Image upload failed. Try again.');
           console.log(err);
         }
       },
-      "base64" // outputType
+      'base64' // outputType
     );
   };
 
@@ -159,8 +159,8 @@ const PostEdit = () => {
           headers: { Authorization: token },
         }
       );
-      toast("Post updated");
-      router.push("/author");
+      toast('Post updated');
+      router.push('/author');
     } catch (err) {
       toast(err.response.data);
       setLoading(false);
@@ -217,7 +217,7 @@ const PostEdit = () => {
             className="mt-3 mb-3"
             size="large"
             mode="multiple"
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             placeholder="Select category"
             value={categories}
             onChange={(value) => setCategories(value)}
@@ -230,7 +230,7 @@ const PostEdit = () => {
           </Select>
           {/* upload */}
           <label className="btn btn-primary">
-            {uploading ? <SyncOutlined spin className="h4" /> : "INSERT IMAGE"}
+            {uploading ? <SyncOutlined spin className="h4" /> : 'INSERT IMAGE'}
             <input onChange={handleImage} type="file" accept="image/*" hidden />
           </label>
           {/* save */}
@@ -239,12 +239,12 @@ const PostEdit = () => {
             className="btn btn-primary float-right"
             disabled={!title || !body || loading || uploading}
           >
-            {loading ? <SyncOutlined spin className="h4" /> : "UPDATE"}
+            {loading ? <SyncOutlined spin className="h4" /> : 'UPDATE'}
           </button>
         </div>
         <div
           className="col-md-4 markdown-preview"
-          style={{ maxHeight: "85vh", overflowY: "scroll" }}
+          style={{ maxHeight: '85vh', overflowY: 'scroll' }}
         >
           <p>Preview</p>
           <hr />

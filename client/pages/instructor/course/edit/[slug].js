@@ -1,14 +1,14 @@
-import { useEffect, useState, useContext } from "react";
-import InstructorRoute from "../../../../components/routes/InstructorRoute";
-import CourseEditForm from "../../../../components/forms/CourseEditForm";
-import axios from "axios";
-import Resizer from "react-image-file-resizer";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
-import { List, Avatar, Modal } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
-import UpdateLessonForm from "../../../../components/forms/UpdateLessonForm";
-import { Context } from "../../../../context";
+import { useEffect, useState, useContext } from 'react';
+import InstructorRoute from '../../../../components/routes/InstructorRoute';
+import CourseEditForm from '../../../../components/forms/CourseEditForm';
+import axios from 'axios';
+import Resizer from 'react-image-file-resizer';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+import { List, Avatar, Modal } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import UpdateLessonForm from '../../../../components/forms/UpdateLessonForm';
+import { Context } from '../../../../context';
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
@@ -22,10 +22,10 @@ const CourseEdit = () => {
 
   // state
   const [values, setValues] = useState({
-    _id: "",
-    name: "",
-    description: "",
-    price: "9.99",
+    _id: '',
+    name: '',
+    description: '',
+    price: '9.99',
     paid: true,
     loading: false,
     image: {},
@@ -37,8 +37,8 @@ const CourseEdit = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  const [preview, setPreview] = useState("");
-  const [uploadButtonText, setUploadButtonText] = useState("Upload image");
+  const [preview, setPreview] = useState('');
+  const [uploadButtonText, setUploadButtonText] = useState('Upload image');
 
   /**
    * LESSON UPDATE
@@ -46,15 +46,15 @@ const CourseEdit = () => {
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState({});
   const [uploadVideoButtonText, setUploadVideoButtonText] =
-    useState("Upload video");
+    useState('Upload video');
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   // markdown cheetsheet modal
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
 
   const [token, setToken] = useState(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("token"));
+    if (typeof window !== 'undefined') {
+      return JSON.parse(window.localStorage.getItem('token'));
     }
   });
 
@@ -62,7 +62,7 @@ const CourseEdit = () => {
   const { slug } = router.query;
 
   useEffect(() => {
-    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    const tokenStorage = JSON.parse(window.localStorage.getItem('token'));
     setToken(tokenStorage);
   }, []);
 
@@ -92,7 +92,7 @@ const CourseEdit = () => {
 
   const loadCategories = async () => {
     const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/categories"
+      'https://stress-apps.herokuapp.com/api/categories'
     );
     // console.log(data);
     setCategoryList(data);
@@ -117,7 +117,7 @@ const CourseEdit = () => {
         }
       );
       // console.log(data);
-      toast("Updated!");
+      toast('Updated!');
       // router.push("/instructor");
     } catch (err) {
       console.log(err);
@@ -151,14 +151,14 @@ const CourseEdit = () => {
       file, // file
       720, // maxWidth
       500, // maxHeight
-      "JPEG", // compressionFormat
+      'JPEG', // compressionFormat
       100, // quality
       0, // rotation
       async (uri) => {
         // post to s3
         try {
           let { data } = await axios.post(
-            "https://stress-apps.herokuapp.com/api/course/upload-image",
+            'https://stress-apps.herokuapp.com/api/course/upload-image',
             {
               image: uri,
             },
@@ -168,29 +168,29 @@ const CourseEdit = () => {
           );
           // console.log("image uploaded", data);
           setValues({ ...values, image: data, loading: false });
-          setUploadButtonText("Upload image");
+          setUploadButtonText('Upload image');
         } catch (err) {
           setValues({ ...values, loading: false });
-          setUploadButtonText("Upload image");
-          toast("Image upload failed. Try again.");
+          setUploadButtonText('Upload image');
+          toast('Image upload failed. Try again.');
           console.log(err);
         }
       },
-      "base64" // outputType
+      'base64' // outputType
     );
   };
 
   // drag events
   // set key > 'itemIndex' in 'e' object
   const handleDrag = (e, index) => {
-    console.log("ON DRAG", index);
-    e.dataTransfer.setData("itemIndex", index);
+    console.log('ON DRAG', index);
+    e.dataTransfer.setData('itemIndex', index);
   };
 
   const handleDrop = async (e, index) => {
-    console.log("ON DROP", index);
+    console.log('ON DROP', index);
 
-    const movingItemIndex = e.dataTransfer.getData("itemIndex");
+    const movingItemIndex = e.dataTransfer.getData('itemIndex');
     const targetItemIndex = index; // targeted item on drop
     let allLessons = values.lessons;
 
@@ -212,11 +212,11 @@ const CourseEdit = () => {
       }
     );
     console.log(data);
-    toast("Saved!");
+    toast('Saved!');
   };
 
   const handleDeleteLesson = async (index) => {
-    let answer = window.confirm("Are you sure?");
+    let answer = window.confirm('Are you sure?');
     if (!answer) return;
     let allLessons = values.lessons;
     const removed = allLessons.splice(index, 1);
@@ -235,12 +235,13 @@ const CourseEdit = () => {
     // console.log("removed", removed, "slug", slug);`
     const { data } = await axios.post(
       `https://stress-apps.herokuapp.com/api/course/${values._id}/${removed[0]._id}`,
+      null,
       {
         headers: { Authorization: token },
       }
     );
-    if (data.ok) toast("Deleted");
-    console.log("delete lesson => ", data);
+    if (data.ok) toast('Deleted');
+    console.log('delete lesson => ', data);
   };
 
   const handleVideo = async (e) => {
@@ -253,7 +254,7 @@ const CourseEdit = () => {
           headers: { Authorization: token },
         }
       );
-      console.log("REMOVED ===> ", res);
+      console.log('REMOVED ===> ', res);
     }
     // upload
     const file = e.target.files[0];
@@ -262,8 +263,8 @@ const CourseEdit = () => {
     setUploading(true);
     // send video as form data
     const videoData = new FormData();
-    videoData.append("video", file);
-    videoData.append("courseId", values._id);
+    videoData.append('video', file);
+    videoData.append('courseId', values._id);
     // save progress bar and send video as form data to backend
     const { data } = await axios.post(
       `https://stress-apps.herokuapp.com/api/course/upload-video/${values._id}`,
@@ -295,7 +296,7 @@ const CourseEdit = () => {
       }
     );
     // console.log("LESSON UPDATED AND SAVED ===> ", data);
-    setUploadButtonText("Upload video");
+    setUploadButtonText('Upload video');
     setProgress(0);
     setVisible(false);
     // update lessons
@@ -304,7 +305,7 @@ const CourseEdit = () => {
       const index = arr.findIndex((el) => el._id === current._id);
       arr[index] = current;
       setValues({ ...values, lessons: arr });
-      toast("Lesson updated");
+      toast('Lesson updated');
     }
   };
 
@@ -312,7 +313,7 @@ const CourseEdit = () => {
     <InstructorRoute>
       <div
         className="text-blue-900 text-sm rounded-md"
-        style={{ margin: "16px" }}
+        style={{ margin: '16px' }}
       >
         <ul className="flex">
           <li>

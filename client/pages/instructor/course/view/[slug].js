@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
-import { Avatar, Tooltip, Button, Modal, List } from "antd";
+import { useState, useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { Avatar, Tooltip, Button, Modal, List } from 'antd';
 import {
   EditOutlined,
   CheckOutlined,
@@ -9,14 +9,14 @@ import {
   QuestionOutlined,
   CloseOutlined,
   UserSwitchOutlined,
-} from "@ant-design/icons";
-import InstructorRoute from "../../../../components/routes/InstructorRoute";
-import ReactMarkdown from "react-markdown";
-import AddLessonForm from "../../../../components/forms/AddLessonForm";
-import { toast } from "react-toastify";
-import { Badge } from "antd";
+} from '@ant-design/icons';
+import InstructorRoute from '../../../../components/routes/InstructorRoute';
+import ReactMarkdown from 'react-markdown';
+import AddLessonForm from '../../../../components/forms/AddLessonForm';
+import { toast } from 'react-toastify';
+import { Badge } from 'antd';
 
-import { Context } from "../../../../context";
+import { Context } from '../../../../context';
 
 const { Item } = List;
 
@@ -29,12 +29,12 @@ const CourseView = () => {
   const [course, setCourse] = useState({});
   const [visible, setVisible] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [uploadButtonText, setUploadButtonText] = useState("Upload video");
+  const [uploadButtonText, setUploadButtonText] = useState('Upload video');
   const [progress, setProgress] = useState(0);
   // values
   const [values, setValues] = useState({
-    title: "",
-    content: "",
+    title: '',
+    content: '',
     video: {},
   });
   const [students, setStudents] = useState(0);
@@ -42,8 +42,8 @@ const CourseView = () => {
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
 
   const [token, setToken] = useState(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("token"));
+    if (typeof window !== 'undefined') {
+      return JSON.parse(window.localStorage.getItem('token'));
     }
   });
 
@@ -51,7 +51,7 @@ const CourseView = () => {
   const { slug } = router.query;
 
   useEffect(() => {
-    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    const tokenStorage = JSON.parse(window.localStorage.getItem('token'));
     setToken(tokenStorage);
   }, []);
 
@@ -97,13 +97,13 @@ const CourseView = () => {
         headers: { Authorization: token },
       }
     );
-    console.log("LESSON ADDED AND SAVED ===> ", data);
-    setValues({ ...values, title: "", content: "", video: {} });
-    setUploadButtonText("Upload video");
+    console.log('LESSON ADDED AND SAVED ===> ', data);
+    setValues({ ...values, title: '', content: '', video: {} });
+    setUploadButtonText('Upload video');
     setVisible(false);
     // push lessons to state then render
     setCourse(data);
-    toast("Lesson added");
+    toast('Lesson added');
   };
 
   const handleVideo = async (e) => {
@@ -114,8 +114,8 @@ const CourseView = () => {
       setUploading(true);
       // send video as form data
       const videoData = new FormData();
-      videoData.append("video", file);
-      videoData.append("courseId", course._id);
+      videoData.append('video', file);
+      videoData.append('courseId', course._id);
       // save progress bar and send video as form data to backend
       const { data } = await axios.post(
         `https://stress-apps.herokuapp.com/api/course/upload-video/${course._id}`,
@@ -135,7 +135,7 @@ const CourseView = () => {
       setProgress(0);
     } catch (err) {
       console.log(err);
-      toast("Video upload failed");
+      toast('Video upload failed');
     }
   };
 
@@ -148,11 +148,11 @@ const CourseView = () => {
         headers: { Authorization: token },
       }
     );
-    console.log("remove uploaded video", data);
+    console.log('remove uploaded video', data);
     setValues({ ...values, video: {} });
     setProgress(0);
     setUploading(false);
-    setUploadButtonText("Upload another video");
+    setUploadButtonText('Upload another video');
   };
 
   const handlePublish = async () => {
@@ -160,20 +160,21 @@ const CourseView = () => {
     // return;
     try {
       let answer = window.confirm(
-        "Once you publish your course, it will be live in the marketplace for students to enroll."
+        'Once you publish your course, it will be live in the marketplace for students to enroll.'
       );
       if (!answer) return;
       const { data } = await axios.put(
         `https://stress-apps.herokuapp.com/api/course/publish/${course._id}`,
+        null,
         {
           headers: { Authorization: token },
         }
       );
       // console.log("COURSE PUBLISHED RES", data);
-      toast("Congrats. Your course is now live in marketplace!");
+      toast('Congrats. Your course is now live in marketplace!');
       setCourse(data);
     } catch (err) {
-      toast("Course publish failed. Try again");
+      toast('Course publish failed. Try again');
     }
   };
 
@@ -182,19 +183,20 @@ const CourseView = () => {
     // return;
     try {
       let answer = window.confirm(
-        "Once you unpublish your course, it will not appear in the marketplace for students to enroll."
+        'Once you unpublish your course, it will not appear in the marketplace for students to enroll.'
       );
       if (!answer) return;
       const { data } = await axios.put(
         `https://stress-apps.herokuapp.com/api/course/unpublish/${course._id}`,
+        null,
         {
           headers: { Authorization: token },
         }
       );
-      toast("Your course is now removed from the marketplace!");
+      toast('Your course is now removed from the marketplace!');
       setCourse(data);
     } catch (err) {
-      toast("Course unpublish failed. Try again");
+      toast('Course unpublish failed. Try again');
     }
   };
 
@@ -202,7 +204,7 @@ const CourseView = () => {
     <InstructorRoute>
       <div
         className="text-blue-900 text-sm rounded-md"
-        style={{ margin: "16px" }}
+        style={{ margin: '16px' }}
       >
         <ul className="flex">
           <li>
@@ -220,12 +222,12 @@ const CourseView = () => {
       {course && (
         <div
           className="container-fluid"
-          style={{ padding: "40px", backgroundColor: "#fff" }}
+          style={{ padding: '40px', backgroundColor: '#fff' }}
         >
           <div className="media items-center">
             <Avatar
               size={80}
-              src={course.image ? course.image.Location : "/course.png"}
+              src={course.image ? course.image.Location : '/course.png'}
             />
             <div className="media-body pl-2">
               <div className="row">
@@ -235,7 +237,7 @@ const CourseView = () => {
                   <p>
                     {course.categories &&
                       course.categories.map((category) => (
-                        <p key={category._id} style={{ color: "red" }}>
+                        <p key={category._id} style={{ color: 'red' }}>
                           {category.name}
                         </p>
                       ))}
@@ -331,7 +333,7 @@ const CourseView = () => {
                   <Item>
                     <Item.Meta
                       avatar={
-                        <Avatar style={{ backgroundColor: "#1890ff" }}>
+                        <Avatar style={{ backgroundColor: '#1890ff' }}>
                           {index + 1}
                         </Avatar>
                       }

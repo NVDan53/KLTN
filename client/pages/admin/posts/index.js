@@ -1,15 +1,15 @@
-import { useEffect, useState, useContext } from "react";
-import axios from "axios";
-import AdminRoute from "../../../components/routes/AdminRoute";
-import Link from "next/link";
-import { Avatar, Tooltip } from "antd";
+import { useEffect, useState, useContext } from 'react';
+import axios from 'axios';
+import AdminRoute from '../../../components/routes/AdminRoute';
+import Link from 'next/link';
+import { Avatar, Tooltip } from 'antd';
 import {
   CloseCircleOutlined,
   CheckCircleOutlined,
   DeleteOutlined,
-} from "@ant-design/icons";
-import { toast } from "react-toastify";
-import { Context } from "../../../context";
+} from '@ant-design/icons';
+import { toast } from 'react-toastify';
+import { Context } from '../../../context';
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
@@ -21,15 +21,15 @@ const AdminPostIndex = () => {
 
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("token"));
+    if (typeof window !== 'undefined') {
+      return JSON.parse(window.localStorage.getItem('token'));
     }
   });
 
-  useEffect(() => {
-    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
-    setToken(tokenStorage);
-  }, []);
+  // useEffect(() => {
+  //   const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+  //   setToken(tokenStorage);
+  // }, []);
 
   useEffect(() => {
     loadPosts();
@@ -37,7 +37,7 @@ const AdminPostIndex = () => {
 
   const loadPosts = async () => {
     const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/admin/posts",
+      'https://stress-apps.herokuapp.com/api/admin/posts',
       {
         headers: { Authorization: token },
       }
@@ -47,7 +47,7 @@ const AdminPostIndex = () => {
 
   const handleDelete = async (post) => {
     try {
-      const answer = window.confirm("Are you sure?");
+      const answer = window.confirm('Are you sure?');
       if (!answer) return;
       const { data } = await axios.delete(
         `https://stress-apps.herokuapp.com/api/admin/post/${post._id}`,
@@ -56,9 +56,9 @@ const AdminPostIndex = () => {
         }
       );
       loadPosts();
-      toast("Post deleted!");
+      toast('Post deleted!');
     } catch (err) {
-      toast("Error deleting! Try again.");
+      toast('Error deleting! Try again.');
     }
   };
 
@@ -66,19 +66,20 @@ const AdminPostIndex = () => {
     // console.log("handlePublish", post);
     // return;
     try {
-      let answer = window.confirm("Are you sure you want to publish?");
+      let answer = window.confirm('Are you sure you want to publish?');
       if (!answer) return;
       const { data } = await axios.put(
         `https://stress-apps.herokuapp.com/api/admin/post/publish/${post._id}`,
+        null,
         {
           headers: { Authorization: token },
         }
       );
       // console.log("COURSE PUBLISHED RES", data);
-      toast("Congrats. Your post live published!");
+      toast('Congrats. Your post live published!');
       loadPosts();
     } catch (err) {
-      toast("Post publish failed. Try again");
+      toast('Post publish failed. Try again');
     }
   };
 
@@ -86,18 +87,19 @@ const AdminPostIndex = () => {
     // console.log("handleUnpublish", post);
     // return;
     try {
-      let answer = window.confirm("Are you sure you want to unpublish?");
+      let answer = window.confirm('Are you sure you want to unpublish?');
       if (!answer) return;
       const { data } = await axios.put(
         `https://stress-apps.herokuapp.com/api/admin/post/unpublish/${post._id}`,
+        null,
         {
           headers: { Authorization: token },
         }
       );
-      toast("Your post is unpublished");
+      toast('Your post is unpublished');
       loadPosts();
     } catch (err) {
-      toast("Post unpublish failed. Try again");
+      toast('Post unpublish failed. Try again');
     }
   };
 
@@ -105,7 +107,7 @@ const AdminPostIndex = () => {
     <AdminRoute>
       <div
         className="text-blue-900 text-sm rounded-md"
-        style={{ margin: "16px" }}
+        style={{ margin: '16px' }}
       >
         <ul className="flex">
           <li>

@@ -1,18 +1,18 @@
-import { useContext, useEffect, useState } from "react";
-import { Button } from "antd";
-import axios from "axios";
+import { useContext, useEffect, useState } from 'react';
+import { Button } from 'antd';
+import axios from 'axios';
 import {
   SettingOutlined,
   UserSwitchOutlined,
   LoadingOutlined,
   EditOutlined,
   FormOutlined,
-} from "@ant-design/icons";
-import { toast } from "react-toastify";
-import UserRoute from "../../components/routes/UserRoute";
-import AuthorTerms from "../../components/modal/AuthorTerms";
-import { Context } from "../../context";
-import { useRouter } from "next/router";
+} from '@ant-design/icons';
+import { toast } from 'react-toastify';
+import UserRoute from '../../components/routes/UserRoute';
+import AuthorTerms from '../../components/modal/AuthorTerms';
+import { Context } from '../../context';
+import { useRouter } from 'next/router';
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
@@ -25,15 +25,15 @@ const BecomeAuthor = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [token, setToken] = useState(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("token"));
+    if (typeof window !== 'undefined') {
+      return JSON.parse(window.localStorage.getItem('token'));
     }
   });
   // router
   const router = useRouter();
 
   useEffect(() => {
-    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    const tokenStorage = JSON.parse(window.localStorage.getItem('token'));
     setToken(tokenStorage);
   }, []);
 
@@ -41,26 +41,27 @@ const BecomeAuthor = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "https://stress-apps.herokuapp.com/api/make-author",
+        'https://stress-apps.herokuapp.com/api/make-author',
+        null,
         {
           headers: { Authorization: token },
         }
       );
       setLoading(false);
       dispatch({
-        type: "LOGIN",
+        type: 'LOGIN',
         payload: data,
       });
       // save in local storage
-      window.localStorage.setItem("user", JSON.stringify(data));
-      toast("Congrats! You can start writting now.");
+      window.localStorage.setItem('user', JSON.stringify(data));
+      toast('Congrats! You can start writting now.');
       setTimeout(() => {
-        router.push("/author");
+        router.push('/author');
       }, 2000);
     } catch (err) {
       setLoading(false);
       console.log(err);
-      toast("Error occured. Try again.");
+      toast('Error occured. Try again.');
     }
   };
 
@@ -85,7 +86,7 @@ const BecomeAuthor = () => {
                 size="large"
                 onClick={makeAuthor}
                 disabled={
-                  (user && user.role && user.role.includes("Author")) || loading
+                  (user && user.role && user.role.includes('Author')) || loading
                 }
                 loading={loading}
               >

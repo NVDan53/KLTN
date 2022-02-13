@@ -1,15 +1,15 @@
-import { useContext, useState } from "react";
-import { Context } from "../../context";
-import { Button } from "antd";
-import axios from "axios";
+import { useContext, useState } from 'react';
+import { Context } from '../../context';
+import { Button } from 'antd';
+import axios from 'axios';
 import {
   SettingOutlined,
   UserSwitchOutlined,
   LoadingOutlined,
-} from "@ant-design/icons";
-import { toast } from "react-toastify";
-import UserRoute from "../../components/routes/UserRoute";
-import InstructorTerms from "../../components/modal/InstructorTerms";
+} from '@ant-design/icons';
+import { toast } from 'react-toastify';
+import UserRoute from '../../components/routes/UserRoute';
+import InstructorTerms from '../../components/modal/InstructorTerms';
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
@@ -22,7 +22,7 @@ const BecomeInstructor = () => {
   const becomeInstructor = () => {
     setLoading(true);
     axios
-      .post("https://stress-apps.herokuapp.com/api/make-instructor", {
+      .post('https://stress-apps.herokuapp.com/api/make-instructor', null, {
         headers: { Authorization: token },
       })
       .then((res) => {
@@ -30,7 +30,7 @@ const BecomeInstructor = () => {
       })
       .catch((err) => {
         console.log(err.response.status);
-        toast.error("Stripe onboarding failed. Try again.");
+        toast.error('Stripe onboarding failed. Try again.');
         setLoading(false);
       });
   };
@@ -47,10 +47,10 @@ const BecomeInstructor = () => {
               <br />
               <h2>Setup payout to publish courses on Code Continue</h2>
               <p className="lead text-warning">
-                Code Continue partners with{" "}
+                Code Continue partners with{' '}
                 <a href="https://stripe.com/" target="_blank">
                   Stripe
-                </a>{" "}
+                </a>{' '}
                 to transfer earnings to your bank account.
               </p>
 
@@ -66,17 +66,17 @@ const BecomeInstructor = () => {
                   (user &&
                     user.role &&
                     user.stripe_seller &&
-                    user.role.includes("Instructor") &&
+                    user.role.includes('Instructor') &&
                     user.stripe_seller.charges_enabled) ||
                   loading
                 }
               >
-                {loading ? "Processing..." : "Payout Setup"}
+                {loading ? 'Processing...' : 'Payout Setup'}
               </Button>
 
               <p className="text-muted">
                 You'll be redirected to Stripe to complete the onboarding
-                proces. By clicking on the button above, you agree to our{" "}
+                proces. By clicking on the button above, you agree to our{' '}
                 <span
                   onClick={() => setShowModal(true)}
                   className="pointer text-danger"

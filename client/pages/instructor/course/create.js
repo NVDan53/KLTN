@@ -1,11 +1,11 @@
-import { useEffect, useState, useContext } from "react";
-import InstructorRoute from "../../../components/routes/InstructorRoute";
-import CourseCreateForm from "../../../components/forms/CourseCreateForm";
-import axios from "axios";
-import Resizer from "react-image-file-resizer";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
-import { Context } from "../../../context";
+import { useEffect, useState, useContext } from 'react';
+import InstructorRoute from '../../../components/routes/InstructorRoute';
+import CourseCreateForm from '../../../components/forms/CourseCreateForm';
+import axios from 'axios';
+import Resizer from 'react-image-file-resizer';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+import { Context } from '../../../context';
 
 const URL_DEPLOY = process.env.NEXT_PUBLIC_URL_DEPLOY;
 
@@ -17,9 +17,9 @@ const CourseCreate = () => {
 
   // state
   const [values, setValues] = useState({
-    name: "",
-    description: "",
-    price: "9.99",
+    name: '',
+    description: '',
+    price: '9.99',
     paid: true,
     loading: false,
   });
@@ -28,8 +28,8 @@ const CourseCreate = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   const [image, setImage] = useState({});
-  const [preview, setPreview] = useState("");
-  const [uploadButtonText, setUploadButtonText] = useState("Upload image");
+  const [preview, setPreview] = useState('');
+  const [uploadButtonText, setUploadButtonText] = useState('Upload image');
 
   const [visible, setVisible] = useState(false);
 
@@ -37,17 +37,19 @@ const CourseCreate = () => {
   const [markdownCheetsheetModal, setMarkdownCheetsheetModal] = useState(false);
 
   const [token, setToken] = useState(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("token"));
+    if (typeof window !== 'undefined') {
+      return JSON.parse(window.localStorage.getItem('token'));
     }
   });
 
+  console.log('TK:', token);
+
   const router = useRouter();
 
-  useEffect(() => {
-    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
-    setToken(tokenStorage);
-  }, []);
+  // useEffect(() => {
+  //   const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+  //   setToken(tokenStorage);
+  // }, []);
 
   useEffect(() => {
     loadCategories();
@@ -55,7 +57,7 @@ const CourseCreate = () => {
 
   const loadCategories = async () => {
     const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/categories"
+      'https://stress-apps.herokuapp.com/api/categories'
     );
     // console.log(data);
     setCategoryList(data);
@@ -69,7 +71,7 @@ const CourseCreate = () => {
   const handleSubmit = async (e) => {
     try {
       const { data } = await axios.post(
-        "https://stress-apps.herokuapp.com/api/course",
+        'https://stress-apps.herokuapp.com/api/course',
         {
           ...values,
           categories: selectedCategories,
@@ -80,8 +82,8 @@ const CourseCreate = () => {
         }
       );
       // console.log(data);
-      toast("Great! Now you can start adding lectures");
-      router.push("/instructor");
+      toast('Great! Now you can start adding lectures');
+      router.push('/instructor');
     } catch (err) {
       console.log(err);
       toast(err.response.data);
@@ -99,14 +101,14 @@ const CourseCreate = () => {
       file, // file
       720, // maxWidth
       500, // maxHeight
-      "JPEG", // compressionFormat
+      'JPEG', // compressionFormat
       100, // quality
       0, // rotation
       async (uri) => {
         // post to s3
         try {
           let { data } = await axios.post(
-            "https://stress-apps.herokuapp.com/api/course/upload-image",
+            'https://stress-apps.herokuapp.com/api/course/upload-image',
             {
               image: uri,
             },
@@ -119,34 +121,34 @@ const CourseCreate = () => {
           setValues({ ...values, loading: false });
         } catch (err) {
           setValues({ ...values, loading: false });
-          toast("Image upload failed. Try again.");
+          toast('Image upload failed. Try again.');
           console.log(err);
         }
       },
-      "base64" // outputType
+      'base64' // outputType
     );
   };
 
   const handleImageRemove = async () => {
     try {
-      console.log("remove image from s3 ===> ", image.Key);
+      console.log('remove image from s3 ===> ', image.Key);
       setValues({ ...values, loading: true });
       let { data } = await axios.post(
-        "https://stress-apps.herokuapp.com/api/course/remove-image",
+        'https://stress-apps.herokuapp.com/api/course/remove-image',
         { image },
         {
           headers: { Authorization: token },
         }
       );
-      // console.log("Remove image ===> ", data);
+      console.log('Remove image ===> ', data);
       if (data.ok) {
         setImage({});
-        setPreview("");
-        setUploadButtonText("Upload image");
+        setPreview('');
+        setUploadButtonText('Upload image');
         setValues({ ...values, loading: false });
       }
     } catch (err) {
-      toast("Remove image failed");
+      toast('Remove image failed');
       setValues({ ...values, loading: false });
     }
   };
@@ -155,7 +157,7 @@ const CourseCreate = () => {
     <InstructorRoute>
       <div
         className="text-blue-900 text-sm rounded-md"
-        style={{ margin: "16px" }}
+        style={{ margin: '16px' }}
       >
         <ul className="flex">
           <li>

@@ -1,12 +1,12 @@
-import User from "../models/user";
-import Post from "../models/post";
-import Category from "../models/category";
+import User from '../models/user';
+import Post from '../models/post';
+import Category from '../models/category';
 // import AWS from "aws-sdk";
-import S3 from "aws-sdk/clients/s3";
-import slugify from "slugify";
-import { nanoid } from "nanoid";
-import { readFileSync } from "fs";
-import Course from "../models/course";
+import S3 from 'aws-sdk/clients/s3';
+import slugify from 'slugify';
+import { nanoid } from 'nanoid';
+import { readFileSync } from 'fs';
+import Course from '../models/course';
 
 const s3 = new S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -18,22 +18,22 @@ const s3 = new S3({
 export const uploadImage = async (req, res) => {
   try {
     const { image } = req.body;
-    if (!image) return res.status(400).send("No image");
+    if (!image) return res.status(400).send('No image');
 
     // prepare the image
     const base64Data = new Buffer.from(
-      image.replace(/^data:image\/\w+;base64,/, ""),
-      "base64"
+      image.replace(/^data:image\/\w+;base64,/, ''),
+      'base64'
     );
-    const type = image.split(";")[0].split("/")[1];
+    const type = image.split(';')[0].split('/')[1];
 
     // image params
     const params = {
-      Bucket: "stress-bucket",
+      Bucket: 'stress-bucket',
       Key: `${nanoid()}.${type}`,
       Body: base64Data,
-      ACL: "public-read",
-      ContentEncoding: "base64",
+      ACL: 'public-read',
+      ContentEncoding: 'base64',
       ContentType: `image/${type}`,
     };
 
@@ -58,7 +58,7 @@ export const create = async (req, res) => {
     const alreadyExist = await Post.findOne({
       slug: slugify(title.toLowerCase()),
     }).exec();
-    if (alreadyExist) return res.status(400).send("Title is taken");
+    if (alreadyExist) return res.status(400).send('Title is taken');
 
     // get category ids based on category name
     let ids = [];
@@ -85,31 +85,31 @@ export const create = async (req, res) => {
     }, 1000);
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Error saving. Try again.");
+    return res.status(400).send('Error saving. Try again.');
   }
 };
 
 export const list = async (req, res) => {
   let posts = await Post.find({ published: true })
-    .select("-body")
+    .select('-body')
     .sort({ createdAt: -1 })
     .populate({
-      path: "categories",
-      select: "name slug",
+      path: 'categories',
+      select: 'name slug',
     })
-    .populate("postedBy", "_id name createdAt")
+    .populate('postedBy', '_id name createdAt')
     .exec();
   res.json(posts);
 };
 
 export const listForAdmin = async (req, res) => {
   let posts = await Post.find({})
-    .select("-body")
+    .select('-body')
     .populate({
-      path: "categories",
-      select: "name slug",
+      path: 'categories',
+      select: 'name slug',
     })
-    .populate("postedBy", "_id name createdAt")
+    .populate('postedBy', '_id name createdAt')
     .exec();
   res.json(posts);
 };
@@ -122,8 +122,8 @@ export const postsByAuthor = async (req, res) => {
 export const read = async (req, res) => {
   //   console.log(req.params);
   const post = await Post.findOne({ slug: req.params.slug })
-    .populate("categories")
-    .populate("postedBy", "_id name createdAt")
+    .populate('categories')
+    .populate('postedBy', '_id name createdAt')
     .exec();
   res.json(post);
 };
@@ -132,10 +132,10 @@ exports.update = async (req, res) => {
   try {
     const { postId, title, thumbnail, body, categories } = req.body;
     // find post
-    const foundPost = await Post.findById(postId).select("postedBy").exec();
+    const foundPost = await Post.findById(postId).select('postedBy').exec();
     // is owner?
     if (req.user._id != foundPost.postedBy._id) {
-      return res.status(400).send("Unauthorized");
+      return res.status(400).send('Unauthorized');
     }
     // get category ids based on category name
     let ids = [];
@@ -162,7 +162,7 @@ exports.update = async (req, res) => {
     }, 1000);
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Error updating. Try again.");
+    return res.status(400).send('Error updating. Try again.');
   }
 };
 
@@ -170,17 +170,17 @@ export const remove = async (req, res) => {
   try {
     const { postId } = req.params;
     // find post
-    const foundPost = await Post.findById(postId).select("postedBy").exec();
+    const foundPost = await Post.findById(postId).select('postedBy').exec();
     // is owner?
     if (req.user._id != foundPost.postedBy._id) {
-      return res.status(400).send("Unauthorized");
+      return res.status(400).send('Unauthorized');
     }
 
     const removed = await Post.findByIdAndRemove(postId);
     res.json({ ok: true });
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Error deleting. Try again.");
+    return res.status(400).send('Error deleting. Try again.');
   }
 };
 
@@ -188,10 +188,10 @@ export const publishPost = async (req, res) => {
   try {
     const { postId } = req.params;
     // find post
-    const foundPost = await Post.findById(postId).select("postedBy").exec();
+    const foundPost = await Post.findById(postId).select('postedBy').exec();
     // is owner?
     if (req.user._id != foundPost.postedBy._id) {
-      return res.status(400).send("Unauthorized");
+      return res.status(400).send('Unauthorized');
     }
 
     let post = await Post.findByIdAndUpdate(
@@ -203,7 +203,7 @@ export const publishPost = async (req, res) => {
     res.json(post);
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Publish post failed");
+    return res.status(400).send('Publish post failed');
   }
 };
 
@@ -211,10 +211,10 @@ export const unpublishPost = async (req, res) => {
   try {
     const { postId } = req.params;
     // find post
-    const foundPost = await Post.findById(postId).select("postedBy").exec();
+    const foundPost = await Post.findById(postId).select('postedBy').exec();
     // is owner?
     if (req.user._id != foundPost.postedBy._id) {
-      return res.status(400).send("Unauthorized");
+      return res.status(400).send('Unauthorized');
     }
 
     let post = await Post.findByIdAndUpdate(
@@ -226,7 +226,7 @@ export const unpublishPost = async (req, res) => {
     res.json(post);
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Unpublish post failed");
+    return res.status(400).send('Unpublish post failed');
   }
 };
 
@@ -234,15 +234,15 @@ export const prevPost = async (req, res) => {
   const { postId } = req.params;
   try {
     let post = await Post.find({ _id: { $lt: postId } })
-      .select("slug title")
+      .select('slug title')
       .sort({ _id: -1 })
       .limit(1)
       .exec();
-    console.log("PREV POST", post);
+    console.log('PREV POST', post);
     res.json(post);
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Request failed");
+    return res.status(400).send('Request failed');
   }
 };
 
@@ -252,15 +252,15 @@ export const nextPost = async (req, res) => {
     // console.log(postId);
     // return;
     let post = await Post.find({ _id: { $gt: postId } })
-      .select("slug title")
+      .select('slug title')
       .sort({ _id: 1 })
       .limit(1)
       .exec();
-    console.log("NEXT POST", post);
+    console.log('NEXT POST', post);
     res.json(post);
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Request failed");
+    return res.status(400).send('Request failed');
   }
 };
 
@@ -275,7 +275,7 @@ export const removeByAdmin = async (req, res) => {
     res.json({ ok: true });
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Error deleting. Try again.");
+    return res.status(400).send('Error deleting. Try again.');
   }
 };
 
@@ -290,7 +290,7 @@ export const publishPostByAdmin = async (req, res) => {
     res.json(post);
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Publish post failed");
+    return res.status(400).send('Publish post failed');
   }
 };
 
@@ -305,13 +305,13 @@ export const unpublishPostByAdmin = async (req, res) => {
     res.json(post);
   } catch (err) {
     console.log(err);
-    return res.status(400).send("Unpublish post failed");
+    return res.status(400).send('Unpublish post failed');
   }
 };
 
 export const search = async (req, res) => {
   const name = { $regex: req.query.name };
-  console.log("NAME:", name);
+  console.log('NAME:', name);
   try {
     const courses = await Course.find({ name }).exec();
 

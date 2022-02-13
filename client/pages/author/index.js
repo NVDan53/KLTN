@@ -1,15 +1,15 @@
-import { useEffect, useState, useContext } from "react";
-import axios from "axios";
-import AuthorRoute from "../../components/routes/AuthorRoute";
-import Link from "next/link";
-import { Avatar, Tooltip } from "antd";
+import { useEffect, useState, useContext } from 'react';
+import axios from 'axios';
+import AuthorRoute from '../../components/routes/AuthorRoute';
+import Link from 'next/link';
+import { Avatar, Tooltip } from 'antd';
 import {
   CloseCircleOutlined,
   CheckCircleOutlined,
   DeleteOutlined,
-} from "@ant-design/icons";
-import { toast } from "react-toastify";
-import { Context } from "../../context";
+} from '@ant-design/icons';
+import { toast } from 'react-toastify';
+import { Context } from '../../context';
 // import { getToken } from "../../context";
 
 const AuthorIndex = () => {
@@ -20,13 +20,13 @@ const AuthorIndex = () => {
 
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(() => {
-    if (typeof window !== "undefined") {
-      return JSON.parse(window.localStorage.getItem("token"));
+    if (typeof window !== 'undefined') {
+      return JSON.parse(window.localStorage.getItem('token'));
     }
   });
 
   useEffect(() => {
-    const tokenStorage = JSON.parse(window.localStorage.getItem("token"));
+    const tokenStorage = JSON.parse(window.localStorage.getItem('token'));
     setToken(tokenStorage);
   }, []);
 
@@ -36,7 +36,7 @@ const AuthorIndex = () => {
 
   const loadPostsByAuthor = async () => {
     const { data } = await axios.get(
-      "https://stress-apps.herokuapp.com/api/posts-by-author",
+      'https://stress-apps.herokuapp.com/api/posts-by-author',
       {
         headers: { Authorization: token },
       }
@@ -46,7 +46,7 @@ const AuthorIndex = () => {
 
   const handleDelete = async (post) => {
     try {
-      const answer = window.confirm("Are you sure?");
+      const answer = window.confirm('Are you sure?');
       if (!answer) return;
       const { data } = await axios.delete(
         `https://stress-apps.herokuapp.com/api/post/${post._id}`,
@@ -55,9 +55,9 @@ const AuthorIndex = () => {
         }
       );
       loadPostsByAuthor();
-      toast("Post deleted!");
+      toast('Post deleted!');
     } catch (err) {
-      toast("Error deleting! Try again.");
+      toast('Error deleting! Try again.');
     }
   };
 
@@ -65,19 +65,20 @@ const AuthorIndex = () => {
     // console.log("handlePublish", post);
     // return;
     try {
-      let answer = window.confirm("Are you sure you want to publish?");
+      let answer = window.confirm('Are you sure you want to publish?');
       if (!answer) return;
       const { data } = await axios.put(
         `https://stress-apps.herokuapp.com/api/post/publish/${post._id}`,
+        null,
         {
           headers: { Authorization: token },
         }
       );
       // console.log("COURSE PUBLISHED RES", data);
-      toast("Congrats. Your post live published!");
+      toast('Congrats. Your post live published!');
       loadPostsByAuthor();
     } catch (err) {
-      toast("Post publish failed. Try again");
+      toast('Post publish failed. Try again');
     }
   };
 
@@ -85,19 +86,20 @@ const AuthorIndex = () => {
     // console.log("handleUnpublish", post);
     // return;
     try {
-      let answer = window.confirm("Are you sure you want to unpublish?");
+      let answer = window.confirm('Are you sure you want to unpublish?');
       if (!answer) return;
       const { data } = await axios.put(
         `https://stress-apps.herokuapp.com/api/post/unpublish/${post._id}`,
+        null,
         {
           headers: { Authorization: token },
         }
       );
-      toast("Your post is unpublished");
+      toast('Your post is unpublished');
       loadPostsByAuthor();
     } catch (err) {
-      console.log("===>ERRRRRRRRRRRRRRRRR:", err);
-      toast("Post unpublish failed. Try again");
+      console.log('===>ERRRRRRRRRRRRRRRRR:', err);
+      toast('Post unpublish failed. Try again');
     }
   };
 
@@ -105,7 +107,7 @@ const AuthorIndex = () => {
     <AuthorRoute>
       <div
         className="text-blue-900 text-sm rounded-md"
-        style={{ margin: "16px" }}
+        style={{ margin: '16px' }}
       >
         <ul className="flex">
           <li>
