@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 .square {
   border-radius: 0px;
 }
@@ -182,4 +183,8 @@ a {
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
 .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after {
   border-bottom: 1px solid #fff !important;
+}
+
+#disqus_thread li.nav-tab.nav-tab--primary.tab-general {
+  display: none !important;
 }

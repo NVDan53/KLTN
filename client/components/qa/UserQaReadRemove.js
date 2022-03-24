@@ -156,13 +156,13 @@ const UserQaReadRemove = ({
                           {" "}
                           {a.postedBy && a.postedBy.name}{" "}
                         </p>
-                        <p> {new Date(q.createdAt).toLocaleDateString()}</p>
+                        <p> {new Date().toLocaleDateString()}</p>
 
                         {a.postedBy && user && user._id === a.postedBy._id
                           ? [
                               <Select
                                 defaultValue="select"
-                                style={{ width: 130 }}
+                                // style={{ width: 130 }}
                                 className="float-right"
                                 style={{ marginTop: "-47px", width: "115px" }}
                               >
@@ -183,7 +183,7 @@ const UserQaReadRemove = ({
                           ? [
                               <Select
                                 defaultValue="select"
-                                style={{ width: 130 }}
+                                // style={{ width: 130 }}
                                 className="float-right"
                                 style={{ marginTop: "-47px", width: "115px" }}
                               >
@@ -222,7 +222,7 @@ const UserQaReadRemove = ({
                 onClick={() => handleAddAnswer(q)}
                 style={{ marginBottom: "50px" }}
               >
-                Add reply
+                Add reply123
               </button>
             </div>
           </div>

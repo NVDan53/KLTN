@@ -7,6 +7,9 @@ body {
 p {
   @apply text-black-500;
 }
+
+
+
 .animation-hover:after {
   background: none repeat scroll 0 0 transparent;
   content: "";
@@ -55,6 +58,10 @@ li.check:before {
 }
 .slick-dots .slick-active span {
   @apply bg-orange-500 rounded-l-full rounded-r-full w-12;
+}
+
+#main-nav li.nav-tab.nav-tab--primary.tab-general {
+  display: none !important;
 }
 
 /* purgecss end ignore */

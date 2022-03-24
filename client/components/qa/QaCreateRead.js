@@ -200,7 +200,7 @@ const QaCreateRead = ({
                           user._id === a.postedBy._id && [
                             <Select
                               defaultValue="select"
-                              style={{ width: 130 }}
+                              // style={{ width: 130 }}
                               className="float-right"
                               style={{ marginTop: "-47px", width: "115px" }}
                             >

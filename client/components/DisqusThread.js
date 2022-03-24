@@ -5,10 +5,10 @@ function renderDisqus() {
   if (window.DISQUS === undefined) {
     var script = document.createElement("script");
     script.async = true;
-    script.src =
-      "https://" +
-      process.env.NEXT_PUBLIC_DISQUS_SHORTNAME +
-      ".disqus.com/embed.js";
+    // script.src =
+    //   "https://" +
+    //   process.env.NEXT_PUBLIC_DISQUS_SHORTNAME +
+    //   ".disqus.com/embed.js";
     document.getElementsByTagName("head")[0].appendChild(script);
   } else {
     window.DISQUS.reset({ reload: true });
@@ -42,10 +42,10 @@ class DisqusThread extends React.Component {
     let { id, title, path, ...other } = this.props;
 
     if (process.browser) {
-      window.disqus_shortname = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME;
-      window.disqus_identifier = id;
-      window.disqus_title = title;
-      window.disqus_url = process.env.NEXT_PUBLIC_DISQUS_WEBSITE_URL + path;
+      // window.disqus_shortname = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME;
+      // window.disqus_identifier = id;
+      // window.disqus_title = title;
+      // window.disqus_url = process.env.NEXT_PUBLIC_DISQUS_WEBSITE_URL + path;
     }
 
     return <div {...other} id="disqus_thread" />;
